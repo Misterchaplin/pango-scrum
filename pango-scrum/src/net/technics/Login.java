@@ -1,5 +1,6 @@
 package net.technics;
 
+import net.controller.AppController;
 import net.controller.LoginController;
 
 import org.eclipse.swt.SWT;
@@ -87,9 +88,16 @@ public class Login {
 				String password = text_mdp.getText();
 
 				if (LoginController.verify(login, password)) {
-					shlLogin.close();
-					Accueil acl = new Accueil();
-					acl.open();
+					if(AppController.getActiveUser().getAdministrator()== true){
+						shlLogin.close();
+						AccueilAdmin aclAdmin = new AccueilAdmin();
+						aclAdmin.open();
+					}else {
+						shlLogin.close();
+						Accueil acl = new Accueil();
+						acl.open();
+					}
+					
 				} else {
 					if (login == "" || password == "") {
 						if (login == "") {

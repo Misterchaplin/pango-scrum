@@ -16,6 +16,7 @@ public class LoginController {
 			AppController.setActiveUser(collaborators);
 			return true;
 		}
+		session.clear();
 		return false;
 	}
 }
