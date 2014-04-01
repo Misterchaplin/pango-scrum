@@ -1,11 +1,11 @@
-package net.technics;
+package net.vues;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 
-public class AccueilAdmin {
+public class Accueil {
 
 	protected Shell shell;
 
@@ -15,7 +15,7 @@ public class AccueilAdmin {
 	 */
 	public static void main(String[] args) {
 		try {
-			AccueilAdmin window = new AccueilAdmin();
+			Accueil window = new Accueil();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,9 +45,9 @@ public class AccueilAdmin {
 		shell.setSize(450, 300);
 		shell.setText("SWT Application");
 		
-		Label lblAdmin = new Label(shell, SWT.NONE);
-		lblAdmin.setBounds(149, 106, 55, 15);
-		lblAdmin.setText("Admin");
+		Label lblAccueilParDfault = new Label(shell, SWT.NONE);
+		lblAccueilParDfault.setBounds(160, 132, 117, 15);
+		lblAccueilParDfault.setText("Accueil par d\u00E9fault");
 
 	}
 }

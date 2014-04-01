@@ -1,4 +1,4 @@
-package net.hibernate;
+package net.technics;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
