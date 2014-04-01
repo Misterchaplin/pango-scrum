@@ -1,4 +1,4 @@
-package net.technics;
+package net.vues;
 
 import net.controller.AppController;
 import net.controller.LoginController;
