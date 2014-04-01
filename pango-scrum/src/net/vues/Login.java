@@ -1,10 +1,12 @@
 package net.vues;
 
-import net.controller.AppController;
 import net.controller.LoginController;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
@@ -12,9 +14,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionAdapter;
 
 public class Login {
 
@@ -88,29 +87,30 @@ public class Login {
 				String password = text_mdp.getText();
 
 				if (LoginController.verify(login, password)) {
-					if(AppController.getActiveUser().getAdministrator()== true){
+
+					if (LoginController.getActiveUser().getAdministrator() == true) {
 						shlLogin.close();
 						AccueilAdmin aclAdmin = new AccueilAdmin();
 						aclAdmin.open();
-					}else {
+					} else {
 						shlLogin.close();
 						Accueil acl = new Accueil();
 						acl.open();
 					}
-					
+
 				} else {
 					if (login == "" || password == "") {
 						if (login == "") {
-							MessageBox mb = new MessageBox(shlLogin, SWT.OK| SWT.ICON_WARNING);
+							MessageBox mb = new MessageBox(shlLogin, SWT.OK | SWT.ICON_WARNING);
 							mb.setMessage("Veuillez remplir le Login");
 							mb.open();
 						} else if (password == "") {
-							MessageBox mb = new MessageBox(shlLogin, SWT.OK| SWT.ICON_WARNING);
+							MessageBox mb = new MessageBox(shlLogin, SWT.OK | SWT.ICON_WARNING);
 							mb.setMessage("Veuillez remplir le mot de passe");
 							mb.open();
 						}
 					} else if (login != "" && password != "") {
-						MessageBox mb = new MessageBox(shlLogin, SWT.OK| SWT.ICON_WARNING);
+						MessageBox mb = new MessageBox(shlLogin, SWT.OK | SWT.ICON_WARNING);
 						mb.setMessage("Identifiant incorrecte");
 						mb.open();
 					}
