@@ -30,6 +30,5 @@
 		<mapping class="net.models.Sprint" />
 		<mapping class="net.models.Status" />
 		<mapping class="net.models.Userstory" />
-		<!-- <mapping class="net.models.Userstory" /> -->
     </session-factory>
 </hibernate-configuration>
