@@ -7,7 +7,7 @@ import org.eclipse.swt.SWT;
 
 public class Accueil {
 
-	protected Shell shell;
+	protected Shell accueil;
 
 	/**
 	 * Launch the application.
@@ -28,9 +28,9 @@ public class Accueil {
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
+		accueil.open();
+		accueil.layout();
+		while (!accueil.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -41,11 +41,11 @@ public class Accueil {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		accueil = new Shell();
+		accueil.setSize(450, 300);
+		accueil.setText("SWT Application");
 		
-		Label lblAccueilParDfault = new Label(shell, SWT.NONE);
+		Label lblAccueilParDfault = new Label(accueil, SWT.NONE);
 		lblAccueilParDfault.setBounds(160, 132, 117, 15);
 		lblAccueilParDfault.setText("Accueil par d\u00E9fault");
 
