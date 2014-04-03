@@ -41,6 +41,7 @@ public class AccueilController implements SelectionListener {
 				vLogin.init();
 				loginController.init();
 				vLogin.open();
+				vAccueil.getAccueil().close();
 			}
 
 			@Override
