@@ -33,19 +33,18 @@ public class CollaboratorTvProvider implements ITableLabelProvider {
 	}
 
 	@Override
-	public Image getColumnImage(Object arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public Image getColumnImage(Object obj, int numCol) {
+		if (numCol == 0) {
+			return Utils.getImage(Utils.IMG_USER);
+		}
 		return null;
 	}
 
 	@Override
 	public String getColumnText(Object obj, int numCol) {
 		Collaborator aCollaborator = (Collaborator) obj;
-		if (numCol == 0) {
-			return aCollaborator.getFirstname() + " " + aCollaborator.getLastname();
-		}
 		if (numCol == 1) {
-			return "Modifier...";
+			return aCollaborator.getFirstname() + " " + aCollaborator.getLastname();
 		}
 		return null;
 	}
