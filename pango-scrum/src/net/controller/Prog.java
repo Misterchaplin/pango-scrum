@@ -1,6 +1,7 @@
 package net.controller;
 
 import net.vues.VAccueil;
+import net.vues.VSprint;
 
 public class Prog {
 
@@ -10,10 +11,13 @@ public class Prog {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {
+		try {			
+			VSprint vSprint = new VSprint();
+			new AppController(vSprint);
 			VAccueil vAccueil = new VAccueil();
 			new AppController(vAccueil);
 			vAccueil.open();
+			vSprint.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

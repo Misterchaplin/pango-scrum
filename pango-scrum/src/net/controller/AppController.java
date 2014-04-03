@@ -2,6 +2,7 @@ package net.controller;
 
 import net.models.Collaborator;
 import net.vues.VAccueil;
+import net.vues.VSprint;
 
 public class AppController {
 	private static Collaborator activeUser = new Collaborator();
@@ -18,6 +19,12 @@ public class AppController {
 		AccueilController accueilController = new AccueilController(vAccueil);
 		vAccueil.init();
 		accueilController.init();
+		
+	}
+	public AppController(VSprint vSprint) {
+		SprintController sprintController = new SprintController(vSprint);
+		vSprint.init();
+		sprintController.init();
 	}
 	
 }
