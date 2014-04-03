@@ -21,7 +21,7 @@ public class LoginController implements SelectionListener {
 	}
 
 	/**
-	 * VÃ©rification de la cohÃ©rence login / mot de passe
+	 * Vérification de la cohérence login / mot de passe
 	 * 
 	 * @param login
 	 * @param password
@@ -40,7 +40,7 @@ public class LoginController implements SelectionListener {
 	}
 
 	public void init() {
-		// bouton admin
+		// Bouton Admin
 		vLogin.getBtnAdmin().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -55,7 +55,8 @@ public class LoginController implements SelectionListener {
 
 			}
 		});
-		// bouton valider
+
+		// Bouton Valider
 		vLogin.getBtnValider().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -63,32 +64,24 @@ public class LoginController implements SelectionListener {
 				String login = vLogin.getText_login().getText();
 				String password = vLogin.getText_mdp().getText();
 
-				if (LoginController.verify(login, password)) {
-
-					if (AppController.getActiveUser().getAdministrator() == true) {
-						vLogin.getShlLogin().close();
-						Accueil accueil = new Accueil();
-						accueil.open();
-					}
+				if (login == "" || password == "") {
+					MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
+					mb.setMessage("Veuillez remplir tous les champs");
+					mb.open();
 
 				} else {
-					if (login == "" || password == "") {
-						if (login == "") {
-							MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
-							mb.setMessage("Veuillez remplir le Login");
-							mb.open();
-						} else if (password == "") {
-							MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
-							mb.setMessage("Veuillez remplir le mot de passe");
-							mb.open();
+					if (LoginController.verify(login, password)) {
+						if (AppController.getActiveUser().getAdministrator() == true) {
+							vLogin.getShlLogin().close();
+							Accueil accueil = new Accueil();
+							accueil.open();
 						}
 					} else if (login != "" && password != "") {
-						MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
+						MessageBox mb = new MessageBox(vLogin.getShlLogin(),SWT.OK | SWT.ICON_WARNING);
 						mb.setMessage("Identifiant incorrecte");
 						mb.open();
 					}
 				}
-
 			}
 
 			@Override
@@ -97,7 +90,8 @@ public class LoginController implements SelectionListener {
 
 			}
 		});
-		// bouton annuler
+
+		// Bouton Annuler
 		vLogin.getBtnAnnuler().addMouseListener(new MouseListener() {
 
 			@Override
