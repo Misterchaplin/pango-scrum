@@ -1,7 +1,7 @@
 package net.controller;
 
 import net.models.Collaborator;
-import net.vues.VLogin;
+import net.vues.VAccueil;
 
 public class AppController {
 	private static Collaborator activeUser = new Collaborator();
@@ -14,10 +14,10 @@ public class AppController {
 		activeUser = collaborators;
 	}
 
-	public AppController(VLogin vLogin) {
-		LoginController loginController = new LoginController(vLogin);
-		vLogin.init();
-		loginController.init();
+	public AppController(VAccueil vAccueil) {
+		AccueilController accueilController = new AccueilController(vAccueil);
+		vAccueil.init();
+		accueilController.init();
 	}
 	
 }
