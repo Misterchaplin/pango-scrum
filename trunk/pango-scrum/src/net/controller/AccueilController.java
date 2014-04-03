@@ -20,8 +20,10 @@ public class AccueilController implements SelectionListener {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				VListCollaborators vListCollaborators = new VListCollaborators();
+				CollaboratorController collaboratorController = new CollaboratorController(vListCollaborators);
+				vListCollaborators.init();
+				collaboratorController.init();
 				vListCollaborators.open();
-				vAccueil.getAccueil().close();
 			}
 
 			@Override

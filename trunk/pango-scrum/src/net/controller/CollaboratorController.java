@@ -1,15 +1,19 @@
 package net.controller;
 
-import net.vues.VLogin;
+import net.vues.VListCollaborators;
 
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 public class CollaboratorController implements SelectionListener {
-	private VLogin vLogin;
+	private VListCollaborators vListCollaborator;
 
-	public CollaboratorController(VLogin vLogin) {
-		this.vLogin = vLogin;
+	public CollaboratorController(VListCollaborators vListCollaborator) {
+		this.vListCollaborator = vListCollaborator;
+	}
+
+	public void init() {
+
 	}
 
 	@Override
