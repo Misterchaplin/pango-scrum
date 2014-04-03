@@ -11,7 +11,9 @@ public class Prog {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {			
+		try {	
+			//ajout de vSprint pour tester la partie sprint sans avoir à se connecter ne pas effacer svp...
+			
 			VSprint vSprint = new VSprint();
 			new AppController(vSprint);
 			VAccueil vAccueil = new VAccueil();
