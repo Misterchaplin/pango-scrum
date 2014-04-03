@@ -55,7 +55,6 @@ public class VLogin {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
 		shlLogin.open();
 		shlLogin.layout();
 		while (!shlLogin.isDisposed()) {
