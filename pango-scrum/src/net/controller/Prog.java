@@ -1,6 +1,6 @@
 package net.controller;
 
-import net.vues.VLogin;
+import net.vues.VAccueil;
 
 public class Prog {
 
@@ -11,9 +11,9 @@ public class Prog {
 	 */
 	public static void main(String[] args) {
 		try {
-			VLogin vLogin = new VLogin();
-			new AppController(vLogin);
-			vLogin.open();
+			VAccueil vAccueil = new VAccueil();
+			new AppController(vAccueil);
+			vAccueil.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
