@@ -71,7 +71,7 @@ public class VLogin {
 		shlLogin = new Shell();
 		shlLogin.setImage(null);
 		shlLogin.setSize(450, 300);
-		shlLogin.setText("Pango-Scrum");
+		shlLogin.setText("Scrum tool");
 		shlLogin.setLayout(null);
 
 		Group grpAuthentification = new Group(shlLogin, SWT.NONE);
