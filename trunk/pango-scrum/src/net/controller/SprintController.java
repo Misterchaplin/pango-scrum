@@ -26,17 +26,15 @@ public class SprintController implements SelectionListener{
 	
 	public void init(){
 		List <Sprint> sprints = new ArrayList<Sprint>();
-		sprints = getProduct();
-		for (int i =0;i==1;i++){
-			System.out.println(sprints.get(i));
-		}
+		sprints = getSprint();
 		vSprint.getTvSprint().setContentProvider(new ArrayContentProvider());
 		vSprint.getTvSprint().setLabelProvider(new TvSprintProvider());
 		vSprint.getTvSprint().setInput(sprints);
 		
+		
 	}
 	
-	private List<Sprint> getProduct(){
+	private List<Sprint> getSprint(){
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("FROM Sprint");
 		List<Sprint> lesSprints = query.list();
@@ -59,5 +57,7 @@ public class SprintController implements SelectionListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }
