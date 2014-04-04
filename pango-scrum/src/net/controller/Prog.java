@@ -4,7 +4,7 @@ import net.vues.VAccueil;
 import net.vues.VSprint;
 
 public class Prog {
-
+	public static VAccueil vAccueil;
 	/**
 	 * Launch the application.
 	 * 
