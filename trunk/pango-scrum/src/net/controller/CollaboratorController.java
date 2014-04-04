@@ -13,7 +13,7 @@ public class CollaboratorController implements SelectionListener {
 	}
 
 	public void init() {
-
+		// listeners sur composants graphiques
 	}
 
 	@Override

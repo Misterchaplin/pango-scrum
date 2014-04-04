@@ -23,6 +23,7 @@ public class AccueilController implements SelectionListener {
 				CollaboratorController collaboratorController = new CollaboratorController(vListCollaborators);
 				vListCollaborators.init();
 				collaboratorController.init();
+				Prog.vAccueil.getAccueil().close();
 				vListCollaborators.open();
 			}
 
