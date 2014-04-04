@@ -43,10 +43,9 @@ public class CollaboratorTvProvider implements ITableLabelProvider {
 	@Override
 	public String getColumnText(Object obj, int numCol) {
 		Collaborator aCollaborator = (Collaborator) obj;
-		if (numCol == 1) {
+		if (numCol == 0) {
 			return aCollaborator.getFirstname() + " " + aCollaborator.getLastname();
 		}
 		return null;
 	}
-
 }

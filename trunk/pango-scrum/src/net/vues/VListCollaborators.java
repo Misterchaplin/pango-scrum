@@ -2,6 +2,7 @@ package net.vues;
 
 import java.util.List;
 
+import net.controller.AppController;
 import net.models.Collaborator;
 import net.technics.CollaboratorTvProvider;
 import net.technics.HibernateUtil;
@@ -88,7 +89,10 @@ public class VListCollaborators {
 		grpCollaborateur.setText("Collaborateur");
 		FormData fd_grpCollaborateur = new FormData();
 		grpCollaborateur.setLayoutData(fd_grpCollaborateur);
-		grpCollaborateur.setVisible(false);
+		grpCollaborateur.setVisible(true);
+
+		final Button btnAdmin = new Button(grpCollaborateur, SWT.CHECK);
+		btnAdmin.setBounds(155, 171, 93, 16);
 
 		compositeTable = new Composite(listCollaborators, SWT.NONE);
 		compositeTable.setLayoutData(new FormData());
@@ -107,7 +111,16 @@ public class VListCollaborators {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				grpCollaborateur.setVisible(true);
-				StructuredSelection selectedCollaborator = (StructuredSelection) tableViewerCollaborators.getSelection();
+				StructuredSelection selection = (StructuredSelection) tableViewerCollaborators.getSelection();
+				Collaborator selectedCollaborator = (Collaborator) selection.getFirstElement();
+				AppController.setSelectedCollaborator(selectedCollaborator);
+				txtLogin.setText(selectedCollaborator.getLogin());
+				txtNom.setText(selectedCollaborator.getLastname());
+				txtPrenom.setText(selectedCollaborator.getFirstname());
+				txtEMail.setText(selectedCollaborator.getEmail());
+				if (selectedCollaborator.getAdministrator()) {
+					// case administrateur cochée
+				}
 			}
 		});
 		tableCollaborators.setHeaderVisible(true);
@@ -119,8 +132,7 @@ public class VListCollaborators {
 		List<Collaborator> lesCollaborateurs = query.list();
 		tableViewerCollaborators.setInput(lesCollaborateurs);
 
-		createColumn(tableCollaborators, "Logo", 1);
-		createColumn(tableCollaborators, "Nom", 10);
+		createColumn(tableCollaborators, "Nom", 1);
 
 		sashForm.setWeights(new int[] { 1 });
 
@@ -153,7 +165,7 @@ public class VListCollaborators {
 			}
 		});
 		btnSupprimerCollaborateur.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/delete.png"));
-		btnSupprimerCollaborateur.setBounds(883, 203, 194, 40);
+		btnSupprimerCollaborateur.setBounds(537, 179, 194, 40);
 		btnSupprimerCollaborateur.setText("Supprimer ce collaborateur");
 
 		final Button btnReinitMdp = new Button(grpCollaborateur, SWT.NONE);
@@ -178,8 +190,8 @@ public class VListCollaborators {
 
 		fd_grpCollaborateur.top = new FormAttachment(btnAjouterCollaborator, 6);
 		fd_grpCollaborateur.left = new FormAttachment(0, 10);
-		fd_grpCollaborateur.right = new FormAttachment(0, 1327);
-		fd_grpCollaborateur.bottom = new FormAttachment(100, -38);
+		fd_grpCollaborateur.right = new FormAttachment(0, 998);
+		fd_grpCollaborateur.bottom = new FormAttachment(100, -23);
 
 		Label lblLogin = new Label(grpCollaborateur, SWT.NONE);
 		lblLogin.setBounds(43, 46, 39, 15);
@@ -213,17 +225,14 @@ public class VListCollaborators {
 		txtEMail = new Text(grpCollaborateur, SWT.BORDER);
 		txtEMail.setBounds(119, 123, 328, 21);
 
-		Button btnCheckButton = new Button(grpCollaborateur, SWT.CHECK);
-		btnCheckButton.setBounds(155, 171, 93, 16);
-
 		Button btnValider = new Button(grpCollaborateur, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
-		btnValider.setBounds(1083, 203, 109, 40);
+		btnValider.setBounds(757, 179, 109, 40);
 		btnValider.setText("Valider");
 
 		Button btnAnnuler = new Button(grpCollaborateur, SWT.NONE);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(1198, 203, 109, 40);
+		btnAnnuler.setBounds(869, 179, 109, 40);
 		btnAnnuler.setText("Annuler");
 
 	}
