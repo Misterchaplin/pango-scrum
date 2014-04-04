@@ -8,7 +8,6 @@ import net.technics.HibernateUtil;
 import net.technics.TvSprintProvider;
 
 import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
@@ -18,8 +17,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormLayout;
@@ -30,6 +27,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Button;
 
 public class VSprint {
 	private class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
@@ -112,7 +111,7 @@ public class VSprint {
 	protected void createContents() {
 		shellSprint = new Shell();
 		shellSprint.setMinimumSize(new Point(800, 600));
-		shellSprint.setSize(913, 600);
+		shellSprint.setSize(922, 600);
 		shellSprint.setText("Sprint");
         shellSprint.setLayout(new FormLayout());
 		
@@ -174,6 +173,16 @@ public class VSprint {
 	    	    col3.setText("Date de fin");
 	    	    tableSprint.setHeaderVisible(true);
 	    	    tableSprint.setLinesVisible(true);
+	    	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
+	    	    Button btnNewButton = new Button(shellSprint, SWT.NONE);
+	    	    FormData fd_btnNewButton = new FormData();
+	    	    fd_btnNewButton.top = new FormAttachment(0, 148);
+	    	    fd_btnNewButton.right = new FormAttachment(100);
+	    	    btnNewButton.setLayoutData(fd_btnNewButton);
+	    	    btnNewButton.setText("Ajouter Sprint");
+	    	    btnNewButton.setImage(imAdd);;
+	    	    
+	    	    Image imgAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
 	    	    
 	    composite.layout(true, true);
 	    
