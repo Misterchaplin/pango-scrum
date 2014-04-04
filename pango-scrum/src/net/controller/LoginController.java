@@ -2,7 +2,6 @@ package net.controller;
 
 import net.models.Collaborator;
 import net.technics.HibernateUtil;
-import net.vues.VAccueil;
 import net.vues.VLogin;
 
 import org.eclipse.swt.SWT;
@@ -63,19 +62,20 @@ public class LoginController implements SelectionListener {
 				String login = vLogin.getText_login().getText();
 				String password = vLogin.getText_mdp().getText();
 
+				// identification correcte
 				if (LoginController.verify(login, password)) {
-
 					if (AppController.getActiveUser().getAdministrator() == true) {
+						// fermeture de la boîte de login
 						vLogin.getShlLogin().close();
-						VAccueil accueil = new VAccueil();
-						accueil.open();
+						// page d'accueil reste ouverte
+						Prog.vAccueil.open();
 					}
-
+					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {
 						if (login == "") {
 							MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
-							mb.setMessage("Veuillez remplir le Login");
+							mb.setMessage("Veuillez remplir le login");
 							mb.open();
 						} else if (password == "") {
 							MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
@@ -84,7 +84,7 @@ public class LoginController implements SelectionListener {
 						}
 					} else if (login != "" && password != "") {
 						MessageBox mb = new MessageBox(vLogin.getShlLogin(), SWT.OK | SWT.ICON_WARNING);
-						mb.setMessage("Identifiant incorrecte");
+						mb.setMessage("Identifiant incorrect");
 						mb.open();
 					}
 				}
