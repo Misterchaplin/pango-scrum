@@ -4,19 +4,23 @@ import net.vues.VAccueil;
 import net.vues.VSprint;
 
 public class Prog {
+
 	public static VAccueil vAccueil;
+
 	/**
 	 * Launch the application.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {	
-			//ajout de vSprint pour tester la partie sprint sans avoir à se connecter ne pas effacer svp...
-			
+
+		try {
+			// ajout de vSprint pour tester la partie sprint sans avoir ï¿½ se
+			// connecter ne pas effacer svp...
+
 			VSprint vSprint = new VSprint();
 			new AppController(vSprint);
-			VAccueil vAccueil = new VAccueil();
+			vAccueil = new VAccueil();
 			new AppController(vAccueil);
 			vAccueil.open();
 			vSprint.open();

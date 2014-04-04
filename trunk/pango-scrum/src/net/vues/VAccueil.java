@@ -13,6 +13,11 @@ public class VAccueil {
 	private MenuItem itemCollaborateurs;
 	private MenuItem itemProduits;
 	private MenuItem itemConnexion;
+	private MenuItem itemOverview;
+
+	public MenuItem getItemOverview() {
+		return itemOverview;
+	}
 
 	public Shell getAccueil() {
 		return accueil;
@@ -73,6 +78,9 @@ public class VAccueil {
 
 		itemCollaborateurs = new MenuItem(menu, SWT.NONE);
 		itemCollaborateurs.setText("Collaborateurs");
+
+		itemOverview = new MenuItem(menu, SWT.NONE);
+		itemOverview.setText("Overview");
 
 	}
 }
