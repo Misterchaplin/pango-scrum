@@ -33,5 +33,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/jface/org.eclipse.text_3.5.300.v20130515-1451.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jface/org.eclipse.ui.forms_3.6.0.v20130517-0139.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jface/org.eclipse.ui.workbench_3.105.0.v20130529-1406.jar"/>
+	<classpathentry kind="lib" path="swt-grouplayout.jar" sourcepath="swt-grouplayout.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

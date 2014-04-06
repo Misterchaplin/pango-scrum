@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-public class VAddUserStorieazertyu {
+public class VAddUserStorie {
 
 	protected Shell ShlProductBacklog;
 	private Table table;
