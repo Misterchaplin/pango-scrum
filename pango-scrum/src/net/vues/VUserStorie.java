@@ -37,7 +37,6 @@ public class VUserStorie {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
 		userStorie.open();
 		userStorie.layout();
 		while (!userStorie.isDisposed()) {
