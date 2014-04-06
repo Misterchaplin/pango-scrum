@@ -33,5 +33,10 @@ public class AppController {
 		vAddUserStorie.init();
 		userStorieController.init();
 	}
+
+	public static void setSelectedCollaborator(Collaborator selectedCollaborator) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
