@@ -1,6 +1,7 @@
 package net.controller;
 
 import net.vues.VAccueil;
+import net.vues.VAddUserStorie;
 import net.vues.VSprint;
 
 public class Prog {
@@ -22,8 +23,11 @@ public class Prog {
 			new AppController(vSprint);
 			vAccueil = new VAccueil();
 			new AppController(vAccueil);
+			VAddUserStorie vAddUserStorie = new VAddUserStorie();
+			new AppController(vAddUserStorie);
 			vAccueil.open();
 			vSprint.open();
+			vAddUserStorie.open();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
