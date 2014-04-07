@@ -1,6 +1,7 @@
 package net.controller;
 
 import net.models.Collaborator;
+import net.vues.VMdpModification;
 import net.vues.VMyProfile;
 
 import org.eclipse.swt.events.SelectionEvent;
@@ -16,6 +17,7 @@ public class MyProfileController {
 	}
 
 	public void init() {
+		// bouton valider
 		vMyProfile.getBtnValider().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -43,6 +45,25 @@ public class MyProfileController {
 
 				// fermeture de la boîte de profil
 				vMyProfile.getvMyProfile().close();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// lien de chagement du mot de passe
+		vMyProfile.getLinkChangeMdp().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				VMdpModification vMdpModification = new VMdpModification();
+				MdpModificationController mdpModificationController = new MdpModificationController(vMdpModification);
+				vMdpModification.init();
+				mdpModificationController.init();
+				vMdpModification.open();
 			}
 
 			@Override
