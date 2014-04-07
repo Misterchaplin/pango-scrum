@@ -28,9 +28,25 @@ public class VAddUserStorie {
 	private Button btnAddUserStorie;
 	private Label lblAddUserstorie;
 	private TableViewer tableViewer;
+	private ComboViewer cbvProjet;
+	private TabItem tbtmInProgress;
+	private TabItem tbtmDone;
+	private TabItem tbtmTodo;
 
 	
 	
+	public TabItem getTbtmInProgress() {
+		return tbtmInProgress;
+	}
+	public TabItem getTbtmDone() {
+		return tbtmDone;
+	}
+	public TabItem getTbtmTodo() {
+		return tbtmTodo;
+	}
+	public ComboViewer getCbvProjet() {
+		return cbvProjet;
+	}
 	public TableViewer getTableViewer() {
 		return tableViewer;
 	}
@@ -78,7 +94,7 @@ public class VAddUserStorie {
 		
 		TabFolder tbfProductBacklog = new TabFolder(sashGeneralProductBackLog, SWT.NONE);
 		
-		TabItem tbtmTodo = new TabItem(tbfProductBacklog, SWT.NONE);
+		tbtmTodo = new TabItem(tbfProductBacklog, SWT.NONE);
 		tbtmTodo.setText("To-Do");
 		
 		SashForm sashToDo = new SashForm(tbfProductBacklog, SWT.VERTICAL);
@@ -102,7 +118,7 @@ public class VAddUserStorie {
 		formToolkit.adapt(lblAddUserstorie, true, true);
 		lblAddUserstorie.setText("Userstories :");
 		
-		ComboViewer cbvProjet = new ComboViewer(composite, SWT.NONE);
+		cbvProjet = new ComboViewer(composite, SWT.NONE);
 		Combo cbProjet = cbvProjet.getCombo();
 		cbProjet.setBounds(91, 10, 91, 23);
 		formToolkit.paintBordersFor(cbProjet);
@@ -122,7 +138,7 @@ public class VAddUserStorie {
 		sashTo2.setWeights(new int[] {1});
 		sashToDo.setWeights(new int[] {86, 444});
 		
-		TabItem tbtmInProgress = new TabItem(tbfProductBacklog, SWT.NONE);
+		tbtmInProgress = new TabItem(tbfProductBacklog, SWT.NONE);
 		tbtmInProgress.setText("In Progress");
 		
 		SashForm sashInProgress = new SashForm(tbfProductBacklog, SWT.VERTICAL);
@@ -139,7 +155,7 @@ public class VAddUserStorie {
 		SashForm sashForm_7 = new SashForm(tbfProductBacklog, SWT.NONE);
 		tbtmInProgress.setControl(sashForm_7);
 		
-		TabItem tbtmDone = new TabItem(tbfProductBacklog, SWT.NONE);
+		tbtmDone = new TabItem(tbfProductBacklog, SWT.NONE);
 		tbtmDone.setText("Done");
 		
 		SashForm sashDone = new SashForm(tbfProductBacklog, SWT.VERTICAL);
