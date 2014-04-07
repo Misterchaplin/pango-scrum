@@ -2,6 +2,7 @@ package net.controller;
 
 import net.vues.VAccueil;
 import net.vues.VAddUserStorie;
+import net.vues.VOverview;
 import net.vues.VSprint;
 
 public class Prog {
@@ -25,7 +26,10 @@ public class Prog {
 			new AppController(vAccueil);
 			VAddUserStorie vAddUserStorie = new VAddUserStorie();
 			new AppController(vAddUserStorie);
+			VOverview vOverview = new VOverview();
+			new AppController(vOverview);
 			vAccueil.open();
+			vOverview.open();
 			vSprint.open();
 			vAddUserStorie.open();
 		} catch (Exception e) {

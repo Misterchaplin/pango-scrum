@@ -5,6 +5,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
@@ -21,9 +23,20 @@ public class VOverview {
 	private Table tableDone;
 	private Table tableSprintRecent;
 	private TableViewer TableVOverview;
-	private TableViewer tableViewer2;
 
 	private TableViewer tableViewer3;
+	private Button btnToDo;
+	private Button btnDone;
+	private Button btnProgress;
+
+	/**
+	 * Launch the application.
+	 * 
+	 * @param args
+	 */
+	public void init() {
+		createContents();
+	}
 
 	/**
 	 * Launch the application.
@@ -37,15 +50,6 @@ public class VOverview {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
-	public void init() {
-		createContents();
 	}
 
 	/**
@@ -86,8 +90,24 @@ public class VOverview {
 		this.tableViewer3 = tableViewer3;
 	}
 
+	public Button getBtnToDo() {
+		return btnToDo;
+	}
+
+	public Button getBtnDone() {
+		return btnDone;
+	}
+
+	public Button getBtnProgress() {
+		return btnProgress;
+	}
+
+	private TableViewer tableViewer2;
+
 	/**
 	 * Create contents of the window.
+	 * 
+	 * @wbp.parser.entryPoint
 	 */
 	protected void createContents() {
 		shell = new Shell();
@@ -165,9 +185,39 @@ public class VOverview {
 		tableDone.setLinesVisible(true);
 
 		sashFormTableProgression.setWeights(new int[] { 1, 1, 1 });
-		sashFormProgression.setWeights(new int[] { 273 });
+
+		SashForm sashFormLink = new SashForm(sashFormProgression, SWT.NONE);
+
+		SashForm sashFormLinkToDo = new SashForm(sashFormLink, SWT.NONE);
+
+		Composite compositeLinkToDo = new Composite(sashFormLinkToDo, SWT.NONE);
+
+		btnToDo = new Button(compositeLinkToDo, SWT.NONE);
+
+		btnToDo.setBounds(87, 10, 75, 25);
+		btnToDo.setText("Voir tous");
+		sashFormLinkToDo.setWeights(new int[] { 1 });
+
+		SashForm sashFormLinkProgress = new SashForm(sashFormLink, SWT.NONE);
+
+		Composite compositeLinkProgress = new Composite(sashFormLinkProgress, SWT.NONE);
+
+		btnProgress = new Button(compositeLinkProgress, SWT.NONE);
+		btnProgress.setBounds(86, 10, 75, 25);
+		btnProgress.setText("Voir tous");
+		sashFormLinkProgress.setWeights(new int[] { 1 });
+
+		SashForm sashFormLinkDone = new SashForm(sashFormLink, SWT.NONE);
+
+		Composite compositeLinkDone = new Composite(sashFormLinkDone, SWT.NONE);
+
+		btnDone = new Button(compositeLinkDone, SWT.NONE);
+		btnDone.setBounds(88, 10, 75, 25);
+		btnDone.setText("Voir tous");
+		sashFormLinkDone.setWeights(new int[] { 1 });
+		sashFormLink.setWeights(new int[] { 1, 1, 1 });
+		sashFormProgression.setWeights(new int[] { 233, 57 });
 		sashFormContainOverview.setWeights(new int[] { 266, 293 });
 
 	}
-
 }

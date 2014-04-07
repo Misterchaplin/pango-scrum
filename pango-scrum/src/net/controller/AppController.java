@@ -4,6 +4,7 @@ import net.models.Collaborator;
 import net.technics.HibernateUtil;
 import net.vues.VAccueil;
 import net.vues.VAddUserStorie;
+import net.vues.VOverview;
 import net.vues.VSprint;
 
 import org.hibernate.Session;
@@ -30,6 +31,15 @@ public class AppController {
 		AccueilController accueilController = new AccueilController(vAccueil);
 		vAccueil.init();
 		accueilController.init();
+	}
+
+	public AppController(VOverview vOverview) {
+		OverviewController overviewController = new OverviewController(vOverview);
+		vOverview.init();
+		overviewController.init();
+		overviewController.init1();
+		overviewController.init2();
+
 	}
 
 	public AppController(VSprint vSprint) {
