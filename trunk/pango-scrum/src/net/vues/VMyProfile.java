@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class VMyProfile {
 
@@ -19,6 +20,8 @@ public class VMyProfile {
 	private Button btnValider;
 	private Button btnAnnuler;
 	private Link linkChangeMdp;
+	private Label lblPrenom;
+	private Text txtPrenom;
 
 	public Shell getvMyProfile() {
 		return vMyProfile;
@@ -86,12 +89,12 @@ public class VMyProfile {
 	 */
 	protected void createContents() {
 		vMyProfile = new Shell();
-		vMyProfile.setSize(397, 271);
+		vMyProfile.setSize(596, 272);
 		vMyProfile.setText("SWT Application");
 
 		Group grpProfil = new Group(vMyProfile, SWT.NONE);
 		grpProfil.setText("Mon profil");
-		grpProfil.setBounds(11, 10, 360, 213);
+		grpProfil.setBounds(11, 10, 562, 213);
 
 		Label lblNom = new Label(grpProfil, SWT.NONE);
 		lblNom.setLocation(10, 48);
@@ -104,23 +107,29 @@ public class VMyProfile {
 		lblEMail.setText("Email :");
 
 		txtNom = new Text(grpProfil, SWT.BORDER);
-		txtNom.setText(AppController.getActiveUser().getLastname() + " " + AppController.getActiveUser().getFirstname());
+		txtNom.setText(AppController.getActiveUser().getLastname());
 		txtNom.setLocation(85, 44);
-		txtNom.setSize(232, 21);
+		txtNom.setSize(146, 21);
+
+		txtPrenom = new Text(grpProfil, SWT.BORDER);
+		txtPrenom.setText(AppController.getActiveUser().getFirstname());
+		txtPrenom.setBounds(385, 44, 166, 21);
 
 		txtEmail = new Text(grpProfil, SWT.BORDER);
 		txtEmail.setText(AppController.getActiveUser().getEmail());
 		txtEmail.setLocation(86, 86);
-		txtEmail.setSize(232, 21);
+		txtEmail.setSize(299, 21);
 
 		btnValider = new Button(grpProfil, SWT.NONE);
-		btnValider.setLocation(83, 167);
-		btnValider.setSize(75, 25);
+		btnValider.setImage(SWTResourceManager.getImage(VMyProfile.class, "/net/images/accept.png"));
+		btnValider.setLocation(359, 167);
+		btnValider.setSize(96, 36);
 		btnValider.setText("Valider");
 
 		btnAnnuler = new Button(grpProfil, SWT.NONE);
-		btnAnnuler.setLocation(165, 167);
-		btnAnnuler.setSize(75, 25);
+		btnAnnuler.setImage(SWTResourceManager.getImage(VMyProfile.class, "/net/images/cancel.png"));
+		btnAnnuler.setLocation(461, 167);
+		btnAnnuler.setSize(90, 36);
 		btnAnnuler.setText("Annuler");
 
 		linkChangeMdp = new Link(grpProfil, SWT.NONE);
@@ -128,5 +137,13 @@ public class VMyProfile {
 		linkChangeMdp.setSize(145, 15);
 		linkChangeMdp.setText("<a>Changer le mot de passe</a>");
 
+		lblPrenom = new Label(grpProfil, SWT.NONE);
+		lblPrenom.setBounds(307, 48, 55, 15);
+		lblPrenom.setText("Prénom :");
+
+	}
+
+	public Text getTxtPrenom() {
+		return txtPrenom;
 	}
 }
