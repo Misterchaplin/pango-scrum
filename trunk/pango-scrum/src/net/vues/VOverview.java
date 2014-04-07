@@ -16,10 +16,14 @@ public class VOverview {
 	protected Shell shell;
 	private Table tableToDo;
 	private TableViewer tableViewer;
+
 	private Table tableInProgress;
 	private Table tableDone;
 	private Table tableSprintRecent;
 	private TableViewer TableVOverview;
+	private TableViewer tableViewer2;
+
+	private TableViewer tableViewer3;
 
 	/**
 	 * Launch the application.
@@ -36,11 +40,19 @@ public class VOverview {
 	}
 
 	/**
+	 * Launch the application.
+	 * 
+	 * @param args
+	 */
+	public void init() {
+		createContents();
+	}
+
+	/**
 	 * Open the window.
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
 		shell.open();
 		shell.layout();
 		while (!shell.isDisposed()) {
@@ -48,6 +60,30 @@ public class VOverview {
 				display.sleep();
 			}
 		}
+	}
+
+	public TableViewer getTableViewer() {
+		return tableViewer;
+	}
+
+	public void setTableViewer(TableViewer tableViewer) {
+		this.tableViewer = tableViewer;
+	}
+
+	public TableViewer getTableViewer2() {
+		return tableViewer2;
+	}
+
+	public void setTableViewer2(TableViewer tableViewer2) {
+		this.tableViewer2 = tableViewer2;
+	}
+
+	public TableViewer getTableViewer3() {
+		return tableViewer3;
+	}
+
+	public void setTableViewer3(TableViewer tableViewer3) {
+		this.tableViewer3 = tableViewer3;
 	}
 
 	/**
@@ -106,8 +142,8 @@ public class VOverview {
 		tableToDo.setHeaderVisible(true);
 		tableToDo.setLinesVisible(true);
 
-		TableViewer tableViewer_1 = new TableViewer(sashFormTableProgression, SWT.BORDER | SWT.FULL_SELECTION);
-		tableInProgress = tableViewer_1.getTable();
+		tableViewer2 = new TableViewer(sashFormTableProgression, SWT.BORDER | SWT.FULL_SELECTION);
+		tableInProgress = tableViewer2.getTable();
 		// Créer une colonne
 		TableColumn col2 = new TableColumn(tableInProgress, SWT.CENTER);
 		col2.setWidth(255);
@@ -117,8 +153,8 @@ public class VOverview {
 		tableInProgress.setHeaderVisible(true);
 		tableInProgress.setLinesVisible(true);
 
-		TableViewer tableViewer_2 = new TableViewer(sashFormTableProgression, SWT.BORDER | SWT.FULL_SELECTION);
-		tableDone = tableViewer_2.getTable();
+		tableViewer3 = new TableViewer(sashFormTableProgression, SWT.BORDER | SWT.FULL_SELECTION);
+		tableDone = tableViewer3.getTable();
 		// Créer une colonne
 		TableColumn col3 = new TableColumn(tableDone, SWT.CENTER);
 		col3.setWidth(255);
@@ -134,7 +170,4 @@ public class VOverview {
 
 	}
 
-	public void init() {
-
-	}
 }

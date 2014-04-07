@@ -2,14 +2,16 @@ package net.models;
 
 // Generated 27 mars 2014 20:49:56 by Hibernate Tools 3.4.0.CR1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -143,6 +145,12 @@ public class Userstory implements java.io.Serializable {
 	@Column(name = "finishedAt", length = 10)
 	public Date getFinishedAt() {
 		return this.finishedAt;
+	}
+
+	@Override
+	public String toString() {
+
+		return label;
 	}
 
 	public void setFinishedAt(Date finishedAt) {
