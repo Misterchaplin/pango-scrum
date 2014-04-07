@@ -13,11 +13,7 @@ public class AppController {
 	// utilisateur connecté
 	private static Collaborator activeUser = new Collaborator();
 	// session
-	private static Session session = HibernateUtil.getSession();
-
-	public static Session getSession() {
-		return session;
-	}
+	public static Session session = HibernateUtil.getSession();
 
 	public static Collaborator getActiveUser() {
 		return activeUser;
