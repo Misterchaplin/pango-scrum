@@ -13,7 +13,7 @@ public class DAOCollaborator {
 	 * @return List<Collaborator> lesCollaborateurs
 	 */
 	public static List<Collaborator> getCollaborators() {
-		org.hibernate.Query query = AppController.getSession().createQuery("from Collaborator");
+		org.hibernate.Query query = AppController.session.createQuery("from Collaborator");
 		List<Collaborator> lesCollaborateurs = query.list();
 		return lesCollaborateurs;
 	}
