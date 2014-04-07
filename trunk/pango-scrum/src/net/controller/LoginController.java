@@ -1,14 +1,12 @@
 package net.controller;
 
 import net.models.Collaborator;
-import net.technics.HibernateUtil;
 import net.vues.VLogin;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.MessageBox;
-import org.hibernate.Session;
 
 public class LoginController implements SelectionListener {
 	private VLogin vLogin;
@@ -25,8 +23,7 @@ public class LoginController implements SelectionListener {
 	 * @return
 	 */
 	public static boolean verify(String login, String password) {
-		Session session = HibernateUtil.getSession();
-		org.hibernate.Query query = session.createQuery("FROM Collaborator WHERE login = '" + login + "' AND password = '" + password + "'");
+		org.hibernate.Query query = AppController.session.createQuery("FROM Collaborator WHERE login = '" + login + "' AND password = '" + password + "'");
 		Collaborator activeUser = (Collaborator) query.uniqueResult();
 
 		if (activeUser != null) {
