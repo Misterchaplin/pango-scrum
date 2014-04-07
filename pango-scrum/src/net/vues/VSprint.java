@@ -53,8 +53,6 @@ public class VSprint {
 	private Table tableSprint;
 	private TableViewer tvSprint;
 	private TableColumnLayout tLayout;
-	private Table tableSprintNP;
-	private TableViewer tvSprintNP;
 	
 	
 	public Shell getShellSprint() {
@@ -94,7 +92,6 @@ public class VSprint {
 	 */
 	public void open() {
 		Display display = Display.getDefault();
-		createContents();
 		shellSprint.open();
 		shellSprint.layout();
 		while (!shellSprint.isDisposed()) {
@@ -126,63 +123,41 @@ public class VSprint {
 	    TableColumnLayout layout = new TableColumnLayout();
 	    TableColumnLayout layout2 = new TableColumnLayout();
 	    
-	    Group grpPlanifi = new Group(composite, SWT.NONE);
-	    grpPlanifi.setText("Planifié");
-	    grpPlanifi.setLayout(null);
 	    
-	    tvSprintNP = new TableViewer(grpPlanifi, SWT.BORDER | SWT.FULL_SELECTION);
-	    tableSprintNP = tvSprintNP.getTable();
-	    tableSprintNP.setBounds(3, 20, 778, 248);
-	    tableSprintNP.getParent().setLayout(layout2);
-	    TableColumn colnp = new TableColumn(tableSprintNP, SWT.NONE);
-	    layout2.setColumnData(colnp,new ColumnWeightData(2));
-	    colnp.setText("Nom");
+	    Group GrpSprint = new Group(composite, SWT.NONE);
+	    GrpSprint.setToolTipText("");
+	    GrpSprint.setText("Planifié");
+	    GrpSprint.setLayout(null);
 	    
-	    TableColumn col2np = new TableColumn(tableSprintNP, SWT.NONE);
-	    layout2.setColumnData(col2np, new ColumnWeightData(1));
-	    col2np.setText("date de début");
-	    
-	    TableColumn col3np = new TableColumn(tableSprintNP, SWT.NONE);
-	    col3np.setWidth(226);
-	    layout2.setColumnData(col3np, new ColumnWeightData(1));
-	    col3np.setText("Date de fin");
-	    tableSprintNP.setHeaderVisible(true);
-	    tableSprintNP.setLinesVisible(true);
-	    
-	    
-	    Group grpNonPlanifi = new Group(composite, SWT.NONE);
-	    grpNonPlanifi.setText("Non planifié");
-	    grpNonPlanifi.setLayout(null);
-	    
-	    tvSprint = new TableViewer(grpNonPlanifi, SWT.BORDER | SWT.FULL_SELECTION);
+	    tvSprint = new TableViewer(GrpSprint, SWT.BORDER | SWT.FULL_SELECTION);
 	    tableSprint = tvSprint.getTable();
 	    tableSprint.setBounds(0, 28, 778, 263);
 	    tableSprint.getParent().setLayout(layout);
 	    
 	    	    
-	    	    TableColumn col = new TableColumn(tableSprint, SWT.NONE);
-	    	    layout.setColumnData(col,new ColumnWeightData(2));
-	    	    col.setText("Nom");
+	    TableColumn col = new TableColumn(tableSprint, SWT.NONE);
+	    layout.setColumnData(col,new ColumnWeightData(2));
+	    col.setText("Nom");
 	    	    
-	    	    TableColumn col2 = new TableColumn(tableSprint, SWT.NONE);
-	    	    layout.setColumnData(col2, new ColumnWeightData(1));
-	    	    col2.setText("date de début");
+	    TableColumn col2 = new TableColumn(tableSprint, SWT.NONE);
+	    layout.setColumnData(col2, new ColumnWeightData(1));
+	    col2.setText("date de début");
 	    	    
-	    	    TableColumn col3 = new TableColumn(tableSprint, SWT.NONE);
-	    	    layout.setColumnData(col3, new ColumnWeightData(1));
-	    	    col3.setText("Date de fin");
-	    	    tableSprint.setHeaderVisible(true);
-	    	    tableSprint.setLinesVisible(true);
-	    	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
-	    	    Button btnNewButton = new Button(shellSprint, SWT.NONE);
-	    	    FormData fd_btnNewButton = new FormData();
-	    	    fd_btnNewButton.top = new FormAttachment(0, 148);
-	    	    fd_btnNewButton.right = new FormAttachment(100);
-	    	    btnNewButton.setLayoutData(fd_btnNewButton);
-	    	    btnNewButton.setText("Ajouter Sprint");
-	    	    btnNewButton.setImage(imAdd);;
+	    TableColumn col3 = new TableColumn(tableSprint, SWT.NONE);
+	    layout.setColumnData(col3, new ColumnWeightData(1));
+	    col3.setText("Date de fin");
+	    tableSprint.setHeaderVisible(true);
+	    tableSprint.setLinesVisible(true);
+	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
+	    Button btnNewButton = new Button(shellSprint, SWT.NONE);
+	    FormData fd_btnNewButton = new FormData();
+	    fd_btnNewButton.top = new FormAttachment(0, 148);
+	    fd_btnNewButton.right = new FormAttachment(100);
+	    btnNewButton.setLayoutData(fd_btnNewButton);
+	    btnNewButton.setText("Ajouter Sprint");
+	    btnNewButton.setImage(imAdd);
+	        
 	    	    
-	    	    Image imgAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
 	    	    
 	    composite.layout(true, true);
 	    
