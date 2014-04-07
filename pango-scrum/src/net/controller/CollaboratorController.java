@@ -24,7 +24,7 @@ public class CollaboratorController implements SelectionListener {
 
 	public void init() {
 		// récupération de la session
-		final Session session = AppController.getSession();
+		final Session session = AppController.session;
 
 		// sélection d'un collaborateur, seulement si l'utilisateur est
 		// administrateur
