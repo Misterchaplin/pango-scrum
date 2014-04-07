@@ -3,48 +3,48 @@ package net.controller;
 import net.vues.VAccueil;
 import net.vues.VListCollaborators;
 import net.vues.VLogin;
-import net.vues.VOverview;
 
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 public class AccueilController implements SelectionListener {
-	private VAccueil vAccueil;
+	public static VAccueil vAccueil;
+	public static int nbOpenedWindowCollaborator = 0;
+	public static int nbOpenedWindowConnection = 0;
 
 	public AccueilController(VAccueil vAccueil) {
 		this.vAccueil = vAccueil;
 	}
 
 	public void init() {
-		vAccueil.getItemCollaborateurs().addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				VListCollaborators vListCollaborators = new VListCollaborators();
-				CollaboratorController collaboratorController = new CollaboratorController(vListCollaborators);
-				vListCollaborators.init();
-				collaboratorController.init();
-				Prog.vAccueil.getAccueil().close();
-				vListCollaborators.open();
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
+		// onglet connexion
 		vAccueil.getItemConnexion().addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				VLogin vLogin = new VLogin();
-				LoginController loginController = new LoginController(vLogin);
-				vLogin.init();
-				loginController.init();
-				vLogin.open();
-				vAccueil.getAccueil().close();
+				// si on se connecte
+				if (vAccueil.getItemConnexion().getText().equals("Connexion")) {
+					// on ouvre la fenêtre seulement si elle n'est pas déjà
+					// ouverte
+					if (nbOpenedWindowConnection == 0) {
+						nbOpenedWindowConnection = 1;
+						VLogin vLogin = new VLogin();
+						LoginController loginController = new LoginController(vLogin);
+						vLogin.init();
+						loginController.init();
+						vLogin.open();
+					}
+				}
+				// si on se déconnecte
+				else {
+					AppController.setActiveUser(null);
+					vAccueil.getItemConnexion().setText("Connexion");
+					vAccueil.getItemProduits().setText("");
+					vAccueil.getItemProduits().setEnabled(false);
+					vAccueil.getItemCollaborateurs().setText("");
+					vAccueil.getItemCollaborateurs().setEnabled(false);
+				}
+
 			}
 
 			@Override
@@ -54,16 +54,21 @@ public class AccueilController implements SelectionListener {
 			}
 		});
 
-		vAccueil.getItemOverview().addSelectionListener(new SelectionListener() {
+		// onglet collaborateurs
+		vAccueil.getItemCollaborateurs().addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				VOverview vOverview = new VOverview();
-				OverviewController OverviewController = new OverviewController(vOverview);
-				vOverview.init();
-				OverviewController.init();
-				vOverview.open();
-				vAccueil.getAccueil().close();
+				// on ouvre la fenêtre seulement si elle n'est pas déjà ouverte
+				if (nbOpenedWindowCollaborator == 0) {
+					nbOpenedWindowCollaborator = 1;
+					VListCollaborators vListCollaborators = new VListCollaborators();
+					CollaboratorController collaboratorController = new CollaboratorController(vListCollaborators);
+					vListCollaborators.init();
+					collaboratorController.init();
+					vListCollaborators.open();
+				}
+
 			}
 
 			@Override
@@ -72,6 +77,7 @@ public class AccueilController implements SelectionListener {
 
 			}
 		});
+
 	}
 
 	@Override
