@@ -1,8 +1,12 @@
 package net.vues;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -15,6 +19,7 @@ public class VAccueil {
 	private MenuItem itemProduits;
 	private MenuItem itemCollaborateurs;
 	private MenuItem itemMonProfil;
+	private Label lblInformation;
 
 	public MenuItem getMntmConnexion() {
 		return itemConnexion;
@@ -38,6 +43,10 @@ public class VAccueil {
 
 	public MenuItem getItemMonProfil() {
 		return itemMonProfil;
+	}
+
+	public Label getLblInformation() {
+		return lblInformation;
 	}
 
 	/**
@@ -180,5 +189,17 @@ public class VAccueil {
 		itemConnexion = new MenuItem(menu, SWT.NONE);
 		itemConnexion.setImage(SWTResourceManager.getImage(VAccueil.class, "/net/images/connexion.PNG"));
 		itemConnexion.setText("Connexion");
+
+		Group grpNotification = new Group(accueil, SWT.NONE);
+		grpNotification.setText("Information");
+		FormData fd_grpNotification = new FormData();
+		fd_grpNotification.top = new FormAttachment(0);
+		fd_grpNotification.left = new FormAttachment(0);
+		fd_grpNotification.bottom = new FormAttachment(0, 60);
+		fd_grpNotification.right = new FormAttachment(0, 1008);
+		grpNotification.setLayoutData(fd_grpNotification);
+
+		lblInformation = new Label(grpNotification, SWT.NONE);
+		lblInformation.setBounds(10, 25, 988, 25);
 	}
 }
