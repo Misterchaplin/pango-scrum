@@ -147,12 +147,6 @@ public class Userstory implements java.io.Serializable {
 		return this.finishedAt;
 	}
 
-	@Override
-	public String toString() {
-
-		return label;
-	}
-
 	public void setFinishedAt(Date finishedAt) {
 		this.finishedAt = finishedAt;
 	}
@@ -175,5 +169,10 @@ public class Userstory implements java.io.Serializable {
 	public void setCollaborators(Set<Collaborator> collaborators) {
 		this.collaborators = collaborators;
 	}
+	
+	@Override
+	public String toString() {
 
+		return label;
+	}
 }

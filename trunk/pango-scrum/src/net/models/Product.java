@@ -95,4 +95,8 @@ public class Product implements java.io.Serializable {
 		this.userstories = userstories;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
 }
