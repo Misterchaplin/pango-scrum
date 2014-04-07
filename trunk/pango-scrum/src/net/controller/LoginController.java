@@ -69,6 +69,8 @@ public class LoginController implements SelectionListener {
 					AccueilController.vAccueil.getItemProduits().setEnabled(true);
 					AccueilController.vAccueil.getItemCollaborateurs().setText("Collaborateurs");
 					AccueilController.vAccueil.getItemCollaborateurs().setEnabled(true);
+					AccueilController.vAccueil.getItemMonProfil().setText("Mon profil");
+					AccueilController.vAccueil.getItemMonProfil().setEnabled(true);
 					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {
