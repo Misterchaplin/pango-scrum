@@ -3,6 +3,7 @@ package net.controller;
 import java.util.Random;
 
 import net.models.Collaborator;
+import net.technics.DAOCollaborator;
 import net.vues.VListCollaborators;
 
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -25,54 +26,62 @@ public class CollaboratorController implements SelectionListener {
 		// récupération de la session
 		final Session session = AppController.getSession();
 
-		// sélection d'un collaborateur
-		vListCollaborator.getTableCollaborators().addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				vListCollaborator.getGrpCollaborateur().setVisible(true);
-				StructuredSelection selection = (StructuredSelection) vListCollaborator.getTableViewerCollaborators().getSelection();
-				Collaborator selectedCollaborator = (Collaborator) selection.getFirstElement();
-				vListCollaborator.getTxtLogin().setText(selectedCollaborator.getLogin());
-				vListCollaborator.getTxtNom().setText(selectedCollaborator.getLastname());
-				vListCollaborator.getTxtPrenom().setText(selectedCollaborator.getFirstname());
-				vListCollaborator.getTxtEMail().setText(selectedCollaborator.getEmail());
-				if (selectedCollaborator.getAdministrator()) {
-					vListCollaborator.getBtnAdmin().setSelection(true);
+		// sélection d'un collaborateur, seulement si l'utilisateur est
+		// administrateur
+		if (AppController.getActiveUser().getAdministrator()) {
+			vListCollaborator.getTableCollaborators().addSelectionListener(new SelectionListener() {
+				@Override
+				public void widgetSelected(SelectionEvent arg0) {
+					vListCollaborator.getGrpCollaborateur().setVisible(true);
+					StructuredSelection selection = (StructuredSelection) vListCollaborator.getTableViewerCollaborators().getSelection();
+					Collaborator selectedCollaborator = (Collaborator) selection.getFirstElement();
+					vListCollaborator.getTxtLogin().setText(selectedCollaborator.getLogin());
+					vListCollaborator.getTxtNom().setText(selectedCollaborator.getLastname());
+					vListCollaborator.getTxtPrenom().setText(selectedCollaborator.getFirstname());
+					vListCollaborator.getTxtEMail().setText(selectedCollaborator.getEmail());
+					if (selectedCollaborator.getAdministrator()) {
+						vListCollaborator.getBtnAdmin().setSelection(true);
+					}
+					else {
+						vListCollaborator.getBtnAdmin().setSelection(false);
+					}
+					vListCollaborator.getBtnSupprimerCollaborateur().setVisible(true);
+					vListCollaborator.getLinkReinitMdp().setVisible(true);
+					vListCollaborator.getTxtLogin().setEnabled(false);
 				}
-				else {
+
+				@Override
+				public void widgetDefaultSelected(SelectionEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+		}
+
+		// bouton d'ajout d'un collaborateur, si l'utilisateur actif est
+		// administrateur
+		if (AppController.getActiveUser().getAdministrator()) {
+			vListCollaborator.getBtnAjouterCollaborator().addSelectionListener(new SelectionListener() {
+				@Override
+				public void widgetSelected(SelectionEvent arg0) {
+					vListCollaborator.getGrpCollaborateur().setVisible(true);
+					vListCollaborator.getTxtLogin().setText("");
+					vListCollaborator.getTxtNom().setText("");
+					vListCollaborator.getTxtPrenom().setText("");
+					vListCollaborator.getTxtEMail().setText("");
+					vListCollaborator.getBtnSupprimerCollaborateur().setVisible(false);
+					vListCollaborator.getLinkReinitMdp().setVisible(false);
 					vListCollaborator.getBtnAdmin().setSelection(false);
+					vListCollaborator.getTxtLogin().setEnabled(true);
 				}
-				vListCollaborator.getBtnSupprimerCollaborateur().setVisible(true);
-				vListCollaborator.getLinkReinitMdp().setVisible(true);
-			}
 
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
+				@Override
+				public void widgetDefaultSelected(SelectionEvent arg0) {
+					// TODO Auto-generated method stub
 
-			}
-		});
-
-		// bouton d'ajout d'un collaborateur
-		vListCollaborator.getBtnAjouterCollaborator().addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				vListCollaborator.getGrpCollaborateur().setVisible(true);
-				vListCollaborator.getTxtLogin().setText("");
-				vListCollaborator.getTxtNom().setText("");
-				vListCollaborator.getTxtPrenom().setText("");
-				vListCollaborator.getTxtEMail().setText("");
-				vListCollaborator.getBtnSupprimerCollaborateur().setVisible(false);
-				vListCollaborator.getLinkReinitMdp().setVisible(false);
-				vListCollaborator.getBtnAdmin().setSelection(false);
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+				}
+			});
+		}
 
 		// bouton de suppression d'un collaborateur
 		vListCollaborator.getBtnSupprimerCollaborateur().addSelectionListener(new SelectionListener() {
@@ -95,6 +104,7 @@ public class CollaboratorController implements SelectionListener {
 					vListCollaborator.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_BLUE));
 				}
 				vListCollaborator.getGrpCollaborateur().setVisible(false);
+				vListCollaborator.getTableViewerCollaborators().setInput(DAOCollaborator.getCollaborators());
 			}
 
 			@Override
@@ -173,6 +183,7 @@ public class CollaboratorController implements SelectionListener {
 					vListCollaborator.getLblInformation().setText(messageInformation);
 					vListCollaborator.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
+				vListCollaborator.getTableViewerCollaborators().setInput(DAOCollaborator.getCollaborators());
 			}
 
 			@Override
