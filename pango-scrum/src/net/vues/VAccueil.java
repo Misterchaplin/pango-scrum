@@ -1,7 +1,5 @@
 package net.vues;
 
-import net.controller.AppController;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Display;
@@ -16,6 +14,7 @@ public class VAccueil {
 	private MenuItem itemConnexion;
 	private MenuItem itemProduits;
 	private MenuItem itemCollaborateurs;
+	private MenuItem itemMonProfil;
 
 	public MenuItem getMntmConnexion() {
 		return itemConnexion;
@@ -35,6 +34,10 @@ public class VAccueil {
 
 	public MenuItem getItemProduits() {
 		return itemProduits;
+	}
+
+	public MenuItem getItemMonProfil() {
+		return itemMonProfil;
 	}
 
 	/**
@@ -78,12 +81,6 @@ public class VAccueil {
 
 		itemCollaborateurs = new MenuItem(menu, SWT.NONE);
 		itemCollaborateurs.setEnabled(false);
-
-		new MenuItem(menu, SWT.SEPARATOR);
-
-		new MenuItem(menu, SWT.SEPARATOR);
-
-		new MenuItem(menu, SWT.SEPARATOR);
 
 		MenuItem menuItem = new MenuItem(menu, SWT.SEPARATOR);
 
@@ -165,34 +162,23 @@ public class VAccueil {
 
 		MenuItem menuItem_41 = new MenuItem(menu, SWT.SEPARATOR);
 
-		MenuItem menuItem_42 = new MenuItem(menu, SWT.SEPARATOR);
-
-		MenuItem menuItem_43 = new MenuItem(menu, SWT.SEPARATOR);
-
 		MenuItem menuItem_44 = new MenuItem(menu, SWT.SEPARATOR);
-
-		MenuItem menuItem_45 = new MenuItem(menu, SWT.SEPARATOR);
-
-		MenuItem menuItem_46 = new MenuItem(menu, SWT.SEPARATOR);
-
-		MenuItem menuItem_47 = new MenuItem(menu, SWT.SEPARATOR);
 
 		MenuItem menuItem_48 = new MenuItem(menu, SWT.SEPARATOR);
 
-		MenuItem menuItem_49 = new MenuItem(menu, SWT.SEPARATOR);
+		MenuItem menuItem_4 = new MenuItem(menu, SWT.SEPARATOR);
 
-		MenuItem menuItem_50 = new MenuItem(menu, SWT.SEPARATOR);
+		MenuItem menuItem_51 = new MenuItem(menu, SWT.SEPARATOR);
+
+		MenuItem menuItem_52 = new MenuItem(menu, SWT.SEPARATOR);
+
+		MenuItem menuItem_53 = new MenuItem(menu, SWT.SEPARATOR);
+
+		itemMonProfil = new MenuItem(menu, SWT.NONE);
+		itemMonProfil.setEnabled(false);
 
 		itemConnexion = new MenuItem(menu, SWT.NONE);
 		itemConnexion.setImage(SWTResourceManager.getImage(VAccueil.class, "/net/images/connexion.PNG"));
 		itemConnexion.setText("Connexion");
-
-		if (AppController.getActiveUser().getId() == null) {
-
-		}
-		else {
-
-		}
-
 	}
 }

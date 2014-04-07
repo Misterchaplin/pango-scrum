@@ -3,6 +3,7 @@ package net.controller;
 import net.vues.VAccueil;
 import net.vues.VListCollaborators;
 import net.vues.VLogin;
+import net.vues.VMyProfile;
 
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -43,6 +44,8 @@ public class AccueilController implements SelectionListener {
 					vAccueil.getItemProduits().setEnabled(false);
 					vAccueil.getItemCollaborateurs().setText("");
 					vAccueil.getItemCollaborateurs().setEnabled(false);
+					vAccueil.getItemMonProfil().setEnabled(false);
+					vAccueil.getItemMonProfil().setText("");
 				}
 
 			}
@@ -78,6 +81,24 @@ public class AccueilController implements SelectionListener {
 			}
 		});
 
+		// onglet mon profil
+		vAccueil.getItemMonProfil().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				VMyProfile vMyProfile = new VMyProfile();
+				MyProfileController myProfileController = new MyProfileController(vMyProfile);
+				vMyProfile.init();
+				myProfileController.init();
+				vMyProfile.open();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	@Override
