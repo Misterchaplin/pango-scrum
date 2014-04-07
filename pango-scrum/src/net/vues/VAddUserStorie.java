@@ -1,5 +1,7 @@
 package net.vues;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -14,18 +16,24 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.jface.viewers.ComboViewer;
 
 public class VAddUserStorie {
 
 	protected Shell ShlProductBacklog;
-	private Table table;
+	private Table tblTodo;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	private Text txtaddUserstorie;
 	private Button btnAddUserStorie;
 	private Label lblAddUserstorie;
+	private TableViewer tableViewer;
 
 	
 	
+	public TableViewer getTableViewer() {
+		return tableViewer;
+	}
 	public Text getTxtaddUserstorie() {
 		return txtaddUserstorie;
 	}
@@ -82,25 +90,35 @@ public class VAddUserStorie {
 		composite.setLayout(null);
 		
 		btnAddUserStorie = new Button(composite, SWT.NONE);
-		btnAddUserStorie.setBounds(691, 48, 75, 25);
+		btnAddUserStorie.setBounds(212, 51, 75, 25);
 		btnAddUserStorie.setText("add");
 		
 		txtaddUserstorie = new Text(composite, SWT.BORDER);
-		txtaddUserstorie.setBounds(574, 50, 91, 21);
+		txtaddUserstorie.setBounds(91, 53, 91, 21);
 		formToolkit.adapt(txtaddUserstorie, true, true);
 		
 		lblAddUserstorie = new Label(composite, SWT.NONE);
-		lblAddUserstorie.setBounds(472, 53, 75, 15);
+		lblAddUserstorie.setBounds(10, 56, 75, 15);
 		formToolkit.adapt(lblAddUserstorie, true, true);
-		lblAddUserstorie.setText("Userstories");
+		lblAddUserstorie.setText("Userstories :");
+		
+		ComboViewer cbvProjet = new ComboViewer(composite, SWT.NONE);
+		Combo cbProjet = cbvProjet.getCombo();
+		cbProjet.setBounds(91, 10, 91, 23);
+		formToolkit.paintBordersFor(cbProjet);
+		
+		Label lblProjet = new Label(composite, SWT.NONE);
+		lblProjet.setBounds(30, 13, 40, 15);
+		formToolkit.adapt(lblProjet, true, true);
+		lblProjet.setText("Projet : ");
 		sashTo1.setWeights(new int[] {1});
 		
 		SashForm sashTo2 = new SashForm(sashToDo, SWT.NONE);
 		
-		TableViewer tableViewer = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
-		table = tableViewer.getTable();
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
+		tableViewer = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
+		tblTodo = tableViewer.getTable();
+		tblTodo.setLinesVisible(true);
+		tblTodo.setHeaderVisible(true);
 		sashTo2.setWeights(new int[] {1});
 		sashToDo.setWeights(new int[] {86, 444});
 		
