@@ -33,11 +33,12 @@ public class SprintController implements SelectionListener{
 		
 		
 	}
-	
+	//chargement d'un product , en attendant la partie d'Anthony
 	private List<Sprint> getSprint(){
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Sprint");
-		List<Sprint> lesSprints = query.list();
+		Query query = session.createQuery("from Sprint where product.name='Plan2Tests'");
+		List<Sprint> lesSprints=query.list();
+		
 		return lesSprints;
 		
 		
