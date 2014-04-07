@@ -46,6 +46,7 @@ public class AccueilController implements SelectionListener {
 					vAccueil.getItemCollaborateurs().setEnabled(false);
 					vAccueil.getItemMonProfil().setEnabled(false);
 					vAccueil.getItemMonProfil().setText("");
+					vAccueil.getLblInformation().setText("");
 				}
 
 			}
