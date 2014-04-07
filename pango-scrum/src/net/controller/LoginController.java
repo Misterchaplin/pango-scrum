@@ -5,8 +5,6 @@ import net.technics.HibernateUtil;
 import net.vues.VLogin;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.MessageBox;
@@ -28,10 +26,10 @@ public class LoginController implements SelectionListener {
 	 */
 	public static boolean verify(String login, String password) {
 		Session session = HibernateUtil.getSession();
-		org.hibernate.Query query = session.createQuery("From Collaborator WHERE login = '" + login + "'");
+		org.hibernate.Query query = session.createQuery("FROM Collaborator WHERE login = '" + login + "' AND password = '" + password + "'");
 		Collaborator activeUser = (Collaborator) query.uniqueResult();
 
-		if (activeUser != null && activeUser.getPassword().equals(password)) {
+		if (activeUser != null) {
 			AppController.setActiveUser(activeUser);
 			return true;
 		}
@@ -64,12 +62,13 @@ public class LoginController implements SelectionListener {
 
 				// identification correcte
 				if (LoginController.verify(login, password)) {
-					if (AppController.getActiveUser().getAdministrator() == true) {
-						// fermeture de la boîte de login
-						vLogin.getShlLogin().close();
-						// page d'accueil reste ouverte
-						Prog.vAccueil.open();
-					}
+					// fermeture de la boîte de login
+					vLogin.getShlLogin().close();
+					AccueilController.vAccueil.getItemConnexion().setText("Déconnexion");
+					AccueilController.vAccueil.getItemProduits().setText("Produits");
+					AccueilController.vAccueil.getItemProduits().setEnabled(true);
+					AccueilController.vAccueil.getItemCollaborateurs().setText("Collaborateurs");
+					AccueilController.vAccueil.getItemCollaborateurs().setEnabled(true);
 					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {
@@ -98,21 +97,16 @@ public class LoginController implements SelectionListener {
 			}
 		});
 		// bouton annuler
-		vLogin.getBtnAnnuler().addMouseListener(new MouseListener() {
+		vLogin.getBtnAnnuler().addSelectionListener(new SelectionListener() {
 
 			@Override
-			public void mouseUp(MouseEvent arg0) {
-				vLogin.getShlLogin().close();
+			public void widgetSelected(SelectionEvent arg0) {
+				vLogin.getText_login().setText("");
+				vLogin.getText_mdp().setText("");
 			}
 
 			@Override
-			public void mouseDown(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseDoubleClick(MouseEvent arg0) {
+			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
 
 			}
