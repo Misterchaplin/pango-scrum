@@ -1,5 +1,7 @@
 package net.vues;
 
+import net.controller.AccueilController;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
@@ -63,6 +65,7 @@ public class VLogin {
 				display.sleep();
 			}
 		}
+		AccueilController.nbOpenedWindowConnection = 0;
 	}
 
 	/**
@@ -70,8 +73,8 @@ public class VLogin {
 	 */
 	protected void createContents() {
 		shlLogin = new Shell();
-		shlLogin.setBackground(SWTResourceManager.getColor(204, 255, 153));
-		shlLogin.setImage(null);
+		shlLogin.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		shlLogin.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/connexion.PNG"));
 		shlLogin.setSize(450, 300);
 		shlLogin.setText("Scrum tool");
 		shlLogin.setLayout(null);
@@ -79,17 +82,17 @@ public class VLogin {
 		Group grpAuthentification = new Group(shlLogin, SWT.NONE);
 		grpAuthentification.setText("Authentification");
 		grpAuthentification.setBounds(26, 30, 336, 200);
-		grpAuthentification.setBackground(SWTResourceManager.getColor(204, 255, 153));
+		grpAuthentification.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		CLabel lblpassword = new CLabel(grpAuthentification, SWT.NONE);
 		lblpassword.setBounds(42, 93, 76, 26);
 		lblpassword.setText("Password");
-		lblpassword.setBackground(SWTResourceManager.getColor(204, 255, 153));
+		lblpassword.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		CLabel lbllogin = new CLabel(grpAuthentification, SWT.NONE);
 		lbllogin.setBounds(42, 42, 76, 26);
 		lbllogin.setText("Login");
-		lbllogin.setBackground(SWTResourceManager.getColor(204, 255, 153));
+		lbllogin.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		text_login = new Text(grpAuthentification, SWT.BORDER);
 		text_login.setBounds(169, 42, 135, 26);
