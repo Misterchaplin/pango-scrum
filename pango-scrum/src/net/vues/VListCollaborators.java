@@ -1,6 +1,7 @@
 package net.vues;
 
 import net.controller.AccueilController;
+import net.controller.AppController;
 import net.technics.CollaboratorTvProvider;
 import net.technics.DAOCollaborator;
 
@@ -158,6 +159,10 @@ public class VListCollaborators {
 		grpInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		grpInformation.setText("Information");
 		grpInformation.setBounds(10, 615, 978, 43);
+		grpInformation.setVisible(false);
+		if (AppController.getActiveUser().getAdministrator()) {
+			grpInformation.setVisible(true);
+		}
 
 		lblInformation = new Label(grpInformation, SWT.NONE);
 		lblInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
@@ -188,10 +193,12 @@ public class VListCollaborators {
 
 		sashForm.setWeights(new int[] { 1 });
 
-		btnAjouterCollaborator = new Button(VListCollaborators, SWT.NONE);
-		btnAjouterCollaborator.setBounds(10, 311, 183, 45);
-		btnAjouterCollaborator.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/user.PNG"));
-		btnAjouterCollaborator.setText("Ajouter un collaborateur");
+		if (AppController.getActiveUser().getAdministrator()) {
+			btnAjouterCollaborator = new Button(VListCollaborators, SWT.NONE);
+			btnAjouterCollaborator.setBounds(10, 311, 183, 45);
+			btnAjouterCollaborator.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/user.PNG"));
+			btnAjouterCollaborator.setText("Ajouter un collaborateur");
+		}
 
 		Label lblLogin = new Label(grpCollaborateur, SWT.NONE);
 		lblLogin.setBounds(43, 46, 39, 15);
