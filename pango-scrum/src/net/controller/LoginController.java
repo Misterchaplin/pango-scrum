@@ -61,13 +61,11 @@ public class LoginController implements SelectionListener {
 				if (LoginController.verify(login, password)) {
 					// fermeture de la boîte de login
 					vLogin.getShlLogin().close();
-					AccueilController.vAccueil.getItemConnexion().setText("Déconnexion");
-					AccueilController.vAccueil.getItemProduits().setText("Produits");
-					AccueilController.vAccueil.getItemProduits().setEnabled(true);
-					AccueilController.vAccueil.getItemCollaborateurs().setText("Collaborateurs");
-					AccueilController.vAccueil.getItemCollaborateurs().setEnabled(true);
 					AccueilController.vAccueil.getItemMonProfil().setText("Mon profil");
 					AccueilController.vAccueil.getItemMonProfil().setEnabled(true);
+					AccueilController.vAccueil.getItemLogin().setText(AppController.getActiveUser().getLogin());
+					AccueilController.vAccueil.getItemProduits().setEnabled(true);
+					AccueilController.vAccueil.getItemCollaborateurs().setEnabled(true);
 					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {

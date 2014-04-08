@@ -153,7 +153,7 @@ public class VListCollaborators {
 
 		sashForm = new SashForm(compositeTable, SWT.NONE);
 		sashForm.setLocation(0, 0);
-		sashForm.setSize(1337, 305);
+		sashForm.setSize(1005, 305);
 
 		Group grpInformation = new Group(VListCollaborators, SWT.BORDER | SWT.SHADOW_IN);
 		grpInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));

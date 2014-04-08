@@ -1,5 +1,6 @@
 package net.vues;
 
+import net.controller.AccueilController;
 import net.controller.AppController;
 
 import org.eclipse.swt.SWT;
@@ -73,6 +74,7 @@ public class VMyProfile {
 				display.sleep();
 			}
 		}
+		AccueilController.nbOpenedWindowMyProfile = 0;
 	}
 
 	/**
@@ -90,6 +92,7 @@ public class VMyProfile {
 	protected void createContents() {
 		vMyProfile = new Shell();
 		vMyProfile.setSize(596, 272);
+		vMyProfile.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		vMyProfile.setText("SWT Application");
 
 		Group grpProfil = new Group(vMyProfile, SWT.NONE);
