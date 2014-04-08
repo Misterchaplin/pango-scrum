@@ -63,6 +63,7 @@ public class MyProfileController {
 				MdpModificationController mdpModificationController = new MdpModificationController(vMdpModification);
 				vMdpModification.init();
 				mdpModificationController.init();
+				vMyProfile.getvMyProfile().close();
 				vMdpModification.open();
 			}
 
