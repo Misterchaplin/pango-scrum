@@ -28,6 +28,11 @@ public class VOverview {
 	private Button btnToDo;
 	private Button btnDone;
 	private Button btnProgress;
+	private TableViewer tableViewer2;
+	private Button btnSprintRecent;
+	private Label lblAfficherPointProjet;
+
+	private Label lblAfficherPointSprint;
 
 	/**
 	 * Launch the application.
@@ -102,7 +107,21 @@ public class VOverview {
 		return btnProgress;
 	}
 
-	private TableViewer tableViewer2;
+	public Button getBtnSprintRecent() {
+		return btnSprintRecent;
+	}
+
+	public TableViewer getTableVOverview() {
+		return TableVOverview;
+	}
+
+	public Label getLblAfficherPointProjet() {
+		return lblAfficherPointProjet;
+	}
+
+	public Label getLblAfficherPointSprint() {
+		return lblAfficherPointSprint;
+	}
 
 	/**
 	 * Create contents of the window.
@@ -118,18 +137,47 @@ public class VOverview {
 		SashForm sashFormContainOverview = new SashForm(shell, SWT.VERTICAL);
 
 		SashForm sashForm = new SashForm(sashFormContainOverview, SWT.NONE);
+		TableColumnLayout layout = new TableColumnLayout();
 
-		SashForm sashForm_2 = new SashForm(sashForm, SWT.NONE);
+		SashForm sashFormSummary = new SashForm(sashForm, SWT.VERTICAL);
 
-		Label lblSummary = new Label(sashForm_2, SWT.NONE);
+		SashForm sashFormSummaryLabel = new SashForm(sashFormSummary, SWT.NONE);
+
+		Composite compositeSummaryLabel = new Composite(sashFormSummaryLabel, SWT.NONE);
+
+		Label lblSummary = new Label(compositeSummaryLabel, SWT.NONE);
+		lblSummary.setBounds(28, 23, 55, 15);
 		lblSummary.setText("Summary");
-		sashForm_2.setWeights(new int[] { 1 });
+		sashFormSummaryLabel.setWeights(new int[] { 1 });
+
+		SashForm sashFormSummaryProduct = new SashForm(sashFormSummary, SWT.NONE);
+
+		Composite compositeSummaryProduct = new Composite(sashFormSummaryProduct, SWT.NONE);
+
+		Label lblSummaryAvance = new Label(compositeSummaryProduct, SWT.NONE);
+		lblSummaryAvance.setBounds(26, 10, 130, 22);
+		lblSummaryAvance.setText("Avancée dans le projet");
+
+		Label lblPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
+		lblPointProjet.setBounds(25, 48, 121, 15);
+		lblPointProjet.setText("Total point du projet");
+
+		lblAfficherPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
+		lblAfficherPointProjet.setBounds(176, 48, 55, 15);
+
+		Label lblPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
+		lblPointSprint.setBounds(26, 79, 108, 15);
+		lblPointSprint.setText("Total point du sprint");
+
+		lblAfficherPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
+		lblAfficherPointSprint.setBounds(176, 79, 55, 15);
+		sashFormSummaryProduct.setWeights(new int[] { 1 });
+		sashFormSummary.setWeights(new int[] { 61, 244 });
 
 		SashForm sashForm_1 = new SashForm(sashForm, SWT.VERTICAL);
 
 		TableVOverview = new TableViewer(sashForm_1, SWT.BORDER | SWT.FULL_SELECTION);
 		tableSprintRecent = TableVOverview.getTable();
-		TableColumnLayout layout = new TableColumnLayout();
 		tableSprintRecent.getParent().setLayout(layout);
 
 		// Créer une colonne
@@ -137,14 +185,23 @@ public class VOverview {
 		col.setWidth(415);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
-		col.setText("User case");
+		col.setText("Sprints");
 
 		// Afficher en-tête+lignes
 		tableSprintRecent.setHeaderVisible(true);
 		tableSprintRecent.setLinesVisible(true);
 
 		sashForm_1.setWeights(new int[] { 244 });
-		sashForm.setWeights(new int[] { 360, 421 });
+		sashForm.setWeights(new int[] { 390, 421 });
+
+		SashForm sashForm_3 = new SashForm(sashFormContainOverview, SWT.NONE);
+
+		Composite composite = new Composite(sashForm_3, SWT.NONE);
+
+		btnSprintRecent = new Button(composite, SWT.NONE);
+		btnSprintRecent.setBounds(527, 10, 88, 25);
+		btnSprintRecent.setText("Voir les sprints");
+		sashForm_3.setWeights(new int[] { 1 });
 
 		SashForm sashFormProgression = new SashForm(sashFormContainOverview, SWT.VERTICAL);
 
@@ -217,7 +274,7 @@ public class VOverview {
 		sashFormLinkDone.setWeights(new int[] { 1 });
 		sashFormLink.setWeights(new int[] { 1, 1, 1 });
 		sashFormProgression.setWeights(new int[] { 233, 57 });
-		sashFormContainOverview.setWeights(new int[] { 266, 293 });
+		sashFormContainOverview.setWeights(new int[] { 309, 45, 202 });
 
 	}
 }
