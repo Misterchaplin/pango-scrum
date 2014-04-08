@@ -162,6 +162,7 @@ public class OverviewController implements SelectionListener {
 	public void initTotalPoint() {
 		List<Userstory> userstories = new ArrayList<Userstory>();
 		userstories = getUserstoryTotalPoint();
+
 		vOverview.getTableViewer3().setContentProvider(new ArrayContentProvider());
 		vOverview.getTableViewer3().setInput(userstories);
 
@@ -169,7 +170,7 @@ public class OverviewController implements SelectionListener {
 
 	private List<Userstory> getUserstoryTotalPoint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Userstory");
+		Query query = session.createQuery("SELECT storyPoints FROM Userstory WHERE idproduct =3");
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
 

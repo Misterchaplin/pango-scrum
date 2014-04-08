@@ -2,13 +2,15 @@ package net.models;
 
 // Generated 27 mars 2014 20:49:56 by Hibernate Tools 3.4.0.CR1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -100,6 +102,11 @@ public class Sprint implements java.io.Serializable {
 
 	public void setUserstories(Set<Userstory> userstories) {
 		this.userstories = userstories;
+	}
+
+	@Override
+	public String toString() {
+		return label;
 	}
 
 }
