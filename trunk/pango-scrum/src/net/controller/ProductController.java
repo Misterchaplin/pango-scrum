@@ -4,9 +4,9 @@ import net.models.Product;
 
 public class ProductController {
 	// produit sélectionné
-	private Product selectedProduct = (Product) AppController.session.get(Product.class, 3);
+	private static Product selectedProduct = (Product) AppController.session.get(Product.class, 3);
 
-	public Product getSelectedProduct() {
+	public static Product getSelectedProduct() {
 		return selectedProduct;
 	}
 
