@@ -35,7 +35,7 @@ public class AppController {
 		overviewController.init();
 		overviewController.init1();
 		overviewController.init2();
-
+		overviewController.initSprint();
 	}
 
 	public AppController(VSprint vSprint) {
