@@ -23,7 +23,6 @@ public class SprintController implements SelectionListener {
 		List<Sprint> sprints = new ArrayList<Sprint>();
 		sprints = getSprint();
 		vSprint.getTvSprint().setContentProvider(new ArrayContentProvider());
-		vSprint.getTvSprint().setLabelProvider(new TvSprintProvider());
 		vSprint.getTvSprint().setInput(sprints);
 
 	}
