@@ -27,20 +27,12 @@ public class SprintController implements SelectionListener {
 		vSprint.getTvSprint().setInput(sprints);
 
 	}
-<<<<<<< .mine
-	//chargement d'un product , en attendant la partie d'Anthony
-	private List<Sprint> getSprint(){
-		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("from Sprint where product.name='Plan2Tests'");
-		List<Sprint> lesSprints=query.list();
-		//String sql="Select  ev.evenDate from Sprint as s Join s.events as ev where s.id=3";
-=======
 
 	// chargement d'un product , en attendant la partie d'Anthony
 	private List<Sprint> getSprint() {
 		Query query = AppController.session.createQuery("from Sprint where product.name='Plan2Tests'");
 		List<Sprint> lesSprints = query.list();
->>>>>>> .r80
+
 		return lesSprints;
 
 	}

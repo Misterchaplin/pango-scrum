@@ -3,10 +3,12 @@ package net.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.models.Sprint;
 import net.models.Userstory;
 import net.technics.HibernateUtil;
 import net.vues.VAddUserStorie;
 import net.vues.VOverview;
+import net.vues.VSprint;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.swt.events.SelectionEvent;
@@ -63,13 +65,14 @@ public class OverviewController implements SelectionListener {
 			}
 		});
 
-		vOverview.getBtnProgress().addSelectionListener(new SelectionListener() {
+		vOverview.getBtnDone().addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
 				vAddUserStorie.open();
+				// vAddUserStorie.getTbfProductBacklog().setSelection(2);
 
 			}
 
@@ -79,6 +82,24 @@ public class OverviewController implements SelectionListener {
 
 			}
 		});
+
+		vOverview.getBtnSprintRecent().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				VSprint vSprint = new VSprint();
+				new AppController(vSprint);
+				vSprint.open();
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 	}
 
 	private List<Userstory> getUserstory() {
@@ -117,6 +138,38 @@ public class OverviewController implements SelectionListener {
 	private List<Userstory> getUserstory2() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("FROM Userstory WHERE idstatus = 3");
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+
+	}
+
+	public void initSprint() {
+		List<Sprint> sprint = new ArrayList<Sprint>();
+		sprint = getSprint();
+		vOverview.getTableVOverview().setContentProvider(new ArrayContentProvider());
+		vOverview.getTableVOverview().setInput(sprint);
+
+	}
+
+	private List<Sprint> getSprint() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM Sprint");
+		List<Sprint> lesSprints = query.list();
+		return lesSprints;
+
+	}
+
+	public void initTotalPoint() {
+		List<Userstory> userstories = new ArrayList<Userstory>();
+		userstories = getUserstoryTotalPoint();
+		vOverview.getTableViewer3().setContentProvider(new ArrayContentProvider());
+		vOverview.getTableViewer3().setInput(userstories);
+
+	}
+
+	private List<Userstory> getUserstoryTotalPoint() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("FROM Userstory");
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
 
