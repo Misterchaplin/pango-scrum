@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.models.Sprint;
+import net.technics.ColDebLP;
+import net.technics.ColFinLP;
+import net.technics.ColLbProvider;
+import net.technics.ColSprintLP;
 import net.technics.HibernateUtil;
 import net.technics.TvSprintProvider;
 
+import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -18,36 +24,48 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 
+
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.DialogCellEditor;
+import org.eclipse.jface.viewers.EditingSupport;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
+
+
 public class VSprint {
-	private class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
-		public Image getColumnImage(Object element, int columnIndex) {
-			return null;
-		}
-		public String getColumnText(Object element, int columnIndex) {
-			return element.toString();
-		}
-	}
-	private static class ContentProvider implements IStructuredContentProvider {
-		public Object[] getElements(Object inputElement) {
-			return new Object[0];
-		}
-		public void dispose() {
-		}
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
-	}
+	
 
 	protected Shell shellSprint;
 	private Table tableSprint;
@@ -121,12 +139,12 @@ public class VSprint {
         composite.setLayoutData(fd_composite);
 	    composite.setLayout(new FillLayout(SWT.VERTICAL));
 	    TableColumnLayout layout = new TableColumnLayout();
-	    TableColumnLayout layout2 = new TableColumnLayout();
+	    
 	    
 	    
 	    Group GrpSprint = new Group(composite, SWT.NONE);
 	    GrpSprint.setToolTipText("");
-	    GrpSprint.setText("PlanifiÃ©");
+	    GrpSprint.setText("Planifié");
 	    GrpSprint.setLayout(null);
 	    
 	    tvSprint = new TableViewer(GrpSprint, SWT.BORDER | SWT.FULL_SELECTION);
@@ -134,20 +152,32 @@ public class VSprint {
 	    tableSprint.setBounds(0, 28, 778, 263);
 	    tableSprint.getParent().setLayout(layout);
 	    
-	    	    
-	    TableColumn col = new TableColumn(tableSprint, SWT.NONE);
-	    layout.setColumnData(col,new ColumnWeightData(2));
-	    col.setText("Nom");
-	    	    
-	    TableColumn col2 = new TableColumn(tableSprint, SWT.NONE);
-	    layout.setColumnData(col2, new ColumnWeightData(1));
-	    col2.setText("date de dÃ©but");
-	    	    
-	    TableColumn col3 = new TableColumn(tableSprint, SWT.NONE);
-	    layout.setColumnData(col3, new ColumnWeightData(1));
-	    col3.setText("Date de fin");
+  
+	    TableViewerColumn TcLblSprint= new TableViewerColumn(tvSprint, SWT.NONE);
+	    TcLblSprint.getColumn().setText("Sprint");
+	    layout.setColumnData(TcLblSprint.getColumn(), new ColumnWeightData(1));
+	    TcLblSprint.setLabelProvider(new ColSprintLP());
+	    
+	    TableViewerColumn dateDebut= new TableViewerColumn(tvSprint, SWT.NONE);
+	    dateDebut.getColumn().setText("Date de début");
+	    layout.setColumnData(dateDebut.getColumn(), new ColumnWeightData(1));
+	    dateDebut.setLabelProvider(new ColDebLP());
+	    	    	    
+	    TableViewerColumn dateFin= new TableViewerColumn(tvSprint, SWT.NONE);
+	    dateFin.getColumn().setText("Date de fin");
+	    layout.setColumnData(dateFin.getColumn(), new ColumnWeightData(1));
+	    dateFin.setLabelProvider(new ColFinLP());
+	    
+	    
+	    TableViewerColumn action= new TableViewerColumn(tvSprint, SWT.NONE);
+	    action.getColumn().setText("Actions #");
+	    layout.setColumnData(action.getColumn(), new ColumnWeightData(1));
+	    action.setLabelProvider(new ColLbProvider(this));
+	    
+	    
 	    tableSprint.setHeaderVisible(true);
 	    tableSprint.setLinesVisible(true);
+	    
 	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
 	    Button btnNewButton = new Button(shellSprint, SWT.NONE);
 	    FormData fd_btnNewButton = new FormData();
@@ -155,18 +185,18 @@ public class VSprint {
 	    fd_btnNewButton.right = new FormAttachment(100);
 	    btnNewButton.setLayoutData(fd_btnNewButton);
 	    btnNewButton.setText("Ajouter Sprint");
-	    btnNewButton.setImage(imAdd);
-	        
-	    	    
-	    	    
+	    btnNewButton.setImage(imAdd);	    
 	    composite.layout(true, true);
-	    
-	    
-		
-			
-			
-			
-			
+	
 			
 		}
+
+	public TableColumnLayout gettLayout() {
+		return tLayout;
+	}
+
+	public void settLayout(TableColumnLayout tLayout) {
+		this.tLayout = tLayout;
+	}
 }
+
