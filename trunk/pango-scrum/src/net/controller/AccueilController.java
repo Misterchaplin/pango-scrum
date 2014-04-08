@@ -12,6 +12,7 @@ public class AccueilController implements SelectionListener {
 	public static VAccueil vAccueil;
 	public static int nbOpenedWindowCollaborator = 0;
 	public static int nbOpenedWindowConnection = 0;
+	public static int nbOpenedWindowMyProfile = 0;
 
 	public AccueilController(VAccueil vAccueil) {
 		this.vAccueil = vAccueil;
@@ -47,6 +48,7 @@ public class AccueilController implements SelectionListener {
 					vAccueil.getItemMonProfil().setEnabled(false);
 					vAccueil.getItemMonProfil().setText("");
 					vAccueil.getLblInformation().setText("");
+					vAccueil.getItemLogin().setText("");
 				}
 
 			}
@@ -87,11 +89,15 @@ public class AccueilController implements SelectionListener {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				VMyProfile vMyProfile = new VMyProfile();
-				MyProfileController myProfileController = new MyProfileController(vMyProfile);
-				vMyProfile.init();
-				myProfileController.init();
-				vMyProfile.open();
+				// on ouvre la fenêtre seulement si elle n'est pas déjà ouverte
+				if (nbOpenedWindowMyProfile == 0) {
+					nbOpenedWindowMyProfile = 1;
+					VMyProfile vMyProfile = new VMyProfile();
+					MyProfileController myProfileController = new MyProfileController(vMyProfile);
+					vMyProfile.init();
+					myProfileController.init();
+					vMyProfile.open();
+				}
 			}
 
 			@Override

@@ -136,6 +136,8 @@ public class CollaboratorController implements SelectionListener {
 				// génération aléatoire du mot de passe
 				Random mdp = new Random(0);
 
+				// ^\w+((-\w+)|(.\w+))*@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+)*.[A-Za-z0-9]+$
+
 				// vérification données
 				if (login == "") {
 					messageErreur = messageErreur + " > " + "login obligatoire";
@@ -163,6 +165,7 @@ public class CollaboratorController implements SelectionListener {
 						Transaction trans = session.beginTransaction();
 						session.persist(aCollaborator);
 						trans.commit();
+						// envoi d'un mail
 						messageInformation = "opération d'ajout réussie";
 					}
 					// si c'est une modification
@@ -184,6 +187,7 @@ public class CollaboratorController implements SelectionListener {
 					vListCollaborator.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				vListCollaborator.getTableViewerCollaborators().setInput(DAOCollaborator.getCollaborators());
+
 			}
 
 			@Override
