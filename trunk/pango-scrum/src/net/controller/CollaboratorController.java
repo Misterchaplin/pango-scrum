@@ -165,7 +165,6 @@ public class CollaboratorController implements SelectionListener {
 						Transaction trans = session.beginTransaction();
 						session.persist(aCollaborator);
 						trans.commit();
-						// envoi d'un mail
 						messageInformation = "opération d'ajout réussie";
 					}
 					// si c'est une modification
