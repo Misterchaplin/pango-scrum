@@ -1,10 +1,17 @@
 package net.technics;
 
+import java.text.Format;
+import java.util.HashSet;
+import java.util.Set;
+
+import net.models.Event;
 import net.models.Sprint;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class TvSprintProvider implements ITableLabelProvider {
 
@@ -45,7 +52,11 @@ public class TvSprintProvider implements ITableLabelProvider {
 		if (numcol==0){
 			result = s.getLabel();	
 		}
+		if (numcol==1){
+			
+			result = DAOSprint.getDateDebut(s);
 		
+		}
 		return result;
 	}
 
