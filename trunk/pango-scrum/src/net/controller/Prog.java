@@ -26,10 +26,10 @@ public class Prog {
 			new AppController(vAccueil);
 			VAddUserStorie vAddUserStorie = new VAddUserStorie();
 			new AppController(vAddUserStorie);
-			VOverview vOverview = new VOverview();
-			new AppController(vOverview);
+			//VOverview vOverview = new VOverview();
+			//new AppController(vOverview);
 			vAccueil.open();
-			vOverview.open();
+			//vOverview.open();
 			vSprint.open();
 			vAddUserStorie.open();
 		} catch (Exception e) {

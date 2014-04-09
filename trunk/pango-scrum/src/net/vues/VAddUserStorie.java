@@ -44,6 +44,7 @@ public class VAddUserStorie {
 	private Button btnAjouterUserstorie;
 	private TableViewer tblvUserStory;
 	private Group grpUserstory;
+	private Button btnModifierUserStory;
 	
 
 	public Shell getShlProductBacklog() {
@@ -90,6 +91,9 @@ public class VAddUserStorie {
 	}
 	public Button getBtnSupprimerUserstory() {
 		return btnSupprimerUserstory;
+	}
+	public Button getBtnModifierUserStory() {
+		return btnModifierUserStory;
 	}
 	public TabItem getTbtmInProgress() {
 		return tbtmInProgress;
@@ -252,6 +256,7 @@ public class VAddUserStorie {
 		btnValider.setText("Valider");
 		btnValider.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/accept.png"));
 		formToolkit.adapt(btnValider, true, true);
+		btnValider.setVisible(false);
 		//composite.setTabList(new Control[]{btnAjouterUserstorie, txtNom, txtDescription, txtPtAttribue, cbSprint, cbProjet, txtPriorite, btnValider, btnAnnuler, btnSupprimerUserstory});
 		
 		btnAnnuler = new Button(grpUserstory, SWT.NONE);
@@ -259,6 +264,13 @@ public class VAddUserStorie {
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
 		formToolkit.adapt(btnAnnuler, true, true);
+		btnAnnuler.setVisible(false);
+		
+		btnModifierUserStory = new Button(composite, SWT.NONE);
+		btnModifierUserStory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/Modifier_UserStory.png"));
+		btnModifierUserStory.setBounds(10, 112, 152, 40);
+		formToolkit.adapt(btnModifierUserStory, true, true);
+		btnModifierUserStory.setText("Modifier UserStory");
 		sashTo1.setWeights(new int[] {1});
 		sashToDo.setWeights(new int[] {31, 239, 257});
 		
