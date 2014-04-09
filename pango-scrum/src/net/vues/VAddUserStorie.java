@@ -1,7 +1,5 @@
 package net.vues;
 
-import java.util.List;
-
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -19,32 +17,80 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.jface.viewers.ComboViewer;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Group;
 
 public class VAddUserStorie {
 
-	protected Shell ShlProductBacklog;
+	protected Shell vAddUserStorie;
 	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
 	private TabItem tbtmInProgress;
 	private TabItem tbtmDone;
 	private TabItem tbtmTodo;
 	private Table tblInProgress;
 	private Table tblDone;
+	private Table table;
 	private ComboViewer cbvProjet;
 	private TableViewer tableViewer;
-	private Text txtaddUserstorie;
-	private Button btnAddUserStorie;
-	private Label lblAddUserstorie;
-	private Text text;
-	private Table table;
-	private Text text_1;
-	private Text text_2;
-	private Text text_3;
+	private Text txtNom;
+	private Text txtDescription;
+	private Text txtPtAttribue;
+	private Text txtPriorite;
+	private Combo cbSprint;
+	private ComboViewer cbvSprint;
+	private Button btnValider;
+	private Button btnAnnuler;
+	private Button btnSupprimerUserstory;
+	private Button btnAjouterUserstorie;
+	private TableViewer tblvUserStory;
+	private Group grpUserstory;
+	
 
-	
-	
+	public Shell getShlProductBacklog() {
+		return vAddUserStorie;
+	}
+	public Table getTable() {
+		return table;
+	}
+	public Group getGrpUserstory() {
+		return grpUserstory;
+	}
+	public TableViewer getTblvUserStory() {
+		return tblvUserStory;
+	}
+	public Text getTxtNom() {
+		return txtNom;
+	}
+	public Text getTxtDescription() {
+		return txtDescription;
+	}
+	public Text getTxtPtAttribue() {
+		return txtPtAttribue;
+	}
+	public Combo getCbSprint() {
+		return cbSprint;
+	}
+	public ComboViewer getCbvSprint() {
+		return cbvSprint;
+	}
+	public ComboViewer getCbvProjet() {
+		return cbvProjet;
+	}
+	public Text getTxtPriorite() {
+		return txtPriorite;
+	}
+	public Button getBtnAjouterUserstorie() {
+		return btnAjouterUserstorie;
+	}
+	public Button getBtnValider() {
+		return btnValider;
+	}
+	public Button getBtnAnnuler() {
+		return btnAnnuler;
+	}
+	public Button getBtnSupprimerUserstory() {
+		return btnSupprimerUserstory;
+	}
 	public TabItem getTbtmInProgress() {
 		return tbtmInProgress;
 	}
@@ -54,22 +100,8 @@ public class VAddUserStorie {
 	public TabItem getTbtmTodo() {
 		return tbtmTodo;
 	}
-	public ComboViewer getCbvProjet() {
-		return cbvProjet;
-	}
 	public TableViewer getTableViewer() {
 		return tableViewer;
-	}
-	public Text getTxtaddUserstorie() {
-		return txtaddUserstorie;
-	}
-
-	public Button getBtnAddUserStorie() {
-		return btnAddUserStorie;
-	}
-
-	public Label getLblAddUserstorie() {
-		return lblAddUserstorie;
 	}
 
 	public void init() {
@@ -80,10 +112,11 @@ public class VAddUserStorie {
 	 * Open the window.
 	 */
 	public void open() {
+		
 		Display display = Display.getDefault();
-		ShlProductBacklog.open();
-		ShlProductBacklog.layout();
-		while (!ShlProductBacklog.isDisposed()) {
+		vAddUserStorie.open();
+		vAddUserStorie.layout();
+		while (!vAddUserStorie.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
@@ -95,12 +128,12 @@ public class VAddUserStorie {
 	 * @wbp.parser.entryPoint
 	 */
 	protected void createContents() {
-		ShlProductBacklog = new Shell();
-		ShlProductBacklog.setSize(800, 600);
-		ShlProductBacklog.setText("SWT Application");
-		ShlProductBacklog.setLayout(new FillLayout(SWT.HORIZONTAL));
+		vAddUserStorie = new Shell();
+		vAddUserStorie.setSize(800, 600);
+		vAddUserStorie.setText("SWT Application");
+		vAddUserStorie.setLayout(new FillLayout(SWT.HORIZONTAL));
 		
-		SashForm sashGeneralProductBackLog = new SashForm(ShlProductBacklog, SWT.NONE);
+		SashForm sashGeneralProductBackLog = new SashForm(vAddUserStorie, SWT.NONE);
 		
 		TabFolder tbfProductBacklog = new TabFolder(sashGeneralProductBackLog, SWT.NONE);
 		
@@ -127,8 +160,8 @@ public class VAddUserStorie {
 		
 		SashForm sashTo2 = new SashForm(sashToDo, SWT.NONE);
 		
-		TableViewer tableViewer_2 = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
-		table = tableViewer_2.getTable();
+		tblvUserStory = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
+		table = tblvUserStory.getTable();
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 		formToolkit.paintBordersFor(table);
@@ -141,92 +174,91 @@ public class VAddUserStorie {
 		formToolkit.adapt(composite);
 		formToolkit.paintBordersFor(composite);
 		
-		Button btnAjouterUneUserstorie = new Button(composite, SWT.NONE);
-		btnAjouterUneUserstorie.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/addButton.png"));
-		btnAjouterUneUserstorie.setText("  Ajouter UserStory");
-		btnAjouterUneUserstorie.setBounds(10, 10, 151, 34);
-		formToolkit.adapt(btnAjouterUneUserstorie, true, true);
+		btnAjouterUserstorie = new Button(composite, SWT.NONE);
+		btnAjouterUserstorie.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/addButton.png"));
+		btnAjouterUserstorie.setText("  Ajouter UserStory");
+		btnAjouterUserstorie.setBounds(10, 10, 151, 34);
+		formToolkit.adapt(btnAjouterUserstorie, true, true);
 		
-		text = new Text(composite, SWT.BORDER);
-		text.setBounds(292, 31, 171, 23);
-		formToolkit.adapt(text, true, true);
+		btnSupprimerUserstory = new Button(composite, SWT.NONE);
+		btnSupprimerUserstory.setBounds(9, 60, 152, 40);
+		btnSupprimerUserstory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/delete_UserStory.png"));
+		formToolkit.adapt(btnSupprimerUserstory, true, true);
+		btnSupprimerUserstory.setText("Supprimer UserStory");
 		
-		Label label_1 = new Label(composite, SWT.NONE);
-		label_1.setText("Nom :");
-		label_1.setBounds(195, 34, 39, 15);
-		formToolkit.adapt(label_1, true, true);
+		grpUserstory = new Group(composite, SWT.NONE);
+		grpUserstory.setText("UserStory");
+		grpUserstory.setBounds(213, 10, 553, 238);
+		formToolkit.adapt(grpUserstory);
+		formToolkit.paintBordersFor(grpUserstory);
+		grpUserstory.setVisible(false);
 		
-		ComboViewer comboViewer = new ComboViewer(composite, SWT.NONE);
-		Combo combo = comboViewer.getCombo();
-		combo.setBounds(607, 67, 91, 23);
-		formToolkit.paintBordersFor(combo);
+		Label lblNom = new Label(grpUserstory, SWT.NONE);
+		lblNom.setBounds(10, 35, 39, 15);
+		lblNom.setText("Nom :");
+		formToolkit.adapt(lblNom, true, true);
 		
-		Label label_2 = new Label(composite, SWT.NONE);
-		label_2.setText("Projet : ");
-		label_2.setBounds(514, 75, 40, 15);
-		formToolkit.adapt(label_2, true, true);
+		txtNom = new Text(grpUserstory, SWT.BORDER);
+		txtNom.setBounds(119, 32, 171, 23);
+		formToolkit.adapt(txtNom, true, true);
 		
-		Label lblDescription = new Label(composite, SWT.NONE);
-		lblDescription.setBounds(195, 70, 69, 15);
+		txtDescription = new Text(grpUserstory, SWT.BORDER);
+		txtDescription.setBounds(119, 72, 171, 59);
+		formToolkit.adapt(txtDescription, true, true);
+		
+		txtPtAttribue = new Text(grpUserstory, SWT.BORDER);
+		txtPtAttribue.setBounds(119, 148, 171, 23);
+		formToolkit.adapt(txtPtAttribue, true, true);
+		
+		Label lblDescription = new Label(grpUserstory, SWT.NONE);
+		lblDescription.setBounds(10, 75, 69, 15);
 		formToolkit.adapt(lblDescription, true, true);
 		lblDescription.setText("Description : ");
 		
-		text_1 = new Text(composite, SWT.BORDER);
-		text_1.setBounds(292, 67, 171, 59);
-		formToolkit.adapt(text_1, true, true);
+		Label lblPtAttribue = new Label(grpUserstory, SWT.NONE);
+		lblPtAttribue.setBounds(10, 151, 91, 15);
+		formToolkit.adapt(lblPtAttribue, true, true);
+		lblPtAttribue.setText("Points attribu\u00E9s : ");
 		
-		Label lblStoryPoints = new Label(composite, SWT.NONE);
-		lblStoryPoints.setBounds(195, 171, 91, 15);
-		formToolkit.adapt(lblStoryPoints, true, true);
-		lblStoryPoints.setText("Points attribu\u00E9 : ");
+		Label lblSprint = formToolkit.createLabel(grpUserstory, "Sprint : ", SWT.NONE);
+		lblSprint.setBounds(350, 35, 45, 15);
 		
-		Label lblPriorit = new Label(composite, SWT.NONE);
-		lblPriorit.setBounds(514, 111, 49, 15);
-		formToolkit.adapt(lblPriorit, true, true);
-		lblPriorit.setText("Priorit\u00E9 :");
+		Label lblProjet = new Label(grpUserstory, SWT.NONE);
+		lblProjet.setBounds(350, 91, 40, 15);
+		lblProjet.setText("Projet : ");
+		formToolkit.adapt(lblProjet, true, true);
 		
-		text_2 = new Text(composite, SWT.BORDER);
-		text_2.setBounds(292, 168, 171, 23);
-		formToolkit.adapt(text_2, true, true);
+		Label lblPriorite = new Label(grpUserstory, SWT.NONE);
+		lblPriorite.setBounds(350, 137, 49, 15);
+		formToolkit.adapt(lblPriorite, true, true);
+		lblPriorite.setText("Priorit\u00E9 :");
 		
-		text_3 = new Text(composite, SWT.BORDER);
-		text_3.setBounds(607, 105, 91, 23);
-		formToolkit.adapt(text_3, true, true);
+		cbvSprint = new ComboViewer(grpUserstory, SWT.NONE);
+		cbSprint = cbvSprint.getCombo();
+		cbSprint.setBounds(414, 32, 91, 23);
+		formToolkit.paintBordersFor(cbSprint);
 		
-		Label lblDateDeFin = formToolkit.createLabel(composite, "Date de Fin :", SWT.NONE);
-		lblDateDeFin.setBounds(514, 154, 75, 15);
+		cbvProjet = new ComboViewer(grpUserstory, SWT.NONE);
+		Combo cbProjet = cbvProjet.getCombo();
+		cbProjet.setBounds(414, 88, 91, 23);
+		formToolkit.paintBordersFor(cbProjet);
 		
-		DateTime dateTime = new DateTime(composite, SWT.BORDER);
-		dateTime.setBounds(607, 145, 91, 23);
-		formToolkit.adapt(dateTime);
-		formToolkit.paintBordersFor(dateTime);
+		txtPriorite = new Text(grpUserstory, SWT.BORDER);
+		txtPriorite.setBounds(414, 134, 91, 23);
+		formToolkit.adapt(txtPriorite, true, true);
 		
-		Label lblSprint = formToolkit.createLabel(composite, "Sprint : ", SWT.NONE);
-		lblSprint.setBounds(514, 34, 45, 15);
+		btnValider = new Button(grpUserstory, SWT.NONE);
+		btnValider.setBounds(322, 188, 109, 40);
+		btnValider.setText("Valider");
+		btnValider.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/accept.png"));
+		formToolkit.adapt(btnValider, true, true);
+		//composite.setTabList(new Control[]{btnAjouterUserstorie, txtNom, txtDescription, txtPtAttribue, cbSprint, cbProjet, txtPriorite, btnValider, btnAnnuler, btnSupprimerUserstory});
 		
-		ComboViewer comboViewer_1 = new ComboViewer(composite, SWT.NONE);
-		Combo combo_1 = comboViewer_1.getCombo();
-		combo_1.setBounds(607, 28, 91, 23);
-		formToolkit.paintBordersFor(combo_1);
-		
-		Button button = new Button(composite, SWT.NONE);
-		button.setText("Valider");
-		button.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/accept.png"));
-		button.setBounds(498, 207, 109, 40);
-		formToolkit.adapt(button, true, true);
-		
-		Button button_1 = new Button(composite, SWT.NONE);
-		button_1.setText("Annuler");
-		button_1.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
-		button_1.setBounds(613, 207, 109, 40);
-		formToolkit.adapt(button_1, true, true);
-		
-		Button btnSupprimerUserstory = new Button(composite, SWT.NONE);
-		btnSupprimerUserstory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/delete_UserStory.png"));
-		btnSupprimerUserstory.setBounds(333, 207, 152, 40);
-		formToolkit.adapt(btnSupprimerUserstory, true, true);
-		btnSupprimerUserstory.setText("Supprimer UserStory");
-		composite.setTabList(new Control[]{btnAjouterUneUserstorie, text, text_1, text_2, combo_1, combo, text_3, dateTime, button, button_1, btnSupprimerUserstory});
+		btnAnnuler = new Button(grpUserstory, SWT.NONE);
+		btnAnnuler.setBounds(434, 188, 109, 40);
+		btnAnnuler.setText("Annuler");
+		btnAnnuler.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
+		formToolkit.adapt(btnAnnuler, true, true);
 		sashTo1.setWeights(new int[] {1});
 		sashToDo.setWeights(new int[] {31, 239, 257});
 		
