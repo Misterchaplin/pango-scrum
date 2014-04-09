@@ -36,6 +36,8 @@ public class AppController {
 		overviewController.init1();
 		overviewController.init2();
 		overviewController.initSprint();
+		overviewController.initTotalPoint();
+		overviewController.initDonePoint();
 	}
 
 	public AppController(VSprint vSprint) {

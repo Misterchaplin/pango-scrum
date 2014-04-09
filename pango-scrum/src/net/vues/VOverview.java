@@ -29,6 +29,7 @@ public class VOverview {
 	private Button btnDone;
 	private Button btnProgress;
 	private TableViewer tableViewer2;
+
 	private Button btnSprintRecent;
 	private Label lblAfficherPointProjet;
 
@@ -121,6 +122,14 @@ public class VOverview {
 
 	public Label getLblAfficherPointSprint() {
 		return lblAfficherPointSprint;
+	}
+
+	public void setLblAfficherPointProjet(Label lblAfficherPointProjet) {
+		this.lblAfficherPointProjet = lblAfficherPointProjet;
+	}
+
+	public void setLblAfficherPointSprint(Label lblAfficherPointSprint) {
+		this.lblAfficherPointSprint = lblAfficherPointSprint;
 	}
 
 	/**
@@ -275,6 +284,11 @@ public class VOverview {
 		sashFormLink.setWeights(new int[] { 1, 1, 1 });
 		sashFormProgression.setWeights(new int[] { 233, 57 });
 		sashFormContainOverview.setWeights(new int[] { 309, 45, 202 });
+
+	}
+
+	public void setLblAfficherPointProjet(int size) {
+		// TODO Auto-generated method stub
 
 	}
 }

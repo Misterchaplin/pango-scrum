@@ -19,6 +19,9 @@ import org.hibernate.Session;
 public class OverviewController implements SelectionListener {
 	private VOverview vOverview;
 	private VAddUserStorie vAddUserStorie;
+	private int i;
+	private Integer totalPoint;
+	private Integer point;
 
 	public OverviewController(VOverview vOverview) {
 		this.vOverview = vOverview;
@@ -163,16 +166,29 @@ public class OverviewController implements SelectionListener {
 		List<Userstory> userstories = new ArrayList<Userstory>();
 		userstories = getUserstoryTotalPoint();
 
-		vOverview.getTableViewer3().setContentProvider(new ArrayContentProvider());
-		vOverview.getTableViewer3().setInput(userstories);
-
+		vOverview.getLblAfficherPointProjet().setText(String.valueOf(userstories));
 	}
 
 	private List<Userstory> getUserstoryTotalPoint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("SELECT storyPoints FROM Userstory WHERE idproduct =3");
-		List<Userstory> lesUserstories = query.list();
-		return lesUserstories;
+		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3");
+		List<Userstory> totalPoint = query.list();
+		return totalPoint;
+
+	}
+
+	public void initDonePoint() {
+		List<Userstory> userstories = new ArrayList<Userstory>();
+		userstories = getUserstoryDonePoint();
+
+		vOverview.getLblAfficherPointSprint().setText(String.valueOf(userstories));
+	}
+
+	private List<Userstory> getUserstoryDonePoint() {
+		Session session = HibernateUtil.getSession();
+		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3 AND finishedAt != Null");
+		List<Userstory> totalPointFinished = query.list();
+		return totalPointFinished;
 
 	}
 
