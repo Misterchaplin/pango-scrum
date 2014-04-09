@@ -1,17 +1,23 @@
 package net.vues;
 
+import net.controller.AppController;
 import net.controller.ProductController;
 import net.models.Collaborator;
+import net.models.Playrole;
+import net.models.PlayroleId;
+import net.models.Role;
 import net.technics.CollaboratorTvProvider;
 import net.technics.DAOCollaborator;
 
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -24,6 +30,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class VAffectationCollaborator {
 
@@ -184,7 +192,7 @@ public class VAffectationCollaborator {
 		fd_composite.left = new FormAttachment(0, 10);
 		composite.setLayoutData(fd_composite);
 
-		TableViewer tvAffectedCollaborators = new TableViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
+		final TableViewer tvAffectedCollaborators = new TableViewer(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		tableAffectedCollaborators = tvAffectedCollaborators.getTable();
 		tableAffectedCollaborators.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -208,7 +216,7 @@ public class VAffectationCollaborator {
 		fd_composite_1.right = new FormAttachment(100, -32);
 		composite_1.setLayoutData(fd_composite_1);
 
-		TableViewer tvUnaffectedCollaborators = new TableViewer(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
+		final TableViewer tvUnaffectedCollaborators = new TableViewer(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
 		tableUnaffectedCollaborators = tvUnaffectedCollaborators.getTable();
 		tableUnaffectedCollaborators.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -222,6 +230,79 @@ public class VAffectationCollaborator {
 		tvUnaffectedCollaborators.setContentProvider(new ArrayContentProvider());
 		tvUnaffectedCollaborators.setLabelProvider(new CollaboratorTvProvider());
 		tvUnaffectedCollaborators.setInput(DAOCollaborator.getUnaffectedCollaborators());
+
+		btnAddCollaborators.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// récupération collaborateur sélectionné
+				StructuredSelection selection = (StructuredSelection) tvUnaffectedCollaborators.getSelection();
+				Collaborator selectedCollaborator = (Collaborator) selection.getFirstElement();
+
+				// création instance de playroleId
+				int idRole = 3;
+				Integer idProduct = ProductController.getSelectedProduct().getId();
+				Integer idCollaborator = selectedCollaborator.getId();
+				PlayroleId playroleId = new PlayroleId(idCollaborator, idRole, idProduct);
+
+				// récupération du rôle
+				Session session = AppController.session;
+				Transaction trans = session.beginTransaction();
+				Role role = (Role) AppController.session.get(Role.class, 3);
+				trans.commit();
+
+				// création instance de playrole
+				Playrole playrole = new Playrole(playroleId, role, ProductController.getSelectedProduct(), selectedCollaborator);
+				Transaction transSave = session.beginTransaction();
+				session.persist(playrole);
+				transSave.commit();
+
+				tvAffectedCollaborators.setInput(DAOCollaborator.getAffectedCollaborators());
+				tvUnaffectedCollaborators.setInput(DAOCollaborator.getUnaffectedCollaborators());
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		btnRemoveCollaborators.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// récupération du collaborateur sélectionné
+				StructuredSelection selection = (StructuredSelection) tvAffectedCollaborators.getSelection();
+				Collaborator selectedCollaborator = (Collaborator) selection.getFirstElement();
+
+				// récupération id collaborateur
+				Integer idCollaborator = selectedCollaborator.getId();
+
+				// récupération id produit
+				Integer idProduct = ProductController.getSelectedProduct().getId();
+
+				// instanciation nouvel objet
+				PlayroleId roleJoueId = new PlayroleId(idCollaborator, 3, idProduct);
+
+				// enregistrement dans la base de données
+				Session session = AppController.session;
+				Transaction trans = session.beginTransaction();
+				Playrole playrole = (Playrole) session.get(Playrole.class, roleJoueId);
+				session.delete(playrole);
+				trans.commit();
+
+				// mise à jour tableViewer
+				tvAffectedCollaborators.setInput(DAOCollaborator.getAffectedCollaborators());
+				tvUnaffectedCollaborators.setInput(DAOCollaborator.getUnaffectedCollaborators());
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 	}
 
