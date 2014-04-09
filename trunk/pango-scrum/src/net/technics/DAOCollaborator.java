@@ -21,20 +21,73 @@ public class DAOCollaborator {
 		return lesCollaborateurs;
 	}
 
+	/**
+	 * Fonction de récupération des collaborateurs affectés au projet
+	 * sélectionné
+	 * 
+	 * @return List<Collaborator> lesCollaborateursAffectes
+	 */
 	public static List<Collaborator> getAffectedCollaborators() {
-		List<Collaborator> lesCollaborateursAffectes = new ArrayList<>();
-		org.hibernate.Query query = AppController.session.createQuery("from Playrole where idProduct = " + ProductController.getSelectedProduct().getId());
+		// initialisation collection
+		List<Collaborator> lesCollaborateursAffectes = new ArrayList();
+
+		// execution requête hql
+		org.hibernate.Query query = AppController.session.createQuery("from Playrole where idProduct = " + ProductController.getSelectedProduct().getId() + " and idRole = 3");
 		List<Playrole> lesRolesJoues = query.list();
+
+		// récupération des collaborateurs
 		for (Playrole playrole : lesRolesJoues) {
 			Collaborator aCollaborator = (Collaborator) AppController.session.get(Collaborator.class, playrole.getCollaborator().getId());
-			lesCollaborateursAffectes.add(aCollaborator);
+			if (!lesCollaborateursAffectes.contains(aCollaborator)) {
+				lesCollaborateursAffectes.add(aCollaborator);
+			}
 		}
 		return lesCollaborateursAffectes;
 	}
 
+	/**
+	 * Fonction de récupération des collaborateurs non affectés au projet
+	 * 
+	 * @return List<Collaborator> lesCollaborateursNonAffectes
+	 */
 	public static List<Collaborator> getUnaffectedCollaborators() {
-		org.hibernate.Query query = AppController.session.createQuery("from Collaborator where id not in (select id from Collaborator inner join Playrole on Collaborator.id = Playrole.idCollaborator where idProdcut =" + ProductController.getSelectedProduct().getId());
-		List<Collaborator> lesCollaborateursNonAffectes = query.list();
+		// récupéation des collaborateurs affectés au projet
+		List<Collaborator> lesCollaborateursAffectes = DAOCollaborator.getAffectedCollaborators();
+
+		// récupération de tous les collaborateurs dans la base de données
+		org.hibernate.Query query = AppController.session.createQuery("from Collaborator");
+		List<Collaborator> lesCollaborateurs = query.list();
+
+		// initialisation collection
+		List<Collaborator> lesCollaborateursNonAffectes = new ArrayList<>();
+
+		for (Collaborator collaborator : lesCollaborateurs) {
+			if (!lesCollaborateursAffectes.contains(collaborator)) {
+				lesCollaborateursNonAffectes.add(collaborator);
+			}
+		}
+
 		return lesCollaborateursNonAffectes;
+	}
+
+	/**
+	 * Fonction de récupération du scrum master du projet sélectionné
+	 * 
+	 * @return Collaborator scrumMaster
+	 */
+	public static Collaborator getScrumMaster() {
+		// instanciation collaborateur
+		Collaborator scrumMaster = new Collaborator();
+
+		// execution requête hql
+		org.hibernate.Query query = AppController.session.createQuery("from Playrole where idProduct = " + ProductController.getSelectedProduct().getId() + " and idRole = 1");
+		List<Playrole> roleJoue = query.list();
+
+		// récupération du scrum master
+		if (roleJoue.size() == 1) {
+			scrumMaster = roleJoue.get(0).getCollaborator();
+		}
+
+		return scrumMaster;
 	}
 }
