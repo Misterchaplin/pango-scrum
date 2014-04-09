@@ -52,10 +52,11 @@ public class TvSprintProvider implements ITableLabelProvider {
 		if (numcol==0){
 			result = s.getLabel();	
 		}
-		if (numcol==1){
-			
+		if (numcol==1){	
 			result = DAOSprint.getDateDebut(s);
-		
+		}
+		if (numcol==2){
+			result = DAOSprint.getDateFin(s);
 		}
 		return result;
 	}

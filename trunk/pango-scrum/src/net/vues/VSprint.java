@@ -1,77 +1,47 @@
 package net.vues;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.models.Sprint;
 import net.technics.ColDebLP;
 import net.technics.ColFinLP;
 import net.technics.ColLbProvider;
 import net.technics.ColSprintLP;
-import net.technics.HibernateUtil;
-import net.technics.TvSprintProvider;
-
-import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
-
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.layout.TableColumnLayout;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.DialogCellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
 
 
 public class VSprint {
 	
 
 	protected Shell shellSprint;
+	private Button btAddSprint;
+	
+
 	private Table tableSprint;
 	private TableViewer tvSprint;
 	private TableColumnLayout tLayout;
 	
+	
+	public Button getBtAddSprint() {
+		return btAddSprint;
+	}
+
+	public void setBtAddSprint(Button btAddSprint) {
+		this.btAddSprint = btAddSprint;
+	}
 	
 	public Shell getShellSprint() {
 		return shellSprint;
@@ -87,6 +57,14 @@ public class VSprint {
 
 	public void setTableSprint(Table tableSprint) {
 		this.tableSprint = tableSprint;
+	}
+	
+	public TableColumnLayout gettLayout() {
+		return tLayout;
+	}
+
+	public void settLayout(TableColumnLayout tLayout) {
+		this.tLayout = tLayout;
 	}
 
 	public TableViewer getTvSprint() {
@@ -144,7 +122,7 @@ public class VSprint {
 	    
 	    Group GrpSprint = new Group(composite, SWT.NONE);
 	    GrpSprint.setToolTipText("");
-	    GrpSprint.setText("Planifié");
+	    GrpSprint.setText("PlanifiÃ©");
 	    GrpSprint.setLayout(null);
 	    
 	    tvSprint = new TableViewer(GrpSprint, SWT.BORDER | SWT.FULL_SELECTION);
@@ -159,7 +137,7 @@ public class VSprint {
 	    TcLblSprint.setLabelProvider(new ColSprintLP());
 	    
 	    TableViewerColumn dateDebut= new TableViewerColumn(tvSprint, SWT.NONE);
-	    dateDebut.getColumn().setText("Date de début");
+	    dateDebut.getColumn().setText("Date de dÃ©but");
 	    layout.setColumnData(dateDebut.getColumn(), new ColumnWeightData(1));
 	    dateDebut.setLabelProvider(new ColDebLP());
 	    	    	    
@@ -170,33 +148,27 @@ public class VSprint {
 	    
 	    
 	    TableViewerColumn action= new TableViewerColumn(tvSprint, SWT.NONE);
-	    action.getColumn().setText("Actions #");
+	    action.getColumn().setText("Actions");
 	    layout.setColumnData(action.getColumn(), new ColumnWeightData(1));
 	    action.setLabelProvider(new ColLbProvider(this));
-	    
+
 	    
 	    tableSprint.setHeaderVisible(true);
 	    tableSprint.setLinesVisible(true);
 	    
 	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
-	    Button btnNewButton = new Button(shellSprint, SWT.NONE);
+	    btAddSprint = new Button(shellSprint, SWT.NONE);
 	    FormData fd_btnNewButton = new FormData();
 	    fd_btnNewButton.top = new FormAttachment(0, 148);
 	    fd_btnNewButton.right = new FormAttachment(100);
-	    btnNewButton.setLayoutData(fd_btnNewButton);
-	    btnNewButton.setText("Ajouter Sprint");
-	    btnNewButton.setImage(imAdd);	    
+	    btAddSprint.setLayoutData(fd_btnNewButton);
+	    btAddSprint.setText("Ajouter Sprint");
+	    btAddSprint.setImage(imAdd);	    
 	    composite.layout(true, true);
 	
 			
 		}
 
-	public TableColumnLayout gettLayout() {
-		return tLayout;
-	}
-
-	public void settLayout(TableColumnLayout tLayout) {
-		this.tLayout = tLayout;
-	}
+	
 }
 
