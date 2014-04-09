@@ -82,6 +82,8 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getTxtPriorite().setText(selectedUserStory.getPriority().toString());
 				vAddUserStorie.getCbvSprint().setSelection(new StructuredSelection(selectedUserStory.getSprint()));
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
+				vAddUserStorie.getBtnSupprimerUserstory().setVisible(true);
+				vAddUserStorie.getBtnModifierUserStory().setVisible(true);
 			}
 			
 			@Override
@@ -172,6 +174,8 @@ public class UserStorieController implements SelectionListener {
 				trans.commit();
 				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
+				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
+				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
 			}
 			
 			@Override

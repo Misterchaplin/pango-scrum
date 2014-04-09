@@ -29,7 +29,7 @@ public class VAddUserStorie {
 	private TabItem tbtmTodo;
 	private Table tblInProgress;
 	private Table tblDone;
-	private Table table;
+	private Table tblUserStory;
 	private ComboViewer cbvProjet;
 	private TableViewer tableViewer;
 	private Text txtNom;
@@ -51,7 +51,7 @@ public class VAddUserStorie {
 		return vAddUserStorie;
 	}
 	public Table getTable() {
-		return table;
+		return tblUserStory;
 	}
 	public Group getGrpUserstory() {
 		return grpUserstory;
@@ -165,11 +165,12 @@ public class VAddUserStorie {
 		SashForm sashTo2 = new SashForm(sashToDo, SWT.NONE);
 		
 		tblvUserStory = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
-		table = tblvUserStory.getTable();
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
-		formToolkit.paintBordersFor(table);
+		tblUserStory = tblvUserStory.getTable();
+		tblUserStory.setLinesVisible(true);
+		tblUserStory.setHeaderVisible(true);
+		formToolkit.paintBordersFor(tblUserStory);
 		sashTo2.setWeights(new int[] {1});
+		
 		
 		SashForm sashTo1 = new SashForm(sashToDo, SWT.NONE);
 		
@@ -189,6 +190,7 @@ public class VAddUserStorie {
 		btnSupprimerUserstory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/delete_UserStory.png"));
 		formToolkit.adapt(btnSupprimerUserstory, true, true);
 		btnSupprimerUserstory.setText("Supprimer UserStory");
+		btnSupprimerUserstory.setVisible(false);
 		
 		grpUserstory = new Group(composite, SWT.NONE);
 		grpUserstory.setText("UserStory");
@@ -271,6 +273,7 @@ public class VAddUserStorie {
 		btnModifierUserStory.setBounds(10, 112, 152, 40);
 		formToolkit.adapt(btnModifierUserStory, true, true);
 		btnModifierUserStory.setText("Modifier UserStory");
+		btnModifierUserStory.setVisible(false);
 		sashTo1.setWeights(new int[] {1});
 		sashToDo.setWeights(new int[] {31, 239, 257});
 		
