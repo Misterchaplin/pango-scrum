@@ -4,11 +4,14 @@ package net.models;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -98,5 +101,16 @@ public class Product implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return name;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+			return false;
+		if(obj.getClass().equals(this.getClass())){
+			Product product=(Product) obj;
+			return id.equals(product.getId());
+		}
+		return false;
 	}
 }
