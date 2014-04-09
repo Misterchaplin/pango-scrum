@@ -2,11 +2,8 @@ package net.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.models.Sprint;
-import net.technics.TvSprintProvider;
 import net.vues.VSprint;
-
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -26,6 +23,10 @@ public class SprintController implements SelectionListener {
 		vSprint.getTvSprint().setInput(sprints);
 
 	}
+
+
+
+
 
 	// chargement d'un product , en attendant la partie d'Anthony
 	private List<Sprint> getSprint() {
