@@ -11,6 +11,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -103,10 +106,21 @@ public class Sprint implements java.io.Serializable {
 	public void setUserstories(Set<Userstory> userstories) {
 		this.userstories = userstories;
 	}
-
+    
+	
 	@Override
 	public String toString() {
 		return label;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+			return false;
+		if(obj.getClass().equals(this.getClass())){
+			Sprint sprint=(Sprint) obj;
+			return id.equals(sprint.getId());
+		}
+		return false;
+	}
 }
