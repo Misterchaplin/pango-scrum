@@ -163,31 +163,26 @@ public class OverviewController implements SelectionListener {
 	}
 
 	public void initTotalPoint() {
-		List<Userstory> userstories = new ArrayList<Userstory>();
-		userstories = getUserstoryTotalPoint();
 
-		vOverview.getLblAfficherPointProjet().setText(String.valueOf(userstories));
+		vOverview.getLblAfficherPointProjet().setText(getUserstoryTotalPoint() + "");
 	}
 
-	private List<Userstory> getUserstoryTotalPoint() {
+	private int getUserstoryTotalPoint() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3");
-		List<Userstory> totalPoint = query.list();
+		int totalPoint = Integer.valueOf(query.uniqueResult() + "");
 		return totalPoint;
 
 	}
 
 	public void initDonePoint() {
-		List<Userstory> userstories = new ArrayList<Userstory>();
-		userstories = getUserstoryDonePoint();
-
-		vOverview.getLblAfficherPointSprint().setText(String.valueOf(userstories));
+		vOverview.getLblAfficherPointSprint().setText(getUserstoryDonePoint() + "");
 	}
 
-	private List<Userstory> getUserstoryDonePoint() {
+	private int getUserstoryDonePoint() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3 AND finishedAt != Null");
-		List<Userstory> totalPointFinished = query.list();
+		int totalPointFinished = Integer.valueOf(query.uniqueResult() + "");
 		return totalPointFinished;
 
 	}
