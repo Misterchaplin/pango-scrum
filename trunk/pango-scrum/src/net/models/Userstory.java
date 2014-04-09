@@ -47,7 +47,19 @@ public class Userstory implements java.io.Serializable {
 	public Userstory(Status status) {
 		this.status = status;
 	}
-
+	public Userstory(Sprint sprint, Product product, Status status,
+			String label, String description, Integer storyPoints,
+			Integer priority, Date finishedAt){
+		this.sprint = sprint;
+		this.product = product;
+		this.status = status;
+		this.label = label;
+		this.description = description;
+		this.storyPoints = storyPoints;
+		this.priority = priority;
+		this.finishedAt = finishedAt;
+	}
+	
 	public Userstory(Sprint sprint, Product product, Status status,
 			String label, String description, Integer storyPoints,
 			Integer priority, Date finishedAt, Set<Comment> comments,
