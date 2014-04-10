@@ -6,6 +6,7 @@ import net.models.PlayroleId;
 import net.models.Role;
 import net.technics.DAOCollaborator;
 import net.vues.VAffectationCollaborator;
+import net.vues.VAffectationScrumMasterProjet;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.SelectionEvent;
@@ -152,8 +153,11 @@ public class AffectationController {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-
+				VAffectationScrumMasterProjet vAffectationScrumMasterProjet = new VAffectationScrumMasterProjet();
+				AffectationScrumMasterProjetController affectationScrumMasterController = new AffectationScrumMasterProjetController(vAffectationScrumMasterProjet);
+				vAffectationScrumMasterProjet.init();
+				affectationScrumMasterController.init();
+				vAffectationScrumMasterProjet.open();
 			}
 
 			@Override
