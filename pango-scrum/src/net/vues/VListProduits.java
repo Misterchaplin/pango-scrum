@@ -147,7 +147,7 @@ public class VListProduits {
 		btnSupprimerProduits = new Button(grpProduits, SWT.NONE);
 		btnSupprimerProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/delete.png"));
 		btnSupprimerProduits.setBounds(516, 179, 194, 40);
-		btnSupprimerProduits.setText("Supprimer ce collaborateur");
+		btnSupprimerProduits.setText("Supprimer ce produit");
 
 
 		composite = new Composite(sashForm, SWT.NONE);
@@ -174,18 +174,18 @@ public class VListProduits {
 		}
 		
 		Label lblNom = new Label(grpProduits, SWT.NONE);
-		lblNom.setBounds(43, 84, 39, 15);
+		lblNom.setBounds(43, 46, 39, 15);
 		lblNom.setText("Nom:");
 		
-		Label lblLogin = new Label(grpProduits, SWT.NONE);
-		lblLogin.setBounds(43, 46, 39, 15);
-		lblLogin.setText("description :");
+		Label lbdescriptif = new Label(grpProduits, SWT.NONE);
+		lbdescriptif.setBounds(43, 84, 39, 15);
+		lbdescriptif.setText("description :");
 
 		txtNomProduit = new Text(grpProduits, SWT.BORDER);
-		txtNomProduit.setBounds(606, 81, 239, 21);
+		txtNomProduit.setBounds(119, 43, 239, 21);
 
 		txtDescriptif = new Text(grpProduits, SWT.BORDER);
-		txtDescriptif.setBounds(119, 123, 328, 21);
+		txtDescriptif.setBounds(119, 81, 238, 21);
 
 		btnValider = new Button(grpProduits, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
