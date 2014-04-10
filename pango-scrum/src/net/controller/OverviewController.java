@@ -3,6 +3,7 @@ package net.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.models.Collaborator;
 import net.models.Sprint;
 import net.models.Userstory;
 import net.technics.HibernateUtil;
@@ -23,6 +24,7 @@ public class OverviewController implements SelectionListener {
 	private Integer totalPoint;
 	private Integer point;
 	private Integer totalPointFinished;
+	private String collab;
 
 	public OverviewController(VOverview vOverview) {
 		this.vOverview = vOverview;
@@ -171,7 +173,12 @@ public class OverviewController implements SelectionListener {
 	private int getUserstoryTotalPoint() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3");
-		int totalPoint = Integer.valueOf(query.uniqueResult() + "");
+		if (query.uniqueResult() == null) {
+			totalPoint = 0;
+		}
+		else {
+			totalPoint = Integer.valueOf(query.uniqueResult() + "");
+		}
 		return totalPoint;
 
 	}
@@ -191,6 +198,34 @@ public class OverviewController implements SelectionListener {
 		}
 
 		return totalPointFinished;
+
+	}
+
+	public void initCustomer() {
+		vOverview.getAfficherLblCustomerName().setText(getCustomer() + "");
+	}
+
+	private String getCustomer() {
+		Session session = HibernateUtil.getSession();
+		// Query query = session.createQuery("From playrole where idproduct=" +
+		// ProductController.getSelectedProduct().getId() + " AND idrole= 2");
+		String sql = "SELECT c FROM Collaborator AS c JOIN c.playroles AS pl "
+				+ "JOIN pl.product AS p "
+				+ "JOIN pl.role AS r "
+				+ "WHERE p.id=3 AND r.id=2";
+
+		Query query = session.createQuery(sql);
+
+		if (query.uniqueResult() == null) {
+			collab = "Personne";
+		}
+		else {
+			Collaborator collaborators = (Collaborator) query.uniqueResult();
+
+			collab = collaborators.getFirstname() + " " + collaborators.getLastname();
+		}
+
+		return collab;
 
 	}
 
