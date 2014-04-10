@@ -8,6 +8,12 @@ import net.controller.ProductController;
 import net.models.Collaborator;
 import net.models.Playrole;
 
+/**
+ * Classe technique d'accès aux données pour la table Collaborator
+ * 
+ * @author PENELOPE
+ * 
+ */
 public class DAOCollaborator {
 
 	/**
