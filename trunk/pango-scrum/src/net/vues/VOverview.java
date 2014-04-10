@@ -35,6 +35,7 @@ public class VOverview {
 	private Label lblAfficherPointProjet;
 
 	private Label lblAfficherPointSprint;
+	private Label lblAfficherCustomerName;
 
 	/**
 	 * Launch the application.
@@ -133,6 +134,10 @@ public class VOverview {
 		this.lblAfficherPointSprint = lblAfficherPointSprint;
 	}
 
+	public Label getAfficherLblCustomerName() {
+		return lblAfficherCustomerName;
+	}
+
 	/**
 	 * Create contents of the window.
 	 * 
@@ -173,24 +178,31 @@ public class VOverview {
 		lblSummaryAvance.setText("Avancée dans le projet");
 
 		Label lblPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
-		lblPointProjet.setBounds(26, 62, 121, 15);
+		lblPointProjet.setBounds(26, 129, 121, 15);
 		lblPointProjet.setText("Total point du projet");
 
 		lblAfficherPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
-		lblAfficherPointProjet.setBounds(176, 62, 55, 15);
+		lblAfficherPointProjet.setBounds(176, 129, 55, 15);
 
 		Label lblPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
-		lblPointSprint.setBounds(27, 95, 108, 15);
-		lblPointSprint.setText("Total point du sprint");
+		lblPointSprint.setBounds(27, 160, 120, 15);
+		lblPointSprint.setText("Total point des sprints");
 
 		lblAfficherPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
-		lblAfficherPointSprint.setBounds(176, 95, 55, 15);
+		lblAfficherPointSprint.setBounds(176, 160, 55, 15);
 
 		Label lblDf = new Label(compositeSummaryProduct, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.SHADOW_NONE);
 		lblDf.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_CYAN));
 		lblDf.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
 		lblDf.setText("lblSeparatorSummary");
-		lblDf.setBounds(26, 40, 228, 2);
+		lblDf.setBounds(26, 81, 228, 2);
+
+		Label lblClient = new Label(compositeSummaryProduct, SWT.NONE);
+		lblClient.setBounds(37, 48, 55, 15);
+		lblClient.setText("Client :");
+
+		lblAfficherCustomerName = new Label(compositeSummaryProduct, SWT.NONE);
+		lblAfficherCustomerName.setBounds(129, 48, 212, 15);
 		sashFormSummaryProduct.setWeights(new int[] { 1 });
 		sashFormSummary.setWeights(new int[] { 61, 244 });
 
@@ -202,7 +214,7 @@ public class VOverview {
 
 		// Créer une colonne
 		TableColumn col = new TableColumn(tableSprintRecent, SWT.CENTER);
-		col.setWidth(415);
+		col.setWidth(423);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
 		col.setText("Sprints");
@@ -212,18 +224,19 @@ public class VOverview {
 		tableSprintRecent.setLinesVisible(true);
 
 		sashForm_1.setWeights(new int[] { 244 });
-		sashForm.setWeights(new int[] { 355, 426 });
+		sashForm.setWeights(new int[] { 351, 430 });
 
 		SashForm sashForm_3 = new SashForm(sashFormContainOverview, SWT.NONE);
 
 		Composite composite = new Composite(sashForm_3, SWT.NONE);
 
 		btnSprintRecent = new Button(composite, SWT.NONE);
-		btnSprintRecent.setBounds(527, 10, 88, 25);
+		btnSprintRecent.setBounds(526, 10, 88, 25);
 		btnSprintRecent.setText("Voir les sprints");
 		sashForm_3.setWeights(new int[] { 1 });
 
 		SashForm sashFormProgression = new SashForm(sashFormContainOverview, SWT.VERTICAL);
+		sashFormProgression.setSashWidth(7);
 
 		SashForm sashFormTableProgression = new SashForm(sashFormProgression, SWT.NONE);
 		sashFormTableProgression.setSashWidth(7);
@@ -255,7 +268,7 @@ public class VOverview {
 		tableDone = tableViewer3.getTable();
 		// Créer une colonne
 		TableColumn col3 = new TableColumn(tableDone, SWT.CENTER);
-		col3.setWidth(252);
+		col3.setWidth(250);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
 		col3.setText("Fait");
@@ -265,6 +278,7 @@ public class VOverview {
 		sashFormTableProgression.setWeights(new int[] { 1, 1, 1 });
 
 		SashForm sashFormLink = new SashForm(sashFormProgression, SWT.NONE);
+		sashFormLink.setSashWidth(7);
 
 		SashForm sashFormLinkToDo = new SashForm(sashFormLink, SWT.NONE);
 
