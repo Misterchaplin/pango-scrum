@@ -22,6 +22,7 @@ public class OverviewController implements SelectionListener {
 	private int i;
 	private Integer totalPoint;
 	private Integer point;
+	private Integer totalPointFinished;
 
 	public OverviewController(VOverview vOverview) {
 		this.vOverview = vOverview;
@@ -182,7 +183,13 @@ public class OverviewController implements SelectionListener {
 	private int getUserstoryDonePoint() {
 		Session session = HibernateUtil.getSession();
 		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3 AND finishedAt IS NOT Null");
-		int totalPointFinished = Integer.valueOf(query.uniqueResult() + "");
+		if (query.uniqueResult() == null) {
+			totalPointFinished = 0;
+		}
+		else {
+			totalPointFinished = Integer.valueOf(query.uniqueResult() + "");
+		}
+
 		return totalPointFinished;
 
 	}
