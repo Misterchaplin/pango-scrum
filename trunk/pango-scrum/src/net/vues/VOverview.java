@@ -156,6 +156,7 @@ public class VOverview {
 		Composite compositeSummaryLabel = new Composite(sashFormSummaryLabel, SWT.NONE);
 
 		Label lblSummary = new Label(compositeSummaryLabel, SWT.NONE);
+		lblSummary.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_CYAN));
 		lblSummary.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
 		lblSummary.setBounds(26, 23, 100, 28);
 		lblSummary.setText("Summary");
@@ -164,7 +165,7 @@ public class VOverview {
 		SashForm sashFormSummaryProduct = new SashForm(sashFormSummary, SWT.NONE);
 
 		Composite compositeSummaryProduct = new Composite(sashFormSummaryProduct, SWT.NONE);
-		compositeSummaryProduct.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		compositeSummaryProduct.setForeground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 
 		Label lblSummaryAvance = new Label(compositeSummaryProduct, SWT.NONE);
 		lblSummaryAvance.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
@@ -225,13 +226,14 @@ public class VOverview {
 		SashForm sashFormProgression = new SashForm(sashFormContainOverview, SWT.VERTICAL);
 
 		SashForm sashFormTableProgression = new SashForm(sashFormProgression, SWT.NONE);
+		sashFormTableProgression.setSashWidth(7);
 
 		tableViewer = new TableViewer(sashFormTableProgression, SWT.BORDER | SWT.FULL_SELECTION);
 
 		tableToDo = tableViewer.getTable();
 		// Créer une colonne
 		TableColumn col1 = new TableColumn(tableToDo, SWT.CENTER);
-		col1.setWidth(255);
+		col1.setWidth(252);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
 		col1.setText("A faire");
@@ -242,7 +244,7 @@ public class VOverview {
 		tableInProgress = tableViewer2.getTable();
 		// Créer une colonne
 		TableColumn col2 = new TableColumn(tableInProgress, SWT.CENTER);
-		col2.setWidth(255);
+		col2.setWidth(252);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
 		col2.setText("En cours");
@@ -253,7 +255,7 @@ public class VOverview {
 		tableDone = tableViewer3.getTable();
 		// Créer une colonne
 		TableColumn col3 = new TableColumn(tableDone, SWT.CENTER);
-		col3.setWidth(255);
+		col3.setWidth(252);
 
 		// layout.setColumnData(col, new ColumnWeightData(1));
 		col3.setText("Fait");
