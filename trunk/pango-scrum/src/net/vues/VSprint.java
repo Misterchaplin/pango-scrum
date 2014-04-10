@@ -1,31 +1,27 @@
 package net.vues;
 
-import java.util.GregorianCalendar;
 
-import net.technics.ColDebLP;
-import net.technics.ColFinLP;
-import net.technics.ColLbProvider;
-import net.technics.ColSprintLP;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DateTime;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
@@ -41,11 +37,37 @@ public class VSprint {
 	private Text newNameSprint;
 	private DateTime dateDebut;
 	private DateTime dateFin;
-	private GregorianCalendar gc;
+	private Button btnModifierSprint;
+	private Button btnSupprimer;
+	private Button btnValider;
 	
 	
+	public Button getBtnValider() {
+		return btnValider;
+	}
+
+	public void setBtnValider(Button btnValider) {
+		this.btnValider = btnValider;
+	}
+
 	public Text getnewNameSprint() {
 		return newNameSprint;
+	}
+	
+	public Button getBtnModifierSprint() {
+		return btnModifierSprint;
+	}
+
+	public void setBtnModifierSprint(Button btnModifierSprint) {
+		this.btnModifierSprint = btnModifierSprint;
+	}
+
+	public Button getBtnSupprimer() {
+		return btnSupprimer;
+	}
+
+	public void setBtnSupprimer(Button btnSupprimer) {
+		this.btnSupprimer = btnSupprimer;
 	}
 
 	public void setnewNameSprint(Text text) {
@@ -169,17 +191,17 @@ public class VSprint {
 	    TableViewerColumn TcLblSprint= new TableViewerColumn(tvSprint, SWT.NONE);
 	    TcLblSprint.getColumn().setText("Sprint");
 	    layout.setColumnData(TcLblSprint.getColumn(), new ColumnWeightData(1));
-	    TcLblSprint.setLabelProvider(new ColSprintLP());
+	    //TcLblSprint.setLabelProvider(new ColSprintLP());
 	    
 	    TableViewerColumn cdateDebut= new TableViewerColumn(tvSprint, SWT.NONE);
 	    cdateDebut.getColumn().setText("Date de début");
 	    layout.setColumnData(cdateDebut.getColumn(), new ColumnWeightData(1));
-	    cdateDebut.setLabelProvider(new ColDebLP());
+	    //cdateDebut.setLabelProvider(new ColDebLP());
 	    	    	    
 	    TableViewerColumn cdateFin= new TableViewerColumn(tvSprint, SWT.NONE);
 	    cdateFin.getColumn().setText("Date de fin");
 	    layout.setColumnData(cdateFin.getColumn(), new ColumnWeightData(1));
-	    cdateFin.setLabelProvider(new ColFinLP());
+	   // cdateFin.setLabelProvider(new ColFinLP());
 	    
 	    tableSprint.setHeaderVisible(true);
 	    tableSprint.setLinesVisible(true);
@@ -188,13 +210,14 @@ public class VSprint {
 	    composite_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 	    
 	    Composite composite_2 = new Composite(composite_1, SWT.NONE);
+	    composite_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 	    composite_2.setBounds(0, 0, 766, 271);
 	    
 	    Group grpAjouterUnSprint = new Group(composite_2, SWT.SHADOW_OUT);
 	    grpAjouterUnSprint.setLocation(384, 0);
 	    grpAjouterUnSprint.setSize(382, 271);
 	    grpAjouterUnSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-	    grpAjouterUnSprint.setText("Ajouter un sprint");
+	    grpAjouterUnSprint.setText("Ajouter/Modifier un sprint");
 	    grpAjouterUnSprint.setLayout(null);
 	    
 	    Label lblNom = new Label(grpAjouterUnSprint, SWT.NONE);
@@ -222,7 +245,7 @@ public class VSprint {
 	    dateFin = new DateTime(grpAjouterUnSprint,SWT.DATE);
 	    dateFin.setBounds(150, 142, 93, 24);
 	    
-	    Button btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
+	    btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
 	    btnValider.setBounds(152, 202, 74, 25);
 	    btnValider.setText("Valider");
 	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
@@ -232,15 +255,14 @@ public class VSprint {
 	    btAddSprint.setText("Ajouter Sprint");
 	    btAddSprint.setImage(imAdd);	    
 	    
-	    Button btnModifierSprint = new Button(composite_2, SWT.NONE);
+	    btnModifierSprint = new Button(composite_2, SWT.NONE);
 	    btnModifierSprint.setBounds(10, 99, 191, 56);
 	    btnModifierSprint.setText("Modifier sprint");
 	    
-	    Button btnSupprimer = new Button(composite_2, SWT.NONE);
+	    btnSupprimer = new Button(composite_2, SWT.NONE);
 	    btnSupprimer.setBounds(10, 161, 191, 48);
 	    btnSupprimer.setText("Supprimer");
 
-	    
 	  
 	
 	  

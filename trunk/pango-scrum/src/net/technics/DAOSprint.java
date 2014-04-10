@@ -130,8 +130,7 @@ public class DAOSprint {
 		Event event;
 		Userstory userStory;
 		Set<Event> evenements = new HashSet<Event>();
-		Set<Participate> participants = new HashSet<Participate>();
-		Set<Userstory> stories = new HashSet<Userstory>();
+		
 		product = (Product) session.get(Product.class, 3);
 		Sprint sprint1 = new Sprint(product);
 		sprint1.setLabel(sprint.getnewNameSprint().getText());
@@ -145,17 +144,28 @@ public class DAOSprint {
 		evenements.add(event);
 		session.persist(event);
 		sprint1.setEvents(evenements);
-
-		
+	
 		
 		trans.commit();
 		session.close();
 		
 		return sprint1;
 		
+	}
+	
+	public static void updateDate(Sprint sprint,Date newDate, Date oldDate){
+		Session session = HibernateUtil.getSession();
+		Transaction trans = session.beginTransaction();
+		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
 		
-		
-		
-		
+		String updateHql = "update Event set eventDate=:newDate where sprint.name=:leSprint And eventDate=:oldDate";
+		Query query=session.createQuery(updateHql);
+		query.setString("newDate", formatter.format(newDate));
+		query.setString("leSprint", sprint.getLabel());		
+		query.setString("oldDate",formatter.format(oldDate));
+		query.executeUpdate();
+		trans.commit();
+		session.close();
+				
 	}
 }
