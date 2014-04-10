@@ -40,7 +40,7 @@ public class AccueilController implements SelectionListener {
 				// si on se déconnecte
 				else {
 					AppController.setActiveUser(null);
-					vAccueil.getItemConnexion().setText("Connexion");
+					vAccueil.getItemConnexion().setText("Déconnexion");
 					vAccueil.getItemProduits().setText("");
 					vAccueil.getItemProduits().setEnabled(false);
 					vAccueil.getItemCollaborateurs().setText("");
