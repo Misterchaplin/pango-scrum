@@ -186,7 +186,7 @@ public class VAffectationCollaborator {
 		fd_btnDefineScrumMaster.top = new FormAttachment(0, 121);
 		fd_btnDefineScrumMaster.left = new FormAttachment(0, 291);
 		btnDefineScrumMaster.setLayoutData(fd_btnDefineScrumMaster);
-		btnDefineScrumMaster.setText("Définir");
+		btnDefineScrumMaster.setText("Définir...");
 
 		btnAddCollaborators = new Button(vAffectationCollaborator, SWT.NONE);
 		FormData fd_btnAddCollaborators = new FormData();
