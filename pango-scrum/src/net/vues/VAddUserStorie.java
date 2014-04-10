@@ -203,10 +203,10 @@ public class VAddUserStorie {
 		
 		grpUserstory = new Group(composite, SWT.NONE);
 		grpUserstory.setText("UserStory");
-		grpUserstory.setBounds(213, 10, 553, 238);
+		grpUserstory.setBounds(167, 10, 599, 238);
 		formToolkit.adapt(grpUserstory);
 		formToolkit.paintBordersFor(grpUserstory);
-		grpUserstory.setVisible(false);
+		grpUserstory.setVisible(true);
 		
 		Label lblNom = new Label(grpUserstory, SWT.NONE);
 		lblNom.setBounds(10, 35, 39, 15);
@@ -214,56 +214,58 @@ public class VAddUserStorie {
 		formToolkit.adapt(lblNom, true, true);
 		
 		txtNom = new Text(grpUserstory, SWT.BORDER);
-		txtNom.setBounds(119, 32, 171, 23);
+		txtNom.setBounds(119, 32, 245, 23);
 		formToolkit.adapt(txtNom, true, true);
 		
-		txtDescription = new Text(grpUserstory, SWT.BORDER);
-		txtDescription.setBounds(119, 72, 171, 59);
+		txtDescription = new Text(grpUserstory, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		txtDescription.setBounds(119, 61, 245, 72);
+		txtDescription.setTextLimit(120);
 		formToolkit.adapt(txtDescription, true, true);
 		
+		
 		txtPtAttribue = new Text(grpUserstory, SWT.BORDER);
-		txtPtAttribue.setBounds(119, 148, 171, 23);
+		txtPtAttribue.setBounds(482, 90, 91, 23);
 		formToolkit.adapt(txtPtAttribue, true, true);
 		
 		Label lblDescription = new Label(grpUserstory, SWT.NONE);
-		lblDescription.setBounds(10, 75, 69, 15);
+		lblDescription.setBounds(10, 64, 69, 15);
 		formToolkit.adapt(lblDescription, true, true);
 		lblDescription.setText("Description : ");
 		
 		Label lblPtAttribue = new Label(grpUserstory, SWT.NONE);
-		lblPtAttribue.setBounds(10, 151, 91, 15);
+		lblPtAttribue.setBounds(385, 93, 91, 15);
 		formToolkit.adapt(lblPtAttribue, true, true);
 		lblPtAttribue.setText("Points attribu\u00E9s : ");
 		
 		Label lblSprint = formToolkit.createLabel(grpUserstory, "Sprint : ", SWT.NONE);
-		lblSprint.setBounds(350, 35, 45, 15);
+		lblSprint.setBounds(385, 35, 45, 15);
 		
 		Label lblProjet = new Label(grpUserstory, SWT.NONE);
-		lblProjet.setBounds(350, 91, 40, 15);
+		lblProjet.setBounds(385, 64, 40, 15);
 		lblProjet.setText("Projet : ");
 		formToolkit.adapt(lblProjet, true, true);
 		
 		Label lblPriorite = new Label(grpUserstory, SWT.NONE);
-		lblPriorite.setBounds(350, 137, 49, 15);
+		lblPriorite.setBounds(385, 122, 49, 15);
 		formToolkit.adapt(lblPriorite, true, true);
 		lblPriorite.setText("Priorit\u00E9 :");
 		
 		cbvSprint = new ComboViewer(grpUserstory, SWT.NONE);
 		cbSprint = cbvSprint.getCombo();
-		cbSprint.setBounds(414, 32, 91, 23);
+		cbSprint.setBounds(482, 32, 91, 23);
 		formToolkit.paintBordersFor(cbSprint);
 		
 		cbvProjet = new ComboViewer(grpUserstory, SWT.NONE);
 		Combo cbProjet = cbvProjet.getCombo();
-		cbProjet.setBounds(414, 88, 91, 23);
+		cbProjet.setBounds(482, 61, 91, 23);
 		formToolkit.paintBordersFor(cbProjet);
 		
 		txtPriorite = new Text(grpUserstory, SWT.BORDER);
-		txtPriorite.setBounds(414, 134, 91, 23);
+		txtPriorite.setBounds(482, 119, 91, 23);
 		formToolkit.adapt(txtPriorite, true, true);
 		
 		btnValider = new Button(grpUserstory, SWT.NONE);
-		btnValider.setBounds(322, 188, 109, 40);
+		btnValider.setBounds(349, 188, 109, 40);
 		btnValider.setText("Valider");
 		btnValider.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/accept.png"));
 		formToolkit.adapt(btnValider, true, true);
@@ -271,7 +273,7 @@ public class VAddUserStorie {
 		//composite.setTabList(new Control[]{btnAjouterUserstorie, txtNom, txtDescription, txtPtAttribue, cbSprint, cbProjet, txtPriorite, btnValider, btnAnnuler, btnSupprimerUserstory});
 		
 		btnAnnuler = new Button(grpUserstory, SWT.NONE);
-		btnAnnuler.setBounds(434, 188, 109, 40);
+		btnAnnuler.setBounds(480, 188, 109, 40);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
 		formToolkit.adapt(btnAnnuler, true, true);

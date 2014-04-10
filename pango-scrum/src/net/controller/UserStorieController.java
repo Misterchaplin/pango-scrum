@@ -13,6 +13,9 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.MessageBox;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -80,7 +83,14 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getTxtDescription().setText(selectedUserStory.getDescription());
 				vAddUserStorie.getTxtPtAttribue().setText(selectedUserStory.getStoryPoints().toString());
 				vAddUserStorie.getTxtPriorite().setText(selectedUserStory.getPriority().toString());
-				vAddUserStorie.getCbvSprint().setSelection(new StructuredSelection(selectedUserStory.getSprint()));
+				if(selectedUserStory.getSprint() != null){
+					vAddUserStorie.getCbvSprint().setSelection(new StructuredSelection(selectedUserStory.getSprint()));
+				}else{
+					String label = "Aucun";
+					Sprint sprint = new Sprint(label);
+					getSprint().add(sprint);
+					vAddUserStorie.getCbSprint().setText("Aucun");
+				}
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
 				vAddUserStorie.getBtnSupprimerUserstory().setVisible(true);
 				vAddUserStorie.getBtnModifierUserStory().setVisible(true);
@@ -198,6 +208,46 @@ public class UserStorieController implements SelectionListener {
 				// TODO Auto-generated method stub
 			}
 		});
+		
+		// Permet à la textbox de prendre que des chiffres pour les Points attribué à cette UserStory
+		vAddUserStorie.getTxtPtAttribue().addVerifyListener(new VerifyListener() {
+			@Override
+			public void verifyText(VerifyEvent event) {
+				 switch (event.keyCode) {  
+		            case SWT.BS:           // Backspace  
+		            case SWT.DEL:          // Delete  
+		            case SWT.HOME:         // Home  
+		            case SWT.END:          // End  
+		            case SWT.ARROW_LEFT:   // Left arrow  
+		            case SWT.ARROW_RIGHT:  // Right arrow  
+		                return;  
+		        }  
+		  
+		        if (!Character.isDigit(event.character)) {  
+		            event.doit = false;  // disallow the action  
+		        }  
+			}
+		}); 
+		
+		// Permet à la textbox de prendre que des chiffres pour la priorité de la UserStory
+		vAddUserStorie.getTxtPriorite().addVerifyListener(new VerifyListener() {
+			@Override
+			public void verifyText(VerifyEvent event) {
+				 switch (event.keyCode) {  
+			           case SWT.BS:           // Backspace  
+			           case SWT.DEL:          // Delete  
+			           case SWT.HOME:         // Home  
+			           case SWT.END:          // End  
+			           case SWT.ARROW_LEFT:   // Left arrow  
+			           case SWT.ARROW_RIGHT:  // Right arrow  
+			               return;  
+			       }  
+				  
+			       if (!Character.isDigit(event.character)) {  
+			           event.doit = false;  // disallow the action  
+			       }  
+			}
+		});  
 	}
 
 	/**
@@ -219,7 +269,7 @@ public class UserStorieController implements SelectionListener {
 	
 	private List<Sprint> getSprint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Sprint");
+		Query query = session.createQuery("FROM Sprint");//SELECT label FROM Sprint WHERE idproduct="+ ProductController.getSelectedProduct().getId());
 		List<Sprint> lessprints = query.list();
 		return lessprints;
 	}

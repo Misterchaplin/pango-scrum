@@ -40,6 +40,12 @@ public class Sprint implements java.io.Serializable {
 	public Sprint(Product product) {
 		this.product = product;
 	}
+	
+	
+
+	public Sprint(String label) {
+		this.label = label;
+	}
 
 	public Sprint(Product product, String label, Set<Event> events,
 			Set<Participate> participates, Set<Userstory> userstories) {
