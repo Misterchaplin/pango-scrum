@@ -1,5 +1,7 @@
 package net.vues;
 
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -19,6 +21,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.TableColumn;
 
 public class VAddUserStorie {
 
@@ -45,6 +48,7 @@ public class VAddUserStorie {
 	private TableViewer tblvUserStory;
 	private Group grpUserstory;
 	private Button btnModifierUserStory;
+	private TableColumnLayout tLayout;
 	
 
 	public Shell getShlProductBacklog() {
@@ -163,12 +167,17 @@ public class VAddUserStorie {
 		sashTo3.setWeights(new int[] {1});
 		
 		SashForm sashTo2 = new SashForm(sashToDo, SWT.NONE);
+		tLayout = new TableColumnLayout();
+		sashTo2.setLayout(tLayout);
 		
 		tblvUserStory = new TableViewer(sashTo2, SWT.BORDER | SWT.FULL_SELECTION);
 		tblUserStory = tblvUserStory.getTable();
 		tblUserStory.setLinesVisible(true);
 		tblUserStory.setHeaderVisible(true);
 		formToolkit.paintBordersFor(tblUserStory);
+		
+		createColumn(tblUserStory, "Nom des UserStory", 1);
+		
 		sashTo2.setWeights(new int[] {1});
 		
 		
@@ -353,5 +362,13 @@ public class VAddUserStorie {
 		sashDone.setWeights(new int[] {31, 282, 214});
 		sashGeneralProductBackLog.setWeights(new int[] {1});
 
+	}
+
+
+	public void createColumn(Table table, String caption, int weight) {
+		TableColumn col = new TableColumn(table, SWT.NONE);
+		col.setWidth(773);
+		col.setText("Nom des UserStory");
+		tLayout.setColumnData(col, new ColumnWeightData(weight));
 	}
 }
