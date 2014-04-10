@@ -105,7 +105,7 @@ public class VListProduits {
 				display.sleep();
 			}
 		}
-		AccueilController.nbOpenedWindowCollaborator = 0;
+		AccueilController.nbOpenedWindowProduit = 0;
 	}
 
 	/**
