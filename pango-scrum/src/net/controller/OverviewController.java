@@ -181,7 +181,7 @@ public class OverviewController implements SelectionListener {
 
 	private int getUserstoryDonePoint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3 AND finishedAt != Null");
+		Query query = session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =3 AND finishedAt IS NOT Null");
 		int totalPointFinished = Integer.valueOf(query.uniqueResult() + "");
 		return totalPointFinished;
 

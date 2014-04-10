@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class VOverview {
 
@@ -155,31 +156,40 @@ public class VOverview {
 		Composite compositeSummaryLabel = new Composite(sashFormSummaryLabel, SWT.NONE);
 
 		Label lblSummary = new Label(compositeSummaryLabel, SWT.NONE);
-		lblSummary.setBounds(28, 23, 55, 15);
+		lblSummary.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
+		lblSummary.setBounds(26, 23, 100, 28);
 		lblSummary.setText("Summary");
 		sashFormSummaryLabel.setWeights(new int[] { 1 });
 
 		SashForm sashFormSummaryProduct = new SashForm(sashFormSummary, SWT.NONE);
 
 		Composite compositeSummaryProduct = new Composite(sashFormSummaryProduct, SWT.NONE);
+		compositeSummaryProduct.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
 
 		Label lblSummaryAvance = new Label(compositeSummaryProduct, SWT.NONE);
-		lblSummaryAvance.setBounds(26, 10, 130, 22);
+		lblSummaryAvance.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		lblSummaryAvance.setBounds(26, 10, 158, 22);
 		lblSummaryAvance.setText("Avancée dans le projet");
 
 		Label lblPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
-		lblPointProjet.setBounds(25, 48, 121, 15);
+		lblPointProjet.setBounds(26, 62, 121, 15);
 		lblPointProjet.setText("Total point du projet");
 
 		lblAfficherPointProjet = new Label(compositeSummaryProduct, SWT.NONE);
-		lblAfficherPointProjet.setBounds(176, 48, 55, 15);
+		lblAfficherPointProjet.setBounds(176, 62, 55, 15);
 
 		Label lblPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
-		lblPointSprint.setBounds(26, 79, 108, 15);
+		lblPointSprint.setBounds(27, 95, 108, 15);
 		lblPointSprint.setText("Total point du sprint");
 
 		lblAfficherPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
-		lblAfficherPointSprint.setBounds(176, 79, 55, 15);
+		lblAfficherPointSprint.setBounds(176, 95, 55, 15);
+
+		Label lblDf = new Label(compositeSummaryProduct, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.SHADOW_NONE);
+		lblDf.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_CYAN));
+		lblDf.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblDf.setText("lblSeparatorSummary");
+		lblDf.setBounds(26, 40, 228, 2);
 		sashFormSummaryProduct.setWeights(new int[] { 1 });
 		sashFormSummary.setWeights(new int[] { 61, 244 });
 
@@ -201,7 +211,7 @@ public class VOverview {
 		tableSprintRecent.setLinesVisible(true);
 
 		sashForm_1.setWeights(new int[] { 244 });
-		sashForm.setWeights(new int[] { 390, 421 });
+		sashForm.setWeights(new int[] { 355, 426 });
 
 		SashForm sashForm_3 = new SashForm(sashFormContainOverview, SWT.NONE);
 
