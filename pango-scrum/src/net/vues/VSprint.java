@@ -27,6 +27,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 
 public class VSprint {
@@ -135,12 +136,13 @@ public class VSprint {
 	 */
 	protected void createContents() {
 		shellSprint = new Shell();
-		shellSprint.setMinimumSize(new Point(800, 600));
-		shellSprint.setSize(922, 600);
+		shellSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_SELECTION_TEXT));
+		shellSprint.setSize(800, 600);
 		shellSprint.setText("Sprint");
         shellSprint.setLayout(new FormLayout());
 		
         Composite composite = new Composite(shellSprint, SWT.NONE);
+        composite.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
         FormData fd_composite = new FormData();
         fd_composite.bottom = new FormAttachment(0, 562);
         fd_composite.right = new FormAttachment(0, 766);
@@ -153,6 +155,7 @@ public class VSprint {
 	    
 	    
 	    Group GrpSprint = new Group(composite, SWT.NONE);
+	    GrpSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 	    GrpSprint.setSize(120, 200);
 	    GrpSprint.setToolTipText("");
 	    GrpSprint.setText("Planifié");
@@ -181,82 +184,64 @@ public class VSprint {
 	    tableSprint.setHeaderVisible(true);
 	    tableSprint.setLinesVisible(true);
 	    
-	    Group grpAjouterUnSprint = new Group(composite, SWT.SHADOW_OUT);
+	    Composite composite_1 = new Composite(composite, SWT.NONE);
+	    composite_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    
+	    Composite composite_2 = new Composite(composite_1, SWT.NONE);
+	    composite_2.setBounds(0, 0, 766, 271);
+	    
+	    Group grpAjouterUnSprint = new Group(composite_2, SWT.SHADOW_OUT);
+	    grpAjouterUnSprint.setLocation(384, 0);
+	    grpAjouterUnSprint.setSize(382, 271);
+	    grpAjouterUnSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 	    grpAjouterUnSprint.setText("Ajouter un sprint");
-	    grpAjouterUnSprint.setLayout(new FormLayout());
+	    grpAjouterUnSprint.setLayout(null);
 	    
 	    Label lblNom = new Label(grpAjouterUnSprint, SWT.NONE);
-	    FormData fd_lblNom = new FormData();
-	    fd_lblNom.left = new FormAttachment(0, 10);
-	    lblNom.setLayoutData(fd_lblNom);
+	    lblNom.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    lblNom.setBounds(51, 48, 70, 15);
 	    lblNom.setText("Nom :");
 	    
 	    newNameSprint = new Text(grpAjouterUnSprint, SWT.BORDER);
-	    fd_lblNom.right = new FormAttachment(newNameSprint, -19);
-	    FormData fd_text = new FormData();
-	    fd_text.top = new FormAttachment(lblNom, -3, SWT.TOP);
-	    fd_text.left = new FormAttachment(0, 78);
-	    fd_text.right = new FormAttachment(100, -567);
-	    newNameSprint.setLayoutData(fd_text);
+	    newNameSprint.setBounds(150, 45, 93, 21);
 	    
 	    Label lblDateDeDbut = new Label(grpAjouterUnSprint, SWT.NONE);
-	    fd_lblNom.bottom = new FormAttachment(100, -219);
-	    FormData fd_lblDateDeDbut = new FormData();
-	    fd_lblDateDeDbut.left = new FormAttachment(lblNom, 0, SWT.LEFT);
-	    lblDateDeDbut.setLayoutData(fd_lblDateDeDbut);
+	    lblDateDeDbut.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    lblDateDeDbut.setBounds(51, 110, 74, 15);
 	    lblDateDeDbut.setText("Date de début");
 	    
 	    dateDebut = new DateTime(grpAjouterUnSprint,SWT.DATE);
-	    FormData fd_dateDebut = new FormData();
-	    fd_dateDebut.top = new FormAttachment(newNameSprint, 29);
-	    fd_dateDebut.right = new FormAttachment(newNameSprint, 0, SWT.RIGHT);
-	    dateDebut.setLayoutData(fd_dateDebut);
-	    dateDebut.setSize(50, 10);
+	    dateDebut.setBounds(150, 100, 93, 25);
 	    
 	    
 	    Label lblDateDeFin = new Label(grpAjouterUnSprint, SWT.NONE);
-	    fd_lblDateDeDbut.bottom = new FormAttachment(lblDateDeFin, -26);
-	    FormData fd_lblDateDeFin = new FormData();
-	    fd_lblDateDeFin.top = new FormAttachment(0, 117);
-	    fd_lblDateDeFin.left = new FormAttachment(0, 10);
-	    lblDateDeFin.setLayoutData(fd_lblDateDeFin);
+	    lblDateDeFin.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    lblDateDeFin.setBounds(51, 151, 74, 15);
 	    lblDateDeFin.setText("Date de fin");
 	    
 	    dateFin = new DateTime(grpAjouterUnSprint,SWT.DATE);
-	    fd_dateDebut.bottom = new FormAttachment(dateFin, -20);
-	    fd_dateDebut.left = new FormAttachment(dateFin, 0, SWT.LEFT);
-	    fd_lblDateDeFin.right = new FormAttachment(dateFin, -28);
-	    FormData fd_dateFin = new FormData();
-	    fd_dateFin.left = new FormAttachment(0, 101);
-	    fd_dateFin.top = new FormAttachment(0, 117);
-	    dateFin.setLayoutData(fd_dateFin);
-
+	    dateFin.setBounds(150, 142, 93, 24);
 	    
+	    Button btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
+	    btnValider.setBounds(152, 202, 74, 25);
+	    btnValider.setText("Valider");
 	    Image imAdd=new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
-	    btAddSprint = new Button(shellSprint, SWT.NONE);
-	    FormData fd_btnNewButton = new FormData();
-	    fd_btnNewButton.top = new FormAttachment(0, 81);
-	    fd_btnNewButton.right = new FormAttachment(100);
-	    btAddSprint.setLayoutData(fd_btnNewButton);
+	    composite.layout(true, true);
+	    btAddSprint = new Button(composite_2, SWT.NONE);
+	    btAddSprint.setBounds(10, 39, 191, 54);
 	    btAddSprint.setText("Ajouter Sprint");
 	    btAddSprint.setImage(imAdd);	    
 	    
-	    Button btnModifierSprint = new Button(shellSprint, SWT.NONE);
-	    FormData fd_btnModifierSprint = new FormData();
-	    fd_btnModifierSprint.right = new FormAttachment(btAddSprint, 0, SWT.RIGHT);
-	    fd_btnModifierSprint.top = new FormAttachment(btAddSprint, 24);
-	    fd_btnModifierSprint.left = new FormAttachment(btAddSprint, 0, SWT.LEFT);
-	    btnModifierSprint.setLayoutData(fd_btnModifierSprint);
+	    Button btnModifierSprint = new Button(composite_2, SWT.NONE);
+	    btnModifierSprint.setBounds(10, 99, 191, 56);
 	    btnModifierSprint.setText("Modifier sprint");
 	    
-	    Button btnSupprimer = new Button(shellSprint, SWT.NONE);
-	    FormData fd_btnSupprimer = new FormData();
-	    fd_btnSupprimer.right = new FormAttachment(btAddSprint, 0, SWT.RIGHT);
-	    fd_btnSupprimer.top = new FormAttachment(btnModifierSprint, 25);
-	    fd_btnSupprimer.left = new FormAttachment(btAddSprint, 0, SWT.LEFT);
-	    btnSupprimer.setLayoutData(fd_btnSupprimer);
+	    Button btnSupprimer = new Button(composite_2, SWT.NONE);
+	    btnSupprimer.setBounds(10, 161, 191, 48);
 	    btnSupprimer.setText("Supprimer");
-	    composite.layout(true, true);
+
+	    
+	  
 	
 	  
 		}
