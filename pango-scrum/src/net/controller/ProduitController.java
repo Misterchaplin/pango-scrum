@@ -1,16 +1,13 @@
 package net.controller;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
-import net.models.Collaborator;
 import net.models.Playrole;
 import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;
 import net.technics.DAOCollaborator;
-import net.vues.VListCollaborators;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -23,6 +20,7 @@ import org.hibernate.Transaction;
 
 public class ProduitController implements SelectionListener {
 	private net.vues.VListProduits vListProduits;
+
 	public ProduitController(net.vues.VListProduits vListProduit) {
 		this.vListProduits = vListProduit;
 	}
@@ -57,6 +55,7 @@ public class ProduitController implements SelectionListener {
 			vListProduits.getBtnAjouterProduits().addSelectionListener(new SelectionListener() {
 				@Override
 				public void widgetSelected(SelectionEvent arg0) {
+					vListProduits.getGrpProduits().setVisible(true);
 					vListProduits.gettxtNomProduit().setText("");
 					vListProduits.getTxtDescriptif().setText("");
 					vListProduits.gettxtNomProduit().setVisible(true);
@@ -114,7 +113,6 @@ public class ProduitController implements SelectionListener {
 				// récupération données saisies
 				String nom = vListProduits.gettxtNomProduit().getText();
 				String descriptif = vListProduits.getTxtDescriptif().getText();
-				
 
 				// vérification données
 				if (nom == "") {
@@ -136,13 +134,13 @@ public class ProduitController implements SelectionListener {
 						Set<Sprint> sprints = new HashSet<Sprint>(0);
 						Set<Playrole> playroles = new HashSet<Playrole>(0);
 						Set<Userstory> userstories = new HashSet<Userstory>(0);
-						Product aProduct = new Product(nom, descriptif,sprints,playroles,userstories);
+						Product aProduct = new Product(nom, descriptif, sprints, playroles, userstories);
 						Transaction trans = session.beginTransaction();
 						session.persist(aProduct);
 						trans.commit();
 						messageInformation = "opération d'ajout réussie";
 					}
-					else{
+					else {
 						// récupération du collaborateur sélectionné
 						StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 						Product selectedProduct = (Product) selection.getFirstElement();
