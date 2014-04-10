@@ -59,6 +59,9 @@ public class ProduitController implements SelectionListener {
 				public void widgetSelected(SelectionEvent arg0) {
 					vListProduits.gettxtNomProduit().setText("");
 					vListProduits.getTxtDescriptif().setText("");
+					vListProduits.gettxtNomProduit().setVisible(true);
+					vListProduits.gettxtNomProduit().setEnabled(true);
+					vListProduits.getTxtDescriptif().setVisible(true);
 					vListProduits.getBtnSupprimerProduits().setVisible(false);
 				}
 
@@ -79,7 +82,7 @@ public class ProduitController implements SelectionListener {
 				int result = messageConfirmSuppression.open();
 				if (result == 32) {
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
-					Collaborator selectedproduct = (Collaborator) selection.getFirstElement();
+					Product selectedproduct = (Product) selection.getFirstElement();
 					Transaction trans = session.beginTransaction();
 					session.delete(selectedproduct);
 					trans.commit();
@@ -128,7 +131,7 @@ public class ProduitController implements SelectionListener {
 				if (messageErreur == "") {
 					String messageInformation = "";
 					// si c'est un ajout
-					
+					if (!vListProduits.getBtnSupprimerProduits().isVisible()) {
 						// instanciation du nouveau collaborateur
 						Set<Sprint> sprints = new HashSet<Sprint>(0);
 						Set<Playrole> playroles = new HashSet<Playrole>(0);
@@ -138,7 +141,8 @@ public class ProduitController implements SelectionListener {
 						session.persist(aProduct);
 						trans.commit();
 						messageInformation = "opération d'ajout réussie";
-				
+					}
+					else{
 						// récupération du collaborateur sélectionné
 						StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 						Product selectedProduct = (Product) selection.getFirstElement();
@@ -149,7 +153,7 @@ public class ProduitController implements SelectionListener {
 						session.update(selectedProduct);
 						trans1.commit();
 						messageInformation = "opération de mise à jour réussie";
-					
+					}
 					vListProduits.getGrpProduits().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
