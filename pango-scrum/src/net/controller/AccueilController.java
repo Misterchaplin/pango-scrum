@@ -2,6 +2,7 @@ package net.controller;
 
 import net.vues.VAccueil;
 import net.vues.VListCollaborators;
+import net.vues.VListProduits;
 import net.vues.VLogin;
 import net.vues.VMyProfile;
 
@@ -11,6 +12,7 @@ import org.eclipse.swt.events.SelectionListener;
 public class AccueilController implements SelectionListener {
 	public static VAccueil vAccueil;
 	public static int nbOpenedWindowCollaborator = 0;
+	public static int nbOpenedWindowProduit = 0;
 	public static int nbOpenedWindowConnection = 0;
 	public static int nbOpenedWindowMyProfile = 0;
 
@@ -61,6 +63,29 @@ public class AccueilController implements SelectionListener {
 		});
 
 		// onglet collaborateurs
+		vAccueil.getItemProduits().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// on ouvre la fenêtre seulement si elle n'est pas déjà ouverte
+				if (nbOpenedWindowProduit == 0) {
+					nbOpenedWindowProduit = 1;
+					VListProduits vListProduits = new VListProduits();
+					ProduitController produitController = new ProduitController(vListProduits);
+					vListProduits.init();
+					produitController.init();
+					vListProduits.open();
+				}
+
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		// onglet produit
 		vAccueil.getItemCollaborateurs().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -83,7 +108,6 @@ public class AccueilController implements SelectionListener {
 
 			}
 		});
-
 		// onglet mon profil
 		vAccueil.getItemMonProfil().addSelectionListener(new SelectionListener() {
 
