@@ -2,14 +2,26 @@ package net.technics;
 
 import java.text.Format;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.ibm.icu.text.SimpleDateFormat;
-
 import net.models.Event;
+import net.models.Eventtype;
+import net.models.Participate;
+import net.models.Product;
 import net.models.Sprint;
+import net.models.Userstory;
+import net.vues.VSprint;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.ibm.icu.text.SimpleDateFormat;
+import com.ibm.icu.util.Calendar;
 
 public class DAOSprint {
 	
@@ -101,5 +113,49 @@ public class DAOSprint {
 		if(dateFin!=null)
 		result= formatter.format(dateFin);
 		return result;
+	}
+	
+
+	
+	
+	public static Sprint addSprint(VSprint sprint){
+		Session session = HibernateUtil.getSession();
+		Transaction trans = session.beginTransaction();
+		
+		@SuppressWarnings("deprecation")
+		Date dateDeb = new Date(sprint.getDateDebut().getYear()-1900,sprint.getDateDebut().getMonth(),sprint.getDateDebut().getDay());
+		@SuppressWarnings("deprecation")
+		Date dateFin = new Date(sprint.getDateFin().getYear()-1900,sprint.getDateFin().getMonth(),sprint.getDateFin().getDay());
+		Product product;
+		Event event;
+		Userstory userStory;
+		Set<Event> evenements = new HashSet<Event>();
+		Set<Participate> participants = new HashSet<Participate>();
+		Set<Userstory> stories = new HashSet<Userstory>();
+		product = (Product) session.get(Product.class, 3);
+		Sprint sprint1 = new Sprint(product);
+		sprint1.setLabel(sprint.getnewNameSprint().getText());
+		session.persist(sprint1);
+		
+	    event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 1),dateDeb);
+		evenements.add(event);
+		session.persist(event);
+		
+		event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 2),dateFin);
+		evenements.add(event);
+		session.persist(event);
+		sprint1.setEvents(evenements);
+
+		
+		
+		trans.commit();
+		session.close();
+		
+		return sprint1;
+		
+		
+		
+		
+		
 	}
 }
