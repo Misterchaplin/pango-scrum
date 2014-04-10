@@ -105,6 +105,8 @@ public class UserStorieController implements SelectionListener {
 					Transaction trans = session.beginTransaction();
 					session.delete(selectedUserstory);
 					trans.commit();
+					vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
+					vAddUserStorie.getBtnModifierUserStory().setVisible(false);
 				}
 				//Rafraichi la liste du tableau et masque la fênetre
 				vAddUserStorie.getGrpUserstory().setVisible(false);
