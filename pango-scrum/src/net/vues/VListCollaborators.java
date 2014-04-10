@@ -44,6 +44,7 @@ public class VListCollaborators {
 	private Button btnAnnuler;
 	private Button btnAdmin;
 	private Group grpCollaborateur;
+	private Label label;
 
 	public TableViewer getTableViewerCollaborators() {
 		return tableViewerCollaborators;
@@ -146,7 +147,7 @@ public class VListCollaborators {
 		grpCollaborateur.setVisible(false);
 
 		btnAdmin = new Button(grpCollaborateur, SWT.CHECK);
-		btnAdmin.setBounds(155, 171, 93, 16);
+		btnAdmin.setBounds(153, 121, 93, 16);
 
 		compositeTable = new Composite(VListCollaborators, SWT.NONE);
 		compositeTable.setBounds(0, 0, 1337, 305);
@@ -174,7 +175,7 @@ public class VListCollaborators {
 		btnSupprimerCollaborateur.setText("Supprimer ce collaborateur");
 
 		linkReinitMdp = new Link(grpCollaborateur, SWT.NONE);
-		linkReinitMdp.setBounds(104, 204, 163, 15);
+		linkReinitMdp.setBounds(456, 122, 163, 15);
 		linkReinitMdp.setText("<a>Réinitialiser le mot de passe</a>");
 
 		composite = new Composite(sashForm, SWT.NONE);
@@ -201,36 +202,36 @@ public class VListCollaborators {
 		}
 
 		Label lblLogin = new Label(grpCollaborateur, SWT.NONE);
-		lblLogin.setBounds(43, 46, 39, 15);
+		lblLogin.setBounds(43, 28, 39, 15);
 		lblLogin.setText("Login :");
 
 		Label lblNom = new Label(grpCollaborateur, SWT.NONE);
-		lblNom.setBounds(43, 84, 39, 15);
+		lblNom.setBounds(43, 60, 39, 15);
 		lblNom.setText("Nom :");
 
 		Label lblPrenom = new Label(grpCollaborateur, SWT.NONE);
-		lblPrenom.setBounds(537, 84, 55, 15);
+		lblPrenom.setBounds(456, 87, 55, 15);
 		lblPrenom.setText("Prénom :");
 
 		Label lblEMail = new Label(grpCollaborateur, SWT.NONE);
-		lblEMail.setBounds(43, 126, 55, 15);
+		lblEMail.setBounds(43, 87, 39, 15);
 		lblEMail.setText("Email :");
 
 		Label lblAdministrateur = new Label(grpCollaborateur, SWT.NONE);
-		lblAdministrateur.setBounds(45, 172, 104, 15);
+		lblAdministrateur.setBounds(43, 122, 104, 15);
 		lblAdministrateur.setText("Administrateur ? :");
 
 		txtLogin = new Text(grpCollaborateur, SWT.BORDER);
-		txtLogin.setBounds(119, 43, 239, 21);
+		txtLogin.setBounds(88, 25, 239, 21);
 
 		txtNom = new Text(grpCollaborateur, SWT.BORDER);
-		txtNom.setBounds(119, 81, 238, 21);
+		txtNom.setBounds(88, 57, 238, 21);
 
 		txtPrenom = new Text(grpCollaborateur, SWT.BORDER);
-		txtPrenom.setBounds(606, 81, 239, 21);
+		txtPrenom.setBounds(516, 84, 239, 21);
 
 		txtEMail = new Text(grpCollaborateur, SWT.BORDER);
-		txtEMail.setBounds(119, 123, 328, 21);
+		txtEMail.setBounds(88, 84, 328, 21);
 
 		btnValider = new Button(grpCollaborateur, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
@@ -241,6 +242,9 @@ public class VListCollaborators {
 		btnAnnuler.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/cancel.png"));
 		btnAnnuler.setBounds(853, 179, 109, 40);
 		btnAnnuler.setText("Annuler");
+
+		label = new Label(grpCollaborateur, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(10, 167, 952, 2);
 
 	}
 

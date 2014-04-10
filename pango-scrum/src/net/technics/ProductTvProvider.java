@@ -1,6 +1,5 @@
 package net.technics;
 
-import net.models.Collaborator;
 import net.models.Product;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -36,7 +35,7 @@ public class ProductTvProvider implements ITableLabelProvider {
 	@Override
 	public Image getColumnImage(Object obj, int numCol) {
 		if (numCol == 0) {
-			return Utils.getImage(Utils.IMG_USER);
+			return Utils.getImage(Utils.IMG_PRODUCT);
 		}
 		return null;
 	}
