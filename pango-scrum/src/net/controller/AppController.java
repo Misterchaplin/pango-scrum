@@ -4,6 +4,7 @@ import net.models.Collaborator;
 import net.technics.HibernateUtil;
 import net.vues.VAccueil;
 import net.vues.VAddUserStorie;
+import net.vues.VAffectationCollaborator;
 import net.vues.VOverview;
 import net.vues.VSprint;
 
@@ -50,5 +51,11 @@ public class AppController {
 		UserStorieController userStorieController = new UserStorieController(vAddUserStorie);
 		vAddUserStorie.init();
 		userStorieController.init();
+	}
+
+	public AppController(VAffectationCollaborator vAffectationCollaborator) {
+		AffectationController affectationController = new AffectationController(vAffectationCollaborator);
+		vAffectationCollaborator.init();
+		affectationController.init();
 	}
 }
