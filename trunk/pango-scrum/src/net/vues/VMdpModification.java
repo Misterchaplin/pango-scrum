@@ -66,40 +66,42 @@ public class VMdpModification {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(538, 410);
+		shell.setSize(538, 337);
 		shell.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		shell.setText("SWT Application");
 
 		Group grpChangementDeMot = new Group(shell, SWT.NONE);
+		grpChangementDeMot.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		grpChangementDeMot.setText("Changement de mot de passe");
-		grpChangementDeMot.setBounds(20, 23, 491, 325);
+		grpChangementDeMot.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		grpChangementDeMot.setBounds(20, 23, 491, 267);
 
 		Label lblMdpActuel = new Label(grpChangementDeMot, SWT.NONE);
 		lblMdpActuel.setAlignment(SWT.RIGHT);
-		lblMdpActuel.setBounds(10, 65, 214, 15);
+		lblMdpActuel.setBounds(0, 37, 214, 15);
 		lblMdpActuel.setText("Mot de passe actuel :");
 
 		Label lblNewMdp = new Label(grpChangementDeMot, SWT.NONE);
 		lblNewMdp.setAlignment(SWT.RIGHT);
-		lblNewMdp.setBounds(10, 106, 214, 15);
+		lblNewMdp.setBounds(0, 69, 214, 15);
 		lblNewMdp.setText("Nouveau mot de passe :");
 
 		Label lblConfirmationNewMdp = new Label(grpChangementDeMot, SWT.NONE);
 		lblConfirmationNewMdp.setAlignment(SWT.RIGHT);
-		lblConfirmationNewMdp.setBounds(10, 155, 214, 15);
+		lblConfirmationNewMdp.setBounds(0, 104, 214, 15);
 		lblConfirmationNewMdp.setText("Confirmation nouveau mot de passe :");
 
 		txtOldMdp = new Text(grpChangementDeMot, SWT.BORDER);
-		txtOldMdp.setBounds(242, 62, 177, 21);
+		txtOldMdp.setBounds(220, 34, 177, 21);
 
 		txtNewMdp = new Text(grpChangementDeMot, SWT.BORDER);
-		txtNewMdp.setBounds(242, 103, 177, 21);
+		txtNewMdp.setBounds(220, 66, 177, 21);
 
 		txtNewMdpConfirm = new Text(grpChangementDeMot, SWT.BORDER);
-		txtNewMdpConfirm.setBounds(242, 152, 177, 21);
+		txtNewMdpConfirm.setBounds(220, 101, 177, 21);
 
 		final Label lblInformation = new Label(grpChangementDeMot, SWT.NONE);
-		lblInformation.setBounds(10, 273, 471, 35);
+		lblInformation.setBounds(10, 214, 471, 35);
 
 		Button btnValider = new Button(grpChangementDeMot, SWT.NONE);
 		btnValider.addSelectionListener(new SelectionAdapter() {
@@ -135,7 +137,7 @@ public class VMdpModification {
 			}
 		});
 		btnValider.setImage(SWTResourceManager.getImage(VMdpModification.class, "/net/images/accept.png"));
-		btnValider.setBounds(134, 209, 93, 37);
+		btnValider.setBounds(289, 171, 93, 37);
 		btnValider.setText("Valider");
 
 		Button btnAnnuler = new Button(grpChangementDeMot, SWT.NONE);
@@ -146,8 +148,11 @@ public class VMdpModification {
 			}
 		});
 		btnAnnuler.setImage(SWTResourceManager.getImage(VMdpModification.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(242, 209, 93, 37);
+		btnAnnuler.setBounds(388, 171, 93, 37);
 		btnAnnuler.setText("Annuler");
+
+		Label label = new Label(grpChangementDeMot, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label.setBounds(10, 166, 471, 2);
 
 	}
 }
