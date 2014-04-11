@@ -42,6 +42,8 @@ public class ProduitController implements SelectionListener {
 					vListProduits.getGrpProduits().setVisible(true);
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 					Product selectedProduit = (Product) selection.getFirstElement();
+					ProductController.setSelectedProduct(selectedProduit);
+					System.out.println(ProductController.getSelectedProduct().getName());
 					vListProduits.gettxtNomProduit().setText(selectedProduit.getName());
 					vListProduits.getTxtDescriptif().setText(selectedProduit.getDescription());
 					vListProduits.gettxtNomProduit().setEnabled(false);
@@ -83,17 +85,19 @@ public class ProduitController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (nbOpenedWindowDetail == 0) {
 					nbOpenedWindowDetail = 1;
+
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 					Product selectedproduct = (Product) selection.getFirstElement();
 
 					VOverview vOverview = new VOverview();
 					OverviewController OverviewController = new OverviewController(vOverview);
-					OverviewController.setIdProduit(selectedproduct.getId());
-					vListProduits.init();
+					vOverview.init();
 					OverviewController.init();
-					vListProduits.open();
+					vOverview.open();
 				}
+
 				// envoi vers la page de charli
+
 			}
 
 			@Override

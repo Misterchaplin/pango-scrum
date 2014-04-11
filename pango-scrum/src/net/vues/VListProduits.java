@@ -170,7 +170,7 @@ public class VListProduits {
 
 		sashForm.setWeights(new int[] { 1 });
 
-		if (AppController.getActiveUser().getAdministrator()) {
+		if (AppController.getActiveUser().getAdministrator()){
 			btnAjouterProduits = new Button(VListProduits, SWT.NONE);
 			btnAjouterProduits.setBounds(10, 311, 183, 45);
 			btnAjouterProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/produit.PNG"));

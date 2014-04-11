@@ -1,6 +1,7 @@
 package net.controller;
 
 import net.models.Collaborator;
+import net.models.Product;
 import net.technics.HibernateUtil;
 import net.vues.VAccueil;
 import net.vues.VAddUserStorie;
