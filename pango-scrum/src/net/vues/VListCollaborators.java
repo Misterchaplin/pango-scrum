@@ -135,8 +135,9 @@ public class VListCollaborators {
 	 */
 	protected void createContents() {
 		VListCollaborators = new Shell();
+		VListCollaborators.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/user.PNG"));
 		VListCollaborators.setSize(1024, 706);
-		VListCollaborators.setText("Scrum tool");
+		VListCollaborators.setText("Scrum Tool - Gestion des collaborateurs");
 		VListCollaborators.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		VListCollaborators.setLayout(null);
 

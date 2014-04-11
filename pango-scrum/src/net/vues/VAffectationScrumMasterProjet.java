@@ -91,17 +91,20 @@ public class VAffectationScrumMasterProjet {
 	 */
 	protected void createContents() {
 		vAffectationScrumMasterProjet = new Shell();
-		vAffectationScrumMasterProjet.setSize(355, 448);
-		vAffectationScrumMasterProjet.setText("SWT Application");
+		vAffectationScrumMasterProjet.setImage(SWTResourceManager.getImage(VAffectationScrumMasterProjet.class, "/net/images/user.PNG"));
+		vAffectationScrumMasterProjet.setSize(345, 448);
+		vAffectationScrumMasterProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		vAffectationScrumMasterProjet.setText("Scrum Tool - Choix Scrum Master");
 		vAffectationScrumMasterProjet.setLayout(new FormLayout());
 
 		Label lblAffecterScrumMasterProjet = new Label(vAffectationScrumMasterProjet, SWT.NONE);
+		lblAffecterScrumMasterProjet.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		FormData fd_lblAffecterScrumMasterProjet = new FormData();
-		fd_lblAffecterScrumMasterProjet.right = new FormAttachment(0, 269);
-		fd_lblAffecterScrumMasterProjet.top = new FormAttachment(0);
+		fd_lblAffecterScrumMasterProjet.top = new FormAttachment(0, 10);
 		fd_lblAffecterScrumMasterProjet.left = new FormAttachment(0, 58);
+		fd_lblAffecterScrumMasterProjet.right = new FormAttachment(0, 269);
 		lblAffecterScrumMasterProjet.setLayoutData(fd_lblAffecterScrumMasterProjet);
-		lblAffecterScrumMasterProjet.setText("Affecter un scrum master au projet");
+		lblAffecterScrumMasterProjet.setText("Affecter un Scrum Master au projet");
 
 		Label lblChoisirUnScrumMaster = new Label(vAffectationScrumMasterProjet, SWT.NONE);
 		FormData fd_lblChoisirUnScrumMaster = new FormData();
@@ -119,16 +122,16 @@ public class VAffectationScrumMasterProjet {
 		btnValider.setText("Valider");
 
 		btnAnnuler = new Button(vAffectationScrumMasterProjet, SWT.NONE);
+		fd_btnValider.right = new FormAttachment(100, -171);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VAffectationScrumMasterProjet.class, "/net/images/cancel.png"));
-		fd_btnValider.top = new FormAttachment(btnAnnuler, 0, SWT.TOP);
-		fd_btnValider.right = new FormAttachment(btnAnnuler, -6);
 		FormData fd_btnAnnuler = new FormData();
-		fd_btnAnnuler.top = new FormAttachment(lblChoisirUnScrumMaster, 316);
-		fd_btnAnnuler.left = new FormAttachment(0, 175);
+		fd_btnAnnuler.top = new FormAttachment(btnValider, 0, SWT.TOP);
+		fd_btnAnnuler.left = new FormAttachment(btnValider, 6);
 		btnAnnuler.setLayoutData(fd_btnAnnuler);
 		btnAnnuler.setText("Annuler");
 
 		Composite composite = new Composite(vAffectationScrumMasterProjet, SWT.NONE);
+		fd_btnValider.top = new FormAttachment(composite, 14);
 		composite.setLayout(new TableColumnLayout());
 		FormData fd_composite = new FormData();
 		fd_composite.bottom = new FormAttachment(lblChoisirUnScrumMaster, 302, SWT.BOTTOM);
