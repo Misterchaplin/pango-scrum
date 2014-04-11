@@ -20,13 +20,13 @@ public class Prog {
 			// ajout de vSprint pour tester la partie sprint sans avoir à se
 			// connecter ne pas effacer svp...
 
-			vAffectationCollaborator = new VAffectationCollaborator();
-			new AppController(vAffectationCollaborator);
 			vAccueil = new VAccueil();
 			new AppController(vAccueil);
 			VOverview vOverview = new VOverview();
 			new AppController(vOverview);
 			vAccueil.open();
+			vAffectationCollaborator = new VAffectationCollaborator();
+			new AppController(vAffectationCollaborator);
 			vAffectationCollaborator.open();
 			vOverview.open();
 			// vSprint.open();
