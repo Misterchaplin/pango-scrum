@@ -64,6 +64,7 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getTxtPriorite().setText("");
 				vAddUserStorie.getBtnValider().setVisible(true);
 				vAddUserStorie.getBtnAnnuler().setVisible(true);
+				vAddUserStorie.getBtnDone().setVisible(true);
 			}
 			
 			@Override
@@ -94,6 +95,7 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
 				vAddUserStorie.getBtnSupprimerUserstory().setVisible(true);
 				vAddUserStorie.getBtnModifierUserStory().setVisible(true);
+				vAddUserStorie.getBtnDone().setVisible(true);
 			}
 			
 			@Override
@@ -117,6 +119,7 @@ public class UserStorieController implements SelectionListener {
 					trans.commit();
 					vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
 					vAddUserStorie.getBtnModifierUserStory().setVisible(false);
+					vAddUserStorie.getBtnDone().setVisible(false);
 				}
 				//Rafraichi la liste du tableau et masque la fênetre
 				vAddUserStorie.getGrpUserstory().setVisible(false);
@@ -126,6 +129,71 @@ public class UserStorieController implements SelectionListener {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub	
+			}
+		});
+		
+		//Bouton Update 
+		vAddUserStorie.getBtnModifierUserStory().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				String label = vAddUserStorie.getTxtNom().getText();
+				String description = vAddUserStorie.getTxtDescription().getText();
+				Integer storyPoints = Integer.parseInt(vAddUserStorie.getTxtPtAttribue().getText());
+				Integer priorite = Integer.parseInt(vAddUserStorie.getTxtPriorite().getText());
+				Status status=new Status();
+				status.setIdStatus(1);
+				IStructuredSelection sel = (IStructuredSelection) (vAddUserStorie.getCbvSprint().getSelection());
+				Sprint sprint = (Sprint) (sel.iterator().next());
+				Product product= new Product();//ProductController.getSelectedProduct();
+				product.setId(2);
+				StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
+				Userstory selectedUserStory = (Userstory) select.getFirstElement();
+				selectedUserStory.setLabel(label);
+				selectedUserStory.setDescription(description);
+				selectedUserStory.setStoryPoints(storyPoints);
+				selectedUserStory.setSprint(sprint);
+				selectedUserStory.setProduct(product);
+				selectedUserStory.setPriority(priorite);
+				Transaction trans = session.beginTransaction();
+				session.update(selectedUserStory);
+				trans.commit();
+				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getGrpUserstory().setVisible(false);
+				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
+				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
+				vAddUserStorie.getBtnDone().setVisible(false);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		//Bouton Done
+		vAddUserStorie.getBtnDone().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				Status status=new Status();
+				status.setIdStatus(3);
+				StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
+				Userstory selectedUserStory = (Userstory) select.getFirstElement();
+				selectedUserStory.setStatus(status);
+				Transaction trans = session.beginTransaction();
+				session.update(selectedUserStory);
+				trans.commit();
+				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getGrpUserstory().setVisible(false);
+				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
+				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
+				vAddUserStorie.getBtnDone().setVisible(false);
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		
@@ -159,43 +227,6 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Update 
-		vAddUserStorie.getBtnModifierUserStory().addSelectionListener(new SelectionListener() {
-			@Override
-			public void widgetSelected(SelectionEvent arg0) {
-				String label = vAddUserStorie.getTxtNom().getText();
-				String description = vAddUserStorie.getTxtDescription().getText();
-				Integer storyPoints = Integer.parseInt(vAddUserStorie.getTxtPtAttribue().getText());
-				Integer priorite = Integer.parseInt(vAddUserStorie.getTxtPriorite().getText());
-				Status status=new Status();
-				status.setIdStatus(1);
-				IStructuredSelection sel = (IStructuredSelection) (vAddUserStorie.getCbvSprint().getSelection());
-				Sprint sprint = (Sprint) (sel.iterator().next());
-				Product product= ProductController.getSelectedProduct();
-				
-				StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
-				Userstory selectedUserStory = (Userstory) select.getFirstElement();
-				selectedUserStory.setLabel(label);
-				selectedUserStory.setDescription(description);
-				selectedUserStory.setStoryPoints(storyPoints);
-				selectedUserStory.setSprint(sprint);
-				selectedUserStory.setProduct(product);
-				selectedUserStory.setPriority(priorite);
-				Transaction trans = session.beginTransaction();
-				session.update(selectedUserStory);
-				trans.commit();
-				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
-				vAddUserStorie.getGrpUserstory().setVisible(false);
-				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
-				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
-			}
-			
-			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-			}
-		});
-		
 		//Bouton Annuler
 		vAddUserStorie.getBtnAnnuler().addSelectionListener(new SelectionListener() {
 			@Override
@@ -208,46 +239,6 @@ public class UserStorieController implements SelectionListener {
 				// TODO Auto-generated method stub
 			}
 		});
-		
-		// Permet à la textbox de prendre que des chiffres pour les Points attribué à cette UserStory
-		vAddUserStorie.getTxtPtAttribue().addVerifyListener(new VerifyListener() {
-			@Override
-			public void verifyText(VerifyEvent event) {
-				 switch (event.keyCode) {  
-		            case SWT.BS:           // Backspace  
-		            case SWT.DEL:          // Delete  
-		            case SWT.HOME:         // Home  
-		            case SWT.END:          // End  
-		            case SWT.ARROW_LEFT:   // Left arrow  
-		            case SWT.ARROW_RIGHT:  // Right arrow  
-		                return;  
-		        }  
-		  
-		        if (!Character.isDigit(event.character)) {  
-		            event.doit = false;  // disallow the action  
-		        }  
-			}
-		}); 
-		
-		// Permet à la textbox de prendre que des chiffres pour la priorité de la UserStory
-		vAddUserStorie.getTxtPriorite().addVerifyListener(new VerifyListener() {
-			@Override
-			public void verifyText(VerifyEvent event) {
-				 switch (event.keyCode) {  
-			           case SWT.BS:           // Backspace  
-			           case SWT.DEL:          // Delete  
-			           case SWT.HOME:         // Home  
-			           case SWT.END:          // End  
-			           case SWT.ARROW_LEFT:   // Left arrow  
-			           case SWT.ARROW_RIGHT:  // Right arrow  
-			               return;  
-			       }  
-				  
-			       if (!Character.isDigit(event.character)) {  
-			           event.doit = false;  // disallow the action  
-			       }  
-			}
-		});  
 	}
 
 	/**
