@@ -16,6 +16,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -37,6 +38,7 @@ public class VAffectationCollaborator {
 	private Button btnRemoveCollaborators;
 	private TableViewer tvAffectedCollaborators;
 	private TableViewer tvUnaffectedCollaborators;
+	private Group grpProjet;
 
 	public Table getTableAffectedCollaborators() {
 		return tableAffectedCollaborators;
@@ -70,18 +72,12 @@ public class VAffectationCollaborator {
 		return tvUnaffectedCollaborators;
 	}
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			VAffectationCollaborator window = new VAffectationCollaborator();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public Shell getvAffectationCollaborator() {
+		return vAffectationCollaborator;
+	}
+
+	public Text getTxtScrumMaster() {
+		return txtScrumMaster;
 	}
 
 	/**
@@ -115,32 +111,18 @@ public class VAffectationCollaborator {
 		vAffectationCollaborator.setSize(1024, 706);
 		vAffectationCollaborator.setText("SWT Application");
 		vAffectationCollaborator.setLayout(new FormLayout());
+		vAffectationCollaborator.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblAffecterDesCollaborateurs = new Label(vAffectationCollaborator, SWT.NONE);
 		FormData fd_lblAffecterDesCollaborateurs = new FormData();
-		fd_lblAffecterDesCollaborateurs.bottom = new FormAttachment(0, 22);
-		fd_lblAffecterDesCollaborateurs.right = new FormAttachment(0, 253);
 		fd_lblAffecterDesCollaborateurs.top = new FormAttachment(0);
-		fd_lblAffecterDesCollaborateurs.left = new FormAttachment(0);
+		fd_lblAffecterDesCollaborateurs.left = new FormAttachment(0, 369);
+		fd_lblAffecterDesCollaborateurs.bottom = new FormAttachment(0, 22);
+		fd_lblAffecterDesCollaborateurs.right = new FormAttachment(0, 622);
 		lblAffecterDesCollaborateurs.setLayoutData(fd_lblAffecterDesCollaborateurs);
-		lblAffecterDesCollaborateurs.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD | SWT.ITALIC));
+		lblAffecterDesCollaborateurs.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
 		lblAffecterDesCollaborateurs.setText("Affectation de collaborateurs au projet\r\n");
-
-		Label lblProjet = new Label(vAffectationCollaborator, SWT.NONE);
-		FormData fd_lblProjet = new FormData();
-		fd_lblProjet.right = new FormAttachment(0, 65);
-		fd_lblProjet.top = new FormAttachment(0, 42);
-		fd_lblProjet.left = new FormAttachment(0, 10);
-		lblProjet.setLayoutData(fd_lblProjet);
-		lblProjet.setText("Projet :");
-
-		Label lblScrumMaster = new Label(vAffectationCollaborator, SWT.NONE);
-		FormData fd_lblScrumMaster = new FormData();
-		fd_lblScrumMaster.right = new FormAttachment(0, 101);
-		fd_lblScrumMaster.top = new FormAttachment(0, 102);
-		fd_lblScrumMaster.left = new FormAttachment(0, 10);
-		lblScrumMaster.setLayoutData(fd_lblScrumMaster);
-		lblScrumMaster.setText("Scrum master :");
+		lblAffecterDesCollaborateurs.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblAffectedCollaborators = new Label(vAffectationCollaborator, SWT.NONE);
 		FormData fd_lblAffectedCollaborators = new FormData();
@@ -149,62 +131,22 @@ public class VAffectationCollaborator {
 		fd_lblAffectedCollaborators.left = new FormAttachment(0, 10);
 		lblAffectedCollaborators.setLayoutData(fd_lblAffectedCollaborators);
 		lblAffectedCollaborators.setText("Collaborateurs affectés :");
-
-		txtProjet = new Text(vAffectationCollaborator, SWT.BORDER);
-		txtProjet.setEnabled(false);
-		FormData fd_txtProjet = new FormData();
-		fd_txtProjet.top = new FormAttachment(lblProjet, -3, SWT.TOP);
-		fd_txtProjet.left = new FormAttachment(lblProjet, 6);
-		fd_txtProjet.right = new FormAttachment(0, 245);
-		txtProjet.setLayoutData(fd_txtProjet);
-		txtProjet.setText(ProductController.getSelectedProduct().getName());
-
-		txtScrumMaster = new Text(vAffectationCollaborator, SWT.BORDER);
-		txtScrumMaster.setEnabled(false);
-		FormData fd_txtScrumMaster = new FormData();
-		fd_txtScrumMaster.right = new FormAttachment(0, 285);
-		fd_txtScrumMaster.top = new FormAttachment(0, 123);
-		fd_txtScrumMaster.left = new FormAttachment(0, 10);
-		txtScrumMaster.setLayoutData(fd_txtScrumMaster);
-		// récupération du scrum master
-		Collaborator scrumMaster = DAOCollaborator.getScrumMaster();
-		if ((scrumMaster.getFirstname() != null) && (scrumMaster.getLastname() != null)) {
-			txtScrumMaster.setText(scrumMaster.getFirstname() + " " + scrumMaster.getLastname());
-		}
-
-		btnReturnListProject = new Button(vAffectationCollaborator, SWT.NONE);
-		FormData fd_btnReturnListProject = new FormData();
-		fd_btnReturnListProject.top = new FormAttachment(lblProjet, -5, SWT.TOP);
-		fd_btnReturnListProject.left = new FormAttachment(txtProjet, 6);
-		fd_btnReturnListProject.right = new FormAttachment(0, 425);
-		btnReturnListProject.setLayoutData(fd_btnReturnListProject);
-		btnReturnListProject.setText("Revenir à la liste des projets");
-
-		btnDefineScrumMaster = new Button(vAffectationCollaborator, SWT.NONE);
-		FormData fd_btnDefineScrumMaster = new FormData();
-		fd_btnDefineScrumMaster.right = new FormAttachment(0, 386);
-		fd_btnDefineScrumMaster.top = new FormAttachment(0, 121);
-		fd_btnDefineScrumMaster.left = new FormAttachment(0, 291);
-		btnDefineScrumMaster.setLayoutData(fd_btnDefineScrumMaster);
-		btnDefineScrumMaster.setText("Définir...");
+		lblAffectedCollaborators.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		btnAddCollaborators = new Button(vAffectationCollaborator, SWT.NONE);
 		FormData fd_btnAddCollaborators = new FormData();
-		fd_btnAddCollaborators.right = new FormAttachment(0, 528);
-		fd_btnAddCollaborators.top = new FormAttachment(0, 246);
-		fd_btnAddCollaborators.left = new FormAttachment(0, 453);
 		btnAddCollaborators.setLayoutData(fd_btnAddCollaborators);
 		btnAddCollaborators.setText("<<Ajouter");
-		btnAddCollaborators.setVisible(false);
+		btnAddCollaborators.setVisible(true);
 
 		btnRemoveCollaborators = new Button(vAffectationCollaborator, SWT.NONE);
+		fd_btnAddCollaborators.bottom = new FormAttachment(100, -276);
 		FormData fd_btnRemoveCollaborators = new FormData();
-		fd_btnRemoveCollaborators.right = new FormAttachment(0, 528);
-		fd_btnRemoveCollaborators.top = new FormAttachment(0, 295);
-		fd_btnRemoveCollaborators.left = new FormAttachment(0, 453);
+		fd_btnRemoveCollaborators.top = new FormAttachment(btnAddCollaborators, 56);
+		fd_btnRemoveCollaborators.right = new FormAttachment(btnAddCollaborators, 0, SWT.RIGHT);
 		btnRemoveCollaborators.setLayoutData(fd_btnRemoveCollaborators);
 		btnRemoveCollaborators.setText(">>Retirer");
-		btnRemoveCollaborators.setVisible(false);
+		btnRemoveCollaborators.setVisible(true);
 
 		Label lblUnaffectedCollaborators = new Label(vAffectationCollaborator, SWT.NONE);
 		FormData fd_lblUnaffectedCollaborators = new FormData();
@@ -213,8 +155,11 @@ public class VAffectationCollaborator {
 		fd_lblUnaffectedCollaborators.left = new FormAttachment(0, 621);
 		lblUnaffectedCollaborators.setLayoutData(fd_lblUnaffectedCollaborators);
 		lblUnaffectedCollaborators.setText("Collaborateurs non affectés :");
+		lblUnaffectedCollaborators.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Composite composite = new Composite(vAffectationCollaborator, SWT.NONE);
+		fd_btnRemoveCollaborators.left = new FormAttachment(composite, 61);
+		fd_btnAddCollaborators.left = new FormAttachment(composite, 61);
 		composite.setLayout(new TableColumnLayout());
 		tLayout = new TableColumnLayout();
 		FormData fd_composite = new FormData();
@@ -233,24 +178,68 @@ public class VAffectationCollaborator {
 		tvAffectedCollaborators.setInput(DAOCollaborator.getAffectedCollaborators());
 
 		Composite composite_1 = new Composite(vAffectationCollaborator, SWT.NONE);
+		fd_btnAddCollaborators.right = new FormAttachment(composite_1, -80);
 		composite_1.setLayout(new TableColumnLayout());
 		FormData fd_composite_1 = new FormData();
+		fd_composite_1.left = new FormAttachment(0, 619);
+		fd_composite_1.right = new FormAttachment(100, -32);
 		fd_composite_1.bottom = new FormAttachment(composite, 0, SWT.BOTTOM);
 		fd_composite_1.top = new FormAttachment(lblUnaffectedCollaborators, 6);
-		fd_composite_1.left = new FormAttachment(btnAddCollaborators, 91);
-		fd_composite_1.right = new FormAttachment(100, -32);
 		composite_1.setLayoutData(fd_composite_1);
 
 		tvUnaffectedCollaborators = new TableViewer(composite_1, SWT.BORDER | SWT.FULL_SELECTION);
 		tableUnaffectedCollaborators = tvUnaffectedCollaborators.getTable();
 		tableUnaffectedCollaborators.setHeaderVisible(true);
 		tableUnaffectedCollaborators.setLinesVisible(true);
+
+		grpProjet = new Group(vAffectationCollaborator, SWT.NONE);
+		grpProjet.setText("Projet");
+		FormData fd_grpProjet = new FormData();
+		fd_grpProjet.bottom = new FormAttachment(lblAffectedCollaborators, -59);
+		fd_grpProjet.top = new FormAttachment(lblAffecterDesCollaborateurs, 22);
+		fd_grpProjet.left = new FormAttachment(0, 10);
+		fd_grpProjet.right = new FormAttachment(100, -10);
+		grpProjet.setLayoutData(fd_grpProjet);
+		grpProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
+
+		Label lblProjet = new Label(grpProjet, SWT.NONE);
+		lblProjet.setBounds(20, 28, 55, 15);
+		lblProjet.setText("Projet :");
+		lblProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
+
+		txtProjet = new Text(grpProjet, SWT.BORDER);
+		txtProjet.setBounds(20, 49, 174, 21);
+		txtProjet.setEnabled(false);
+		txtProjet.setText(ProductController.getSelectedProduct().getName());
+
+		btnReturnListProject = new Button(grpProjet, SWT.NONE);
+		btnReturnListProject.setBounds(200, 47, 174, 25);
+		btnReturnListProject.setText("Revenir à la liste des projets");
+
+		Label lblScrumMaster = new Label(grpProjet, SWT.NONE);
+		lblScrumMaster.setBounds(514, 28, 91, 15);
+		lblScrumMaster.setText("Scrum master :");
+		lblScrumMaster.setBackground(SWTResourceManager.getColor(255, 255, 240));
+
+		txtScrumMaster = new Text(grpProjet, SWT.BORDER);
+		txtScrumMaster.setBounds(514, 49, 275, 21);
+		txtScrumMaster.setEnabled(false);
+		// récupération du scrum master
+		Collaborator scrumMaster = DAOCollaborator.getScrumMaster();
+		if ((scrumMaster.getFirstname() != null) && (scrumMaster.getLastname() != null)) {
+			txtScrumMaster.setText(scrumMaster.getFirstname() + " " + scrumMaster.getLastname());
+		}
+
+		btnDefineScrumMaster = new Button(grpProjet, SWT.NONE);
+		btnDefineScrumMaster.setBounds(795, 47, 95, 25);
+		btnDefineScrumMaster.setText("Définir...");
+
 		tvUnaffectedCollaborators.setContentProvider(new ArrayContentProvider());
 		tvUnaffectedCollaborators.setLabelProvider(new CollaboratorTvProvider());
 		tvUnaffectedCollaborators.setInput(DAOCollaborator.getUnaffectedCollaborators());
 
-		createColumn(tableAffectedCollaborators, "Nom", 1);
-		createColumn(tableUnaffectedCollaborators, "Nom", 1);
+		// createColumn(tableAffectedCollaborators, "Nom", 1);
+		// createColumn(tableUnaffectedCollaborators, "Nom", 1);
 
 	}
 

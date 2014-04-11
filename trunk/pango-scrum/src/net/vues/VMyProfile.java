@@ -91,9 +91,10 @@ public class VMyProfile {
 	 */
 	protected void createContents() {
 		vMyProfile = new Shell();
+		vMyProfile.setImage(SWTResourceManager.getImage(VMyProfile.class, "/net/images/logo.PNG"));
 		vMyProfile.setSize(596, 244);
 		vMyProfile.setBackground(SWTResourceManager.getColor(255, 255, 240));
-		vMyProfile.setText("Mon profil");
+		vMyProfile.setText("Scrum Tool");
 
 		Group grpProfil = new Group(vMyProfile, SWT.NONE);
 		grpProfil.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));

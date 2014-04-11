@@ -76,7 +76,7 @@ public class VLogin {
 		shlLogin.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		shlLogin.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/connexion.PNG"));
 		shlLogin.setSize(450, 300);
-		shlLogin.setText("Scrum tool");
+		shlLogin.setText("Scrum Tool");
 		shlLogin.setLayout(null);
 
 		Group grpAuthentification = new Group(shlLogin, SWT.NONE);
@@ -102,11 +102,13 @@ public class VLogin {
 
 		/* Bouton Valider */
 		btnValider = new Button(grpAuthentification, SWT.NONE);
+		btnValider.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/accept.png"));
 		btnValider.setBounds(140, 160, 90, 30);
 		btnValider.setText("Valider");
 
 		/* Bouton Annuler */
 		btnAnnuler = new Button(grpAuthentification, SWT.NONE);
+		btnAnnuler.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/cancel.png"));
 		btnAnnuler.setBounds(236, 160, 90, 30);
 		btnAnnuler.setText("Annuler");
 
