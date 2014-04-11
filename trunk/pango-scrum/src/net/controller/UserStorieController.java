@@ -67,7 +67,6 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getTxtPriorite().setText("");
 				vAddUserStorie.getBtnValider().setVisible(true);
 				vAddUserStorie.getBtnAnnuler().setVisible(true);
-				vAddUserStorie.getBtnDone().setVisible(true);
 			}
 			
 			@Override
