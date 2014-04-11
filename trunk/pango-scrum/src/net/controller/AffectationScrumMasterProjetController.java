@@ -4,6 +4,7 @@ import net.models.Collaborator;
 import net.models.Playrole;
 import net.models.PlayroleId;
 import net.models.Role;
+import net.technics.DAOCollaborator;
 import net.vues.VAffectationScrumMasterProjet;
 
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -46,7 +47,6 @@ public class AffectationScrumMasterProjetController {
 				Transaction trans = AppController.session.beginTransaction();
 
 				if (session.uniqueResult() != null) {
-					System.out.println("ok");
 					Playrole oldPlayrole = (Playrole) session.uniqueResult();
 					AppController.session.delete(oldPlayrole);
 				}
@@ -54,6 +54,10 @@ public class AffectationScrumMasterProjetController {
 				// enregistrement en tant que scrum master
 				AppController.session.persist(playrole);
 				trans.commit();
+
+				// affichage du nouveau scrum master dans la zone de texte de la
+				// vue vAffectationCollaborator
+				Prog.vAffectationCollaborator.getTxtScrumMaster().setText(DAOCollaborator.getScrumMaster().getFirstname() + " " + DAOCollaborator.getScrumMaster().getLastname());
 
 				// fermeture de la vue
 				vAffectationScrumMasterProjet.getvAffectationScrumMasterProjet().close();

@@ -87,11 +87,11 @@ public class DAOCollaborator {
 
 		// execution requête hql
 		org.hibernate.Query query = AppController.session.createQuery("from Playrole where idProduct = " + ProductController.getSelectedProduct().getId() + " and idRole = 1");
-		List<Playrole> roleJoue = query.list();
+		Playrole roleJoue = (Playrole) query.uniqueResult();
 
 		// récupération du scrum master
-		if (roleJoue.size() == 1) {
-			scrumMaster = roleJoue.get(0).getCollaborator();
+		if (roleJoue != null) {
+			scrumMaster = roleJoue.getCollaborator();
 		}
 
 		return scrumMaster;
