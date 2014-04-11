@@ -49,6 +49,8 @@ public class VUserStorie {
 
 	/**
 	 * Create contents of the window.
+	 * 
+	 * @wbp.parser.entryPoint
 	 */
 	protected void createContents() {
 		userStorie = new Shell();
