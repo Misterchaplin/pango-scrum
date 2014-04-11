@@ -25,28 +25,13 @@ public class OverviewController implements SelectionListener {
 	private Integer point;
 	private Integer totalPointFinished;
 
-	private Integer idProduit;
-
-	public Integer getIdProduit() {
-		return idProduit;
-	}
-
-	public void setIdProduit(Integer idProduit) {
-		this.idProduit = idProduit;
-	}
-
 	private String collab;
-
 
 	public OverviewController(VOverview vOverview) {
 		this.vOverview = vOverview;
 	}
 
 	public void init() {
-		List<Userstory> userstories = new ArrayList<Userstory>();
-		userstories = getUserstory();
-		vOverview.getTableViewer().setContentProvider(new ArrayContentProvider());
-		vOverview.getTableViewer().setInput(userstories);
 
 		vOverview.getBtnToDo().addSelectionListener(new SelectionListener() {
 
@@ -118,11 +103,16 @@ public class OverviewController implements SelectionListener {
 			}
 		});
 
+		List<Userstory> userstories = new ArrayList<Userstory>();
+		userstories = getUserstory();
+		vOverview.getTableViewer().setContentProvider(new ArrayContentProvider());
+		vOverview.getTableViewer().setInput(userstories);
+
 	}
 
 	private List<Userstory> getUserstory() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Userstory WHERE idstatus = 1");
+		Query query = session.createQuery("FROM Userstory WHERE idstatus = 2");
 		List<Userstory> lesUserstories = query.list();
 
 		return lesUserstories;
@@ -219,8 +209,7 @@ public class OverviewController implements SelectionListener {
 
 	private String getCustomer() {
 		Session session = HibernateUtil.getSession();
-		// Query query = session.createQuery("From playrole where idproduct=" +
-		// ProductController.getSelectedProduct().getId() + " AND idrole= 2");
+
 		String sql = "SELECT c FROM Collaborator AS c JOIN c.playroles AS pl "
 				+ "JOIN pl.product AS p "
 				+ "JOIN pl.role AS r "
