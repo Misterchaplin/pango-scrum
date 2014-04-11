@@ -22,17 +22,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class ProduitController implements SelectionListener {
-	private net.vues.VListProduits vListProduits;
-public static int nbOpenedWindowDetail = 0;
+	private VListProduits vListProduits;
+	public static int nbOpenedWindowDetail = 0;
+
 	public ProduitController(net.vues.VListProduits vListProduit) {
 		this.vListProduits = vListProduit;
 	}
 
 	public void init() {
-		// rÃ©cupÃ©ration de la session
+		// récupération de la session
 		final Session session = AppController.session;
 
-		// sÃ©lection d'un produit, seulement si l'utilisateur est
+		// sélection d'un produit, seulement si l'utilisateur est
 		// administrateur
 		if (AppController.getActiveUser().getAdministrator()) {
 			vListProduits.getTableProduits().addSelectionListener(new SelectionListener() {
@@ -75,8 +76,8 @@ public static int nbOpenedWindowDetail = 0;
 				}
 			});
 		}
-		
-		//bouton detail
+
+		// bouton detail
 		vListProduits.getBtndetail().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -84,8 +85,7 @@ public static int nbOpenedWindowDetail = 0;
 					nbOpenedWindowDetail = 1;
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 					Product selectedproduct = (Product) selection.getFirstElement();
-					
-					
+
 					VOverview vOverview = new VOverview();
 					OverviewController OverviewController = new OverviewController(vOverview);
 					OverviewController.setIdProduit(selectedproduct.getId());
@@ -93,7 +93,7 @@ public static int nbOpenedWindowDetail = 0;
 					OverviewController.init();
 					vListProduits.open();
 				}
-				//envoi vers la page de charli
+				// envoi vers la page de charli
 			}
 
 			@Override
@@ -108,23 +108,23 @@ public static int nbOpenedWindowDetail = 0;
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				MessageBox messageConfirmSuppression = new MessageBox(vListProduits.getListProduits(), SWT.OK | SWT.ICON_CANCEL | SWT.ICON_QUESTION);
-				messageConfirmSuppression.setMessage("Etes-vous sÃ»r de vouloir supprimer ce projet ?");
+				messageConfirmSuppression.setMessage("Etes-vous sûr de vouloir supprimer ce projet ?");
 				int result = messageConfirmSuppression.open();
 				if (result == 32) {
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 					Product selectedproduct = (Product) selection.getFirstElement();
 					Transaction trans = session.beginTransaction();
-					List<Userstory> lesUserStorys =DAOProduct.getUserStorie(selectedproduct);
+					List<Userstory> lesUserStorys = DAOProduct.getUserStorie(selectedproduct);
 					for (Userstory userstory : lesUserStorys) {
 						session.delete(userstory);
 					}
 					session.delete(selectedproduct);
 					trans.commit();
-					vListProduits.getLblInformation().setText("opÃ©ration d'annulation rÃ©ussie");
+					vListProduits.getLblInformation().setText("opération d'annulation réussie");
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				else {
-					vListProduits.getLblInformation().setText("opÃ©ration d'annulation annulÃ©e");
+					vListProduits.getLblInformation().setText("opération d'annulation annulée");
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_BLUE));
 				}
 				vListProduits.getGrpProduits().setVisible(false);
@@ -151,7 +151,7 @@ public static int nbOpenedWindowDetail = 0;
 
 				// vÃ©rification donnÃ©es
 				if (nom == "") {
-					messageErreur = messageErreur + " > " + "nom obligatoir";
+					messageErreur = messageErreur + " > " + "nom obligatoire";
 				}
 				if (descriptif == "") {
 					messageErreur = messageErreur + " > " + "descriptif obligatoire";
@@ -173,10 +173,10 @@ public static int nbOpenedWindowDetail = 0;
 						Transaction trans = session.beginTransaction();
 						session.persist(aProduct);
 						trans.commit();
-						messageInformation = "opÃ©ration d'ajout rÃ©ussie";
+						messageInformation = "opération d'ajout réussie";
 					}
 					else {
-						// rÃ©cupÃ©ration du produit sÃ©lectionnÃ©
+						// récupération du produit sélectionné
 						StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 						Product selectedProduct = (Product) selection.getFirstElement();
 						vListProduits.gettxtNomProduit().setEnabled(true);
@@ -208,7 +208,7 @@ public static int nbOpenedWindowDetail = 0;
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				vListProduits.getGrpProduits().setVisible(false);
-				vListProduits.getLblInformation().setText("opÃ©ration annulÃ©e");
+				vListProduits.getLblInformation().setText("opération annulée");
 				vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_BLUE));
 			}
 
