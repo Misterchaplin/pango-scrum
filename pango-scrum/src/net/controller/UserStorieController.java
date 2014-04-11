@@ -51,6 +51,9 @@ public class UserStorieController implements SelectionListener {
 		vAddUserStorie.getCbvProjet().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvProjet().setInput(getProduct());
 		
+		vAddUserStorie.getTblvDone().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+		
 		//Bouton Ajouter une UserStory, réinitialise tous les champs
 		vAddUserStorie.getBtnAjouterUserstorie().addSelectionListener(new SelectionListener() {
 			@Override
@@ -263,6 +266,12 @@ public class UserStorieController implements SelectionListener {
 		Query query = session.createQuery("FROM Sprint");//SELECT label FROM Sprint WHERE idproduct="+ ProductController.getSelectedProduct().getId());
 		List<Sprint> lessprints = query.list();
 		return lessprints;
+	}
+	
+	private List<Userstory> getUserStoryDone(){
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 3");
+		List<Userstory> lesuserStories = query.list();
+		return lesuserStories;
 	}
 
 	@Override
