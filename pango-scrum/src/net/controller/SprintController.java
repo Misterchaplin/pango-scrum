@@ -3,6 +3,7 @@ package net.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.hibernate.Query;
 
 public class SprintController implements SelectionListener {
@@ -63,26 +67,36 @@ public class SprintController implements SelectionListener {
 				Sprint sprint = (Sprint) sel.getFirstElement();
 				String dateDeb=DAOSprint.getDateDebut(sprint);
 				String dateFin=DAOSprint.getDateFin(sprint);
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-				Date dateD=null;
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Calendar calDeb = null;
+				Calendar calFin = null;
+				vSprint.getnewNameSprint().setText(sprint.getLabel());
+				
 				try {
-					dateD = sdf.parse(dateDeb);
-				} catch (ParseException e1) {
+					calDeb = Calendar.getInstance();
 					
-					e1.printStackTrace();
+					calDeb.setTime(sdf.parse(dateDeb));
+					vSprint.getDateDebut().setDay(calDeb.get(Calendar.DAY_OF_MONTH));
+					vSprint.getDateDebut().setMonth(calDeb.get(Calendar.MONTH));
+					vSprint.getDateDebut().setYear(calDeb.get(Calendar.YEAR));
+					
+				} catch (ParseException e1) {
+						e1.printStackTrace();
 				}
-				Date dateF = null;
+				
 				try {
-					dateF = sdf.parse(dateFin);
+					calFin = Calendar.getInstance();
+					calFin.setTime(sdf.parse(dateFin));
+					vSprint.getDateFin().setDay(calFin.get(Calendar.DATE));
+					vSprint.getDateFin().setMonth(calFin.get(Calendar.MONTH));
+					vSprint.getDateFin().setYear(calFin.get(Calendar.YEAR));
+					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					
 					e.printStackTrace();
 				}
-				
-				vSprint.getnewNameSprint().setText(sprint.getLabel());
-				vSprint.getDateDebut().setDate(dateD.getDay()-1900,dateD.getMonth(), dateD.getYear());
-				vSprint.getDateFin().setDate(dateF.getDay()-1900, dateF.getMonth(), dateF.getYear());
+			
 				
 						
 			}
