@@ -47,7 +47,6 @@ public class OverviewController implements SelectionListener {
 		userstories = getUserstory();
 		vOverview.getTableViewer().setContentProvider(new ArrayContentProvider());
 		vOverview.getTableViewer().setInput(userstories);
-		vOverview.getTableViewer().setInput(new String[] { "Test1", "Test2" });
 
 		vOverview.getBtnToDo().addSelectionListener(new SelectionListener() {
 
@@ -73,6 +72,7 @@ public class OverviewController implements SelectionListener {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
 				vAddUserStorie.open();
+				// vAddUserStorie.getTbfProductBacklog().setSelection(vAddUserStorie.getTbtmInProgress());
 
 			}
 
@@ -90,7 +90,7 @@ public class OverviewController implements SelectionListener {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
 				vAddUserStorie.open();
-				// vAddUserStorie.getTbfProductBacklog().setSelection(2);
+				vAddUserStorie.getTbfProductBacklog().setSelection(2);
 
 			}
 
