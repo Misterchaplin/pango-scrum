@@ -49,6 +49,7 @@ public class VAddUserStorie {
 	private Button btnModifierUserStory;
 	private TableColumnLayout tLayout;
 	private TabFolder tbfProductBacklog;
+	private Button btnDone;
 
 	public TabFolder getTbfProductBacklog() {
 		return tbfProductBacklog;
@@ -104,6 +105,10 @@ public class VAddUserStorie {
 
 	public Button getBtnValider() {
 		return btnValider;
+	}
+
+	public Button getBtnDone() {
+		return btnDone;
 	}
 
 	public Button getBtnAnnuler() {
@@ -308,6 +313,13 @@ public class VAddUserStorie {
 		formToolkit.adapt(btnModifierUserStory, true, true);
 		btnModifierUserStory.setText("Modifier UserStory");
 		btnModifierUserStory.setVisible(false);
+		
+		btnDone = new Button(composite, SWT.NONE);
+		btnDone.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/done_UserStory.png"));
+		btnDone.setBounds(10, 158, 152, 40);
+		formToolkit.adapt(btnDone, true, true);
+		btnDone.setText("Cloturer UserStory");
+		btnDone.setVisible(false);
 		sashTo1.setWeights(new int[] { 1 });
 		sashToDo.setWeights(new int[] { 31, 239, 257 });
 
