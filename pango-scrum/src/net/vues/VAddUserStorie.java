@@ -30,7 +30,6 @@ public class VAddUserStorie {
 	private TabItem tbtmDone;
 	private TabItem tbtmTodo;
 	private Table tblInProgress;
-	private Table tblDone;
 	private Table tblUserStory;
 	private ComboViewer cbvProjet;
 	private TableViewer tableViewer;
@@ -50,6 +49,8 @@ public class VAddUserStorie {
 	private TableColumnLayout tLayout;
 	private TabFolder tbfProductBacklog;
 	private Button btnDone;
+	private Table tblDone;
+	private TableViewer tblvDone;
 
 	public TabFolder getTbfProductBacklog() {
 		return tbfProductBacklog;
@@ -57,6 +58,10 @@ public class VAddUserStorie {
 
 	public Shell getShlProductBacklog() {
 		return vAddUserStorie;
+	}
+
+	public TableViewer getTblvDone() {
+		return tblvDone;
 	}
 
 	public Table getTable() {
@@ -382,21 +387,14 @@ public class VAddUserStorie {
 		sashDone3.setWeights(new int[] { 1 });
 
 		SashForm sashDone2 = new SashForm(sashDone, SWT.NONE);
-
-		tblDone = new Table(sashDone2, SWT.BORDER | SWT.FULL_SELECTION);
-		formToolkit.adapt(tblDone);
-		formToolkit.paintBordersFor(tblDone);
+		
+		tblvDone = new TableViewer(sashDone2, SWT.BORDER | SWT.FULL_SELECTION);
+		tblDone = tblvDone.getTable();
 		tblDone.setHeaderVisible(true);
 		tblDone.setLinesVisible(true);
-		sashDone2.setWeights(new int[] { 1 });
-
-		SashForm sashDone1 = new SashForm(sashDone, SWT.NONE);
-
-		Composite composite_2 = new Composite(sashDone1, SWT.NONE);
-		formToolkit.adapt(composite_2);
-		formToolkit.paintBordersFor(composite_2);
-		sashDone1.setWeights(new int[] { 1 });
-		sashDone.setWeights(new int[] { 31, 282, 214 });
+		formToolkit.paintBordersFor(tblDone);
+		sashDone2.setWeights(new int[] { 1});
+		sashDone.setWeights(new int[] { 31, 282 });
 		sashGeneralProductBackLog.setWeights(new int[] { 1 });
 
 	}
