@@ -158,7 +158,7 @@ public class DAOSprint {
 		Transaction trans = session.beginTransaction();
 		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
 		
-		String updateHql = "update Event set eventDate=:newDate where sprint.name=:leSprint And eventDate=:oldDate";
+		String updateHql = "update Event set eventDate=:newDate where sprint.label=:leSprint And eventDate=:oldDate";
 		Query query=session.createQuery(updateHql);
 		query.setString("newDate", formatter.format(newDate));
 		query.setString("leSprint", sprint.getLabel());		

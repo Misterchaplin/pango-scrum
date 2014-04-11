@@ -26,7 +26,11 @@ import org.hibernate.Query;
 public class SprintController implements SelectionListener {
 	private VSprint vSprint;
 	private List<Sprint> sprints;
-	private Boolean modifier;
+	private String oldDateDeb;
+	private String olDateFin;
+	private Date newDateDeb;
+	private Date newDateFin;
+	private Sprint activeSprint;
 
 	public SprintController(VSprint vSprint) {
 		this.vSprint = vSprint;
@@ -43,7 +47,7 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				modifier = false;
+				
 				sprints.add(DAOSprint.addSprint(vSprint));
 				vSprint.getTvSprint().refresh();
 				
@@ -64,18 +68,18 @@ public class SprintController implements SelectionListener {
 			public void widgetSelected(SelectionEvent evt) {
 				
 				StructuredSelection sel = (StructuredSelection) vSprint.getTvSprint().getSelection();
-				Sprint sprint = (Sprint) sel.getFirstElement();
-				String dateDeb=DAOSprint.getDateDebut(sprint);
-				String dateFin=DAOSprint.getDateFin(sprint);
+				activeSprint = (Sprint) sel.getFirstElement();
+				oldDateDeb=DAOSprint.getDateDebut(activeSprint);
+			    olDateFin=DAOSprint.getDateFin(activeSprint);
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Calendar calDeb = null;
 				Calendar calFin = null;
-				vSprint.getnewNameSprint().setText(sprint.getLabel());
+				vSprint.getnewNameSprint().setText(activeSprint.getLabel());
 				
 				try {
 					calDeb = Calendar.getInstance();
 					
-					calDeb.setTime(sdf.parse(dateDeb));
+					calDeb.setTime(sdf.parse(oldDateDeb));
 					vSprint.getDateDebut().setDay(calDeb.get(Calendar.DAY_OF_MONTH));
 					vSprint.getDateDebut().setMonth(calDeb.get(Calendar.MONTH));
 					vSprint.getDateDebut().setYear(calDeb.get(Calendar.YEAR));
@@ -86,7 +90,7 @@ public class SprintController implements SelectionListener {
 				
 				try {
 					calFin = Calendar.getInstance();
-					calFin.setTime(sdf.parse(dateFin));
+					calFin.setTime(sdf.parse(olDateFin));
 					vSprint.getDateFin().setDay(calFin.get(Calendar.DATE));
 					vSprint.getDateFin().setMonth(calFin.get(Calendar.MONTH));
 					vSprint.getDateFin().setYear(calFin.get(Calendar.YEAR));
@@ -112,7 +116,21 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				Date oldDateD=null;			
+				Date oldDateF=null;
+				try {
+					oldDateD=sdf.parse(oldDateDeb);
+					oldDateF=sdf.parse(olDateFin);
+					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				newDateDeb=getDateDeb();
+				newDateFin=getDateFin();
+				DAOSprint.updateDate(activeSprint, newDateDeb, oldDateD);
+				DAOSprint.updateDate(activeSprint, newDateFin, oldDateF);
 				
 			}
 			
@@ -138,6 +156,18 @@ public class SprintController implements SelectionListener {
 
 		return lesSprints;
 
+	}
+	private Date getDateDeb(){
+		Calendar c = Calendar.getInstance();
+		c.set(vSprint.getDateDebut().getDay(),vSprint.getDateDebut().getMonth(),vSprint.getDateDebut().getYear());
+		Date d = c.getTime();
+		return d;		
+	}
+	private Date getDateFin(){
+		Calendar c = Calendar.getInstance();
+		c.set(vSprint.getDateFin().getDay(),vSprint.getDateFin().getMonth(),vSprint.getDateFin().getYear());
+		Date d = c.getTime();
+		return d;		
 	}
 
 	@Override
