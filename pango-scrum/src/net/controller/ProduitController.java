@@ -189,7 +189,7 @@ public class ProduitController implements SelectionListener {
 						Transaction trans1 = session.beginTransaction();
 						session.update(selectedProduct);
 						trans1.commit();
-						messageInformation = "opÃ©ration de mise Ã  jour rÃ©ussie";
+						messageInformation = "opÃ©ration de mise Ã  jour rÃ©ussie";
 					}
 					vListProduits.getGrpProduits().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
