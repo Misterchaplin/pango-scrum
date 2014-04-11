@@ -244,6 +244,7 @@ public class VSprint {
 	    
 	    dateFin = new DateTime(grpAjouterUnSprint,SWT.DATE);
 	    dateFin.setBounds(150, 142, 93, 24);
+	   
 	    
 	    btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
 	    btnValider.setBounds(152, 202, 74, 25);
