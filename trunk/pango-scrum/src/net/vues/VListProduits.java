@@ -40,6 +40,7 @@ public class VListProduits {
 	private Button btnAjouterProduits;
 	private Button btnValider;
 	private Button btnAnnuler;
+	private Button btndetail;
 	private Group grpProduits;
 	private Label lblInformation;
 
@@ -59,6 +60,9 @@ public class VListProduits {
 	}
 	public Button getBtnSupprimerProduits() {
 		return btnSupprimerProduits;
+	}
+	public Button getBtndetail() {
+		return btndetail;
 	}
 
 	public Button getBtnAjouterProduits() {
@@ -172,7 +176,11 @@ public class VListProduits {
 			btnAjouterProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/produit.PNG"));
 			btnAjouterProduits.setText("Ajouter un produit");
 		}
-		
+		btndetail = new Button(VListProduits, SWT.NONE);
+		btndetail.setBounds(250, 311, 183, 45);
+		btndetail.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/produit.PNG"));
+		btndetail.setText("detail");
+		btndetail.setVisible(false);
 		Label lblNom = new Label(grpProduits, SWT.NONE);
 		lblNom.setBounds(43, 46, 39, 15);
 		lblNom.setText("Nom:");

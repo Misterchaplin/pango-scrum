@@ -24,7 +24,19 @@ public class OverviewController implements SelectionListener {
 	private Integer totalPoint;
 	private Integer point;
 	private Integer totalPointFinished;
+
+	private Integer idProduit;
+
+	public Integer getIdProduit() {
+		return idProduit;
+	}
+
+	public void setIdProduit(Integer idProduit) {
+		this.idProduit = idProduit;
+	}
+
 	private String collab;
+
 
 	public OverviewController(VOverview vOverview) {
 		this.vOverview = vOverview;
