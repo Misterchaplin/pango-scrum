@@ -2,8 +2,6 @@ package net.vues;
 
 import net.controller.AccueilController;
 import net.controller.AppController;
-import net.technics.CollaboratorTvProvider;
-import net.technics.DAOCollaborator;
 import net.technics.DAOProduct;
 import net.technics.ProductTvProvider;
 
@@ -18,7 +16,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -47,6 +44,7 @@ public class VListProduits {
 	public TableViewer getTableViewerProduits() {
 		return tableViewerProduits;
 	}
+
 	public Shell getListProduits() {
 		return VListProduits;
 	}
@@ -58,9 +56,11 @@ public class VListProduits {
 	public Text getTxtDescriptif() {
 		return txtDescriptif;
 	}
+
 	public Button getBtnSupprimerProduits() {
 		return btnSupprimerProduits;
 	}
+
 	public Button getBtndetail() {
 		return btndetail;
 	}
@@ -84,6 +84,7 @@ public class VListProduits {
 	public Group getGrpProduits() {
 		return grpProduits;
 	}
+
 	public Label getLblInformation() {
 		return lblInformation;
 	}
@@ -124,9 +125,9 @@ public class VListProduits {
 
 		grpProduits = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_IN);
 		grpProduits.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
-		grpProduits.setBounds(10, 375, 978, 229);
+		grpProduits.setBounds(10, 375, 978, 169);
 		grpProduits.setText("Produit");
-		grpProduits.setVisible(false);
+		grpProduits.setVisible(true);
 
 		compositeTable = new Composite(VListProduits, SWT.NONE);
 		compositeTable.setBounds(0, 0, 1337, 305);
@@ -150,9 +151,8 @@ public class VListProduits {
 
 		btnSupprimerProduits = new Button(grpProduits, SWT.NONE);
 		btnSupprimerProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/delete.png"));
-		btnSupprimerProduits.setBounds(516, 179, 194, 40);
+		btnSupprimerProduits.setBounds(509, 113, 194, 40);
 		btnSupprimerProduits.setText("Supprimer ce produit");
-
 
 		composite = new Composite(sashForm, SWT.NONE);
 		tLayout = new TableColumnLayout();
@@ -182,27 +182,27 @@ public class VListProduits {
 		btndetail.setText("detail");
 		btndetail.setVisible(false);
 		Label lblNom = new Label(grpProduits, SWT.NONE);
-		lblNom.setBounds(43, 46, 39, 15);
-		lblNom.setText("Nom:");
-		
+		lblNom.setBounds(29, 35, 39, 15);
+		lblNom.setText("Nom :");
+
 		Label lbdescriptif = new Label(grpProduits, SWT.NONE);
-		lbdescriptif.setBounds(43, 84, 39, 15);
-		lbdescriptif.setText("description :");
+		lbdescriptif.setBounds(29, 69, 73, 15);
+		lbdescriptif.setText("Description :");
 
 		txtNomProduit = new Text(grpProduits, SWT.BORDER);
-		txtNomProduit.setBounds(119, 43, 239, 21);
+		txtNomProduit.setBounds(106, 32, 239, 21);
 
 		txtDescriptif = new Text(grpProduits, SWT.BORDER);
-		txtDescriptif.setBounds(119, 81, 238, 21);
+		txtDescriptif.setBounds(108, 66, 238, 21);
 
 		btnValider = new Button(grpProduits, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
-		btnValider.setBounds(738, 179, 109, 40);
+		btnValider.setBounds(730, 113, 109, 40);
 		btnValider.setText("Valider");
 
 		btnAnnuler = new Button(grpProduits, SWT.NONE);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(853, 179, 109, 40);
+		btnAnnuler.setBounds(845, 113, 109, 40);
 		btnAnnuler.setText("Annuler");
 
 	}
