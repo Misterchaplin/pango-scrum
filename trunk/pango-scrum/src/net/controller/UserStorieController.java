@@ -36,12 +36,13 @@ public class UserStorieController implements SelectionListener {
 	}
 
 	/**
+	 * Onglet To-Do
 	 * @wbp.parser.entryPoint
 	 */
-	public void init() {
+	public void initToDo() {
 		final Session session = AppController.session;
 		
-		//Chargement des différents listes
+		//Chargement des différentes listes
 		vAddUserStorie.getTblvUserStory().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getTblvUserStory().setInput(getUserstories());
 		
@@ -50,9 +51,6 @@ public class UserStorieController implements SelectionListener {
 		
 		vAddUserStorie.getCbvProjet().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvProjet().setInput(getProduct());
-		
-		vAddUserStorie.getTblvDone().setContentProvider(new ArrayContentProvider());
-		vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
 		
 		//Bouton Ajouter une UserStory, réinitialise tous les champs
 		vAddUserStorie.getBtnAjouterUserstorie().addSelectionListener(new SelectionListener() {
@@ -75,7 +73,7 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 
-		// Clique sur un élement de la table
+		// Récupére l'élément cliquer sur la table
 		vAddUserStorie.getTable().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -95,9 +93,8 @@ public class UserStorieController implements SelectionListener {
 					vAddUserStorie.getCbSprint().setText("Aucun");
 				}
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
-				vAddUserStorie.getBtnSupprimerUserstory().setVisible(true);
-				vAddUserStorie.getBtnModifierUserStory().setVisible(true);
-				vAddUserStorie.getBtnDone().setVisible(true);
+				vAddUserStorie.getGrpParametreUserstory().setVisible(true);
+				vAddUserStorie.getGrpChangementDtat().setVisible(true);
 			}
 			
 			@Override
@@ -106,12 +103,12 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Supprimer
+		//Bouton Supprimer une UserStory
 		vAddUserStorie.getBtnSupprimerUserstory().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				MessageBox msgSupprimer = new MessageBox(vAddUserStorie.getShlProductBacklog(), SWT.OK | SWT.ICON_CANCEL | SWT.ICON_QUESTION);
-				msgSupprimer.setMessage("Etes-vous sûr de vouloir supprimer cette UserStory ?");
+				msgSupprimer.setMessage("Etes-vous sÃ»r de vouloir supprimer cette UserStory ?");
 				int result = msgSupprimer.open();
 				if (result == 32) {
 					StructuredSelection sel = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
@@ -119,11 +116,9 @@ public class UserStorieController implements SelectionListener {
 					Transaction trans = session.beginTransaction();
 					session.delete(selectedUserstory);
 					trans.commit();
-					vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
-					vAddUserStorie.getBtnModifierUserStory().setVisible(false);
-					vAddUserStorie.getBtnDone().setVisible(false);
+					vAddUserStorie.getGrpParametreUserstory().setVisible(false);
+					vAddUserStorie.getGrpChangementDtat().setVisible(false);
 				}
-				//Rafraichi la liste du tableau et masque la fênetre
 				vAddUserStorie.getGrpUserstory().setVisible(false);
 				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
 			}
@@ -134,7 +129,7 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Update 
+		//Bouton Modifier une UserStory (Update) 
 		vAddUserStorie.getBtnModifierUserStory().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -161,9 +156,8 @@ public class UserStorieController implements SelectionListener {
 				trans.commit();
 				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
-				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
-				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
-				vAddUserStorie.getBtnDone().setVisible(false);
+				vAddUserStorie.getGrpParametreUserstory().setVisible(false);
+				vAddUserStorie.getGrpChangementDtat().setVisible(false);
 			}
 			
 			@Override
@@ -172,7 +166,7 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Done
+		//Bouton Done permettant de mettre une UserStory à Done
 		vAddUserStorie.getBtnDone().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -185,11 +179,10 @@ public class UserStorieController implements SelectionListener {
 				session.update(selectedUserStory);
 				trans.commit();
 				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
-				vAddUserStorie.getBtnModifierUserStory().setVisible(false);
-				vAddUserStorie.getBtnSupprimerUserstory().setVisible(false);
-				vAddUserStorie.getBtnDone().setVisible(false);
-				
+				vAddUserStorie.getGrpParametreUserstory().setVisible(false);
+				vAddUserStorie.getGrpChangementDtat().setVisible(false);
 			}
 			
 			@Override
@@ -199,7 +192,33 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Valider
+		//Bouton InProgress permettant de mettre une UserStory en cours
+				vAddUserStorie.getBtnInProgress().addSelectionListener(new SelectionListener() {
+					@Override
+					public void widgetSelected(SelectionEvent arg0) {
+						Status status=new Status();
+						status.setIdStatus(2);
+						StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
+						Userstory selectedUserStory = (Userstory) select.getFirstElement();
+						selectedUserStory.setStatus(status);
+						Transaction trans = session.beginTransaction();
+						session.update(selectedUserStory);
+						trans.commit();
+						vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+						vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
+						vAddUserStorie.getGrpUserstory().setVisible(false);
+						vAddUserStorie.getGrpParametreUserstory().setVisible(false);
+						vAddUserStorie.getGrpChangementDtat().setVisible(false);
+					}
+					
+					@Override
+					public void widgetDefaultSelected(SelectionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+		
+		//Bouton Valider permet de valider la UserStory à ajouter
 		vAddUserStorie.getBtnValider().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -229,7 +248,7 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton Annuler
+		//Bouton Annuler annule l'ajout d'une UserStory
 		vAddUserStorie.getBtnAnnuler().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -243,6 +262,132 @@ public class UserStorieController implements SelectionListener {
 		});
 	}
 
+	@Override
+	public void widgetDefaultSelected(SelectionEvent arg0) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void widgetSelected(SelectionEvent arg0) {
+		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * Onglet In-Progress 
+	 */
+	
+	public void initInProgress(){
+		final Session session = AppController.session;
+		vAddUserStorie.getTblvInProgress().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
+	
+		vAddUserStorie.getCbvSprintInProgress().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getCbvSprintInProgress().setInput(getSprint());
+		
+		vAddUserStorie.getCbvProjetInProgress().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getCbvProjetInProgress().setInput(getProduct());
+		
+		//Charge les éléments de la ligne sélectionné dans le tableau
+		vAddUserStorie.getTblInProgress().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				vAddUserStorie.getGrpChangementEtatInProgress().setVisible(true);
+				vAddUserStorie.getGrpRcapitulatifInProgress().setVisible(true);
+				StructuredSelection sel = (StructuredSelection) vAddUserStorie.getTblvInProgress().getSelection();
+				Userstory selectedUserStoryInProgress = (Userstory) sel.getFirstElement();
+				vAddUserStorie.getTxtNomInProgress().setText(selectedUserStoryInProgress.getLabel());
+				vAddUserStorie.getTxtDescriptionInProgress().setText(selectedUserStoryInProgress.getDescription());
+				vAddUserStorie.getTxtPtattribueInProgress().setText(selectedUserStoryInProgress.getStoryPoints().toString());
+				vAddUserStorie.getTxtPrioriteInProgress().setText(selectedUserStoryInProgress.getPriority().toString());
+				if(selectedUserStoryInProgress.getSprint() != null){
+					vAddUserStorie.getCbvSprintInProgress().setSelection(new StructuredSelection(selectedUserStoryInProgress.getSprint()));
+				}else{
+					String label = "Aucun";
+					Sprint sprint = new Sprint(label);
+					getSprint().add(sprint);
+					vAddUserStorie.getCbSprintInProgress().setText("Aucun");
+				}
+				vAddUserStorie.getCbvProjetInProgress().setSelection(new StructuredSelection(selectedUserStoryInProgress.getProduct()));
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		//Bouton permettant de passer la UserStory à l'état cloturé (Done)
+		vAddUserStorie.getBtncloturerInProgress().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				Status status=new Status();
+				status.setIdStatus(3);
+				StructuredSelection selectInProgress = (StructuredSelection) vAddUserStorie.getTblvInProgress().getSelection();
+				Userstory selectedUserStoryInProgress = (Userstory) selectInProgress.getFirstElement();
+				selectedUserStoryInProgress.setStatus(status);
+				Transaction trans = session.beginTransaction();
+				session.update(selectedUserStoryInProgress);
+				trans.commit();
+				vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
+				vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+				vAddUserStorie.getGrpRcapitulatifInProgress().setVisible(false);
+				vAddUserStorie.getGrpChangementEtatInProgress().setVisible(false);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	/**
+	 * Onglet Done 
+	 */
+	
+	public void initDone(){
+		vAddUserStorie.getTblvDone().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+		
+		vAddUserStorie.getCbvSprintDone().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getCbvSprintDone().setInput(getSprint());
+		
+		vAddUserStorie.getCbvProjetDone().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getCbvProjetDone().setInput(getProduct());
+		
+		//Charge les éléments de la ligne sélectionné
+		vAddUserStorie.getTblDone().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				vAddUserStorie.getGrpRcapitulatifUserStory().setVisible(true);
+				StructuredSelection sel = (StructuredSelection) vAddUserStorie.getTblvDone().getSelection();
+				Userstory selectedUserStoryDone = (Userstory) sel.getFirstElement();
+				vAddUserStorie.getTxtNomDone().setText(selectedUserStoryDone.getLabel());
+				vAddUserStorie.getTxtDescriptionDone().setText(selectedUserStoryDone.getDescription());
+				vAddUserStorie.getTxtPtAttribueDone().setText(selectedUserStoryDone.getStoryPoints().toString());
+				vAddUserStorie.getTxtPrioriteDone().setText(selectedUserStoryDone.getPriority().toString());
+				if(selectedUserStoryDone.getSprint() != null){
+					vAddUserStorie.getCbvSprintDone().setSelection(new StructuredSelection(selectedUserStoryDone.getSprint()));
+				}else{
+					String label = "Aucun";
+					Sprint sprint = new Sprint(label);
+					getSprint().add(sprint);
+					vAddUserStorie.getCbSprintDone().setText("Aucun");
+				}
+				vAddUserStorie.getCbvProjetDone().setSelection(new StructuredSelection(selectedUserStoryDone.getProduct()));
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+	
+	
+	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -267,20 +412,15 @@ public class UserStorieController implements SelectionListener {
 		return lessprints;
 	}
 	
+	private List<Userstory> getUserStoryInProgress(){
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 2");
+		List<Userstory> lesuserStoriesInProgress = query.list();
+		return lesuserStoriesInProgress;
+	}
+	
 	private List<Userstory> getUserStoryDone(){
 		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 3");
 		List<Userstory> lesuserStories = query.list();
 		return lesuserStories;
 	}
-
-	@Override
-	public void widgetDefaultSelected(SelectionEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void widgetSelected(SelectionEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
 }
