@@ -6,21 +6,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import net.models.Sprint;
 import net.technics.DAOSprint;
 import net.technics.TvSprintProvider;
 import net.vues.VSprint;
-
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
 import org.hibernate.Query;
 
 public class SprintController implements SelectionListener {
@@ -101,8 +94,6 @@ public class SprintController implements SelectionListener {
 					e.printStackTrace();
 				}
 			
-				
-						
 			}
 			
 			@Override
@@ -115,22 +106,13 @@ public class SprintController implements SelectionListener {
 		vSprint.getBtnModifierSprint().addSelectionListener(new SelectionListener() {
 			
 			@Override
-			public void widgetSelected(SelectionEvent evt) {
-				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-				Date oldDateD=null;			
-				Date oldDateF=null;
-				try {
-					oldDateD=sdf.parse(oldDateDeb);
-					oldDateF=sdf.parse(olDateFin);
-					
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			public void widgetSelected(SelectionEvent evt) {						
 				newDateDeb=getDateDeb();
 				newDateFin=getDateFin();
-				DAOSprint.updateDate(activeSprint, newDateDeb, oldDateD);
-				DAOSprint.updateDate(activeSprint, newDateFin, oldDateF);
+				DAOSprint.updateName(activeSprint, vSprint.getnewNameSprint().getText());
+				DAOSprint.updateDate(activeSprint, newDateDeb, true);
+				DAOSprint.updateDate(activeSprint, newDateFin, false);
+
 				
 			}
 			
@@ -159,13 +141,13 @@ public class SprintController implements SelectionListener {
 	}
 	private Date getDateDeb(){
 		Calendar c = Calendar.getInstance();
-		c.set(vSprint.getDateDebut().getDay(),vSprint.getDateDebut().getMonth(),vSprint.getDateDebut().getYear());
+		c.set(vSprint.getDateDebut().getYear(),vSprint.getDateDebut().getMonth(),vSprint.getDateDebut().getDay());		
 		Date d = c.getTime();
 		return d;		
 	}
 	private Date getDateFin(){
 		Calendar c = Calendar.getInstance();
-		c.set(vSprint.getDateFin().getDay(),vSprint.getDateFin().getMonth(),vSprint.getDateFin().getYear());
+		c.set(vSprint.getDateFin().getYear(),vSprint.getDateFin().getMonth(),vSprint.getDateFin().getDay());		
 		Date d = c.getTime();
 		return d;		
 	}

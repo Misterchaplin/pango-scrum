@@ -153,16 +153,32 @@ public class DAOSprint {
 		
 	}
 	
-	public static void updateDate(Sprint sprint,Date newDate, Date oldDate){
+	public static void updateName(Sprint sprint,String newLabel){
 		Session session = HibernateUtil.getSession();
 		Transaction trans = session.beginTransaction();
-		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Query query = session.createQuery("update Sprint set label=:newLbl where id=:idSprint");
+		query.setParameter("newLbl", newLabel);
+		query.setParameter("idSprint", sprint.getId());
+		query.executeUpdate();
+		trans.commit();
+		session.close();
+	}
+	
+	public static void updateDate(Sprint sprint,Date newDate,Boolean debut){
+		Session session = HibernateUtil.getSession();
+		Transaction trans = session.beginTransaction();
+		Query query=null;
+		if(debut==true){
+		query= session.createQuery("update Event set eventDate=:newDate where sprint.id=:idSprint and eventtype.id=:idEventtype");
+		query.setParameter("idEventtype", 1);
+		}
+		else{
+			query= session.createQuery("update Event set eventDate=:newDate where sprint.id=:idSprint and eventtype.id=:idEventtype");
+			query.setParameter("idEventtype", 2);	
+		}
+		query.setParameter("newDate", newDate);
+		query.setParameter("idSprint", sprint.getId());		
 		
-		String updateHql = "update Event set eventDate=:newDate where sprint.label=:leSprint And eventDate=:oldDate";
-		Query query=session.createQuery(updateHql);
-		query.setString("newDate", formatter.format(newDate));
-		query.setString("leSprint", sprint.getLabel());		
-		query.setString("oldDate",formatter.format(oldDate));
 		query.executeUpdate();
 		trans.commit();
 		session.close();
