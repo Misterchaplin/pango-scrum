@@ -52,7 +52,9 @@ public class AppController {
 	public AppController(VAddUserStorie vAddUserStorie) {
 		UserStorieController userStorieController = new UserStorieController(vAddUserStorie);
 		vAddUserStorie.init();
-		userStorieController.init();
+		userStorieController.initToDo();
+		userStorieController.initDone();
+		userStorieController.initInProgress();
 	}
 
 	public AppController(VAffectationCollaborator vAffectationCollaborator) {
