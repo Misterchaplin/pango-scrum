@@ -24,58 +24,116 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 public class VAddUserStorie {
 
+	/**
+	 * Membres général
+	 */
+	
 	protected Shell vAddUserStorie;
-	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
+	private TabFolder tbfProductBacklog;
+	private TabItem tbtmTodo;
 	private TabItem tbtmInProgress;
 	private TabItem tbtmDone;
-	private TabItem tbtmTodo;
-	private Table tblInProgress;
-	private Table tblUserStory;
-	private ComboViewer cbvProjet;
-	private TableViewer tableViewer;
+	private TableColumnLayout tLayout;
+	private final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
+	
+	/**
+	 * Membres de l'onglet To-Do
+	 */
+	
 	private Text txtNom;
 	private Text txtDescription;
 	private Text txtPtAttribue;
 	private Text txtPriorite;
+	
 	private Combo cbSprint;
 	private ComboViewer cbvSprint;
+	private Combo cbProjet;
+	private ComboViewer cbvProjet;
+	
+	private Button btnAjouterUserstorie;
+	private Button btnModifierUserStory;
+	private Button btnSupprimerUserstory;
+	private Button btnInProgress;
+	private Button btnDone;
 	private Button btnValider;
 	private Button btnAnnuler;
-	private Button btnSupprimerUserstory;
-	private Button btnAjouterUserstorie;
-	private TableViewer tblvUserStory;
+
+	private Group grpParametreUserstory;
+	private Group grpChangementDtat;
 	private Group grpUserstory;
-	private Button btnModifierUserStory;
-	private TableColumnLayout tLayout;
-	private TabFolder tbfProductBacklog;
-	private Button btnDone;
+	
+	private Table tblUserStory;
+	private TableViewer tblvUserStory;
+	
+	/**
+	 * Membres de l'onglet In-Progress
+	 */
+	
+	private Text txtNomInProgress;
+	private Text txtDescriptionInProgress;
+	private Text txtPtattribueInProgress;
+	private Text txtPrioriteInProgress;
+
+	private Combo cbSprintInProgress;
+	private ComboViewer cbvSprintInProgress;
+	private Combo cbProjetInProgress;
+	private ComboViewer cbvProjetInProgress;
+
+	private Button btncloturerInProgress;
+
+	private Group grpRcapitulatifInProgress;
+
+	private Table tblInProgress;
+	private TableViewer tblvInProgress;
+	
+	/**
+	 * Membres de l'onglet Done
+	 */
+	
+	private Text txtNomDone;
+	private Text txtDescriptionDone;
+	private Text txtPtAttribueDone;
+	private Text txtPrioriteDone;
+	
+	private Combo cbSprintDone;
+	private ComboViewer cbvSprintDone;
+	private Combo cbProjetDone;
+	private ComboViewer cbvProjetDone;
+
+	private Group grpChangementEtatInProgress;
+	private Group grpRcapitulatifUserStory;
+
 	private Table tblDone;
 	private TableViewer tblvDone;
-
-	public TabFolder getTbfProductBacklog() {
-		return tbfProductBacklog;
-	}
-
+	
+	/**
+	 * Getteurs Général
+	 */
+	
 	public Shell getShlProductBacklog() {
 		return vAddUserStorie;
 	}
-
-	public TableViewer getTblvDone() {
-		return tblvDone;
+	
+	public TabFolder getTbfProductBacklog() {
+		return tbfProductBacklog;
+	}
+	
+	public TabItem getTbtmTodo() {
+		return tbtmTodo;
+	}
+	
+	public TabItem getTbtmInProgress() {
+		return tbtmInProgress;
 	}
 
-	public Table getTable() {
-		return tblUserStory;
+	public TabItem getTbtmDone() {
+		return tbtmDone;
 	}
-
-	public Group getGrpUserstory() {
-		return grpUserstory;
-	}
-
-	public TableViewer getTblvUserStory() {
-		return tblvUserStory;
-	}
-
+	
+	
+	/**
+	 * Getteurs To-Do
+	 */
 	public Text getTxtNom() {
 		return txtNom;
 	}
@@ -88,6 +146,10 @@ public class VAddUserStorie {
 		return txtPtAttribue;
 	}
 
+	public Text getTxtPriorite() {
+		return txtPriorite;
+	}
+	
 	public Combo getCbSprint() {
 		return cbSprint;
 	}
@@ -96,52 +158,163 @@ public class VAddUserStorie {
 		return cbvSprint;
 	}
 
+	public Combo getCbProjet() {
+		return cbProjet;
+	}
+
 	public ComboViewer getCbvProjet() {
 		return cbvProjet;
 	}
-
-	public Text getTxtPriorite() {
-		return txtPriorite;
-	}
-
+	
 	public Button getBtnAjouterUserstorie() {
 		return btnAjouterUserstorie;
 	}
-
-	public Button getBtnValider() {
-		return btnValider;
+	
+	public Button getBtnModifierUserStory() {
+		return btnModifierUserStory;
 	}
-
+	
+	public Button getBtnSupprimerUserstory() {
+		return btnSupprimerUserstory;
+	}
+	
+	public Button getBtnInProgress() {
+		return btnInProgress;
+	}
+	
 	public Button getBtnDone() {
 		return btnDone;
+	}
+	
+	public Button getBtnValider() {
+		return btnValider;
 	}
 
 	public Button getBtnAnnuler() {
 		return btnAnnuler;
 	}
-
-	public Button getBtnSupprimerUserstory() {
-		return btnSupprimerUserstory;
+	
+	public Group getGrpParametreUserstory() {
+		return grpParametreUserstory;
+	}
+	
+	public Group getGrpChangementDtat() {
+		return grpChangementDtat;
+	}
+	
+	public Group getGrpUserstory() {
+		return grpUserstory;
+	}
+	
+	public Table getTable() {
+		return tblUserStory;
 	}
 
-	public Button getBtnModifierUserStory() {
-		return btnModifierUserStory;
+	public TableViewer getTblvUserStory() {
+		return tblvUserStory;
+	}
+	
+	/**
+	 * Getteurs In-Progress
+	 */
+	
+	public Text getTxtNomInProgress() {
+		return txtNomInProgress;
 	}
 
-	public TabItem getTbtmInProgress() {
-		return tbtmInProgress;
+	public Text getTxtDescriptionInProgress() {
+		return txtDescriptionInProgress;
+	}
+	
+	public Text getTxtPtattribueInProgress() {
+		return txtPtattribueInProgress;
+	}
+	
+	public Text getTxtPrioriteInProgress() {
+		return txtPrioriteInProgress;
 	}
 
-	public TabItem getTbtmDone() {
-		return tbtmDone;
+	public Combo getCbSprintInProgress() {
+		return cbSprintInProgress;
 	}
 
-	public TabItem getTbtmTodo() {
-		return tbtmTodo;
+	public ComboViewer getCbvSprintInProgress() {
+		return cbvSprintInProgress;
 	}
 
-	public TableViewer getTableViewer() {
-		return tableViewer;
+	public Combo getCbProjetInProgress() {
+		return cbProjetInProgress;
+	}
+	
+	public ComboViewer getCbvProjetInProgress() {
+		return cbvProjetInProgress;
+	}
+
+	public Button getBtncloturerInProgress() {
+		return btncloturerInProgress;
+	}
+	
+	public Group getGrpRcapitulatifInProgress() {
+		return grpRcapitulatifInProgress;
+	}
+
+	public Table getTblInProgress() {
+		return tblInProgress;
+	}
+
+	public TableViewer getTblvInProgress() {
+		return tblvInProgress;
+	}
+	
+	/**
+	 * Getteurs Done
+	 */
+	public Text getTxtNomDone() {
+		return txtNomDone;
+	}
+
+	public Text getTxtDescriptionDone() {
+		return txtDescriptionDone;
+	}
+	
+	public Text getTxtPtAttribueDone() {
+		return txtPtAttribueDone;
+	}
+	
+	public Text getTxtPrioriteDone() {
+		return txtPrioriteDone;
+	}
+	
+	public Combo getCbSprintDone() {
+		return cbSprintDone;
+	}
+	
+	public ComboViewer getCbvSprintDone() {
+		return cbvSprintDone;
+	}
+
+	public Combo getCbProjetDone() {
+		return cbProjetDone;
+	}
+	
+	public ComboViewer getCbvProjetDone() {
+		return cbvProjetDone;
+	}
+	
+	public Group getGrpChangementEtatInProgress() {
+		return grpChangementEtatInProgress;
+	}
+
+	public Group getGrpRcapitulatifUserStory() {
+		return grpRcapitulatifUserStory;
+	}
+	
+	public Table getTblDone() {
+		return tblDone;
+	}
+	
+	public TableViewer getTblvDone() {
+		return tblvDone;
 	}
 
 	public void init() {
@@ -149,7 +322,7 @@ public class VAddUserStorie {
 	}
 
 	/**
-	 * Open the window.
+	 * Open the window
 	 */
 	public void open() {
 
@@ -226,16 +399,9 @@ public class VAddUserStorie {
 		btnAjouterUserstorie.setBounds(10, 10, 151, 34);
 		formToolkit.adapt(btnAjouterUserstorie, true, true);
 
-		btnSupprimerUserstory = new Button(composite, SWT.NONE);
-		btnSupprimerUserstory.setBounds(9, 60, 152, 40);
-		btnSupprimerUserstory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/delete_UserStory.png"));
-		formToolkit.adapt(btnSupprimerUserstory, true, true);
-		btnSupprimerUserstory.setText("Supprimer UserStory");
-		btnSupprimerUserstory.setVisible(false);
-
 		grpUserstory = new Group(composite, SWT.NONE);
 		grpUserstory.setText("UserStory");
-		grpUserstory.setBounds(167, 10, 599, 238);
+		grpUserstory.setBounds(186, 10, 580, 238);
 		formToolkit.adapt(grpUserstory);
 		formToolkit.paintBordersFor(grpUserstory);
 		grpUserstory.setVisible(true);
@@ -287,7 +453,7 @@ public class VAddUserStorie {
 		formToolkit.paintBordersFor(cbSprint);
 
 		cbvProjet = new ComboViewer(grpUserstory, SWT.NONE);
-		Combo cbProjet = cbvProjet.getCombo();
+		cbProjet = cbvProjet.getCombo();
 		cbProjet.setBounds(482, 61, 91, 23);
 		formToolkit.paintBordersFor(cbProjet);
 
@@ -306,27 +472,54 @@ public class VAddUserStorie {
 		// btnValider, btnAnnuler, btnSupprimerUserstory});
 
 		btnAnnuler = new Button(grpUserstory, SWT.NONE);
-		btnAnnuler.setBounds(480, 188, 109, 40);
+		btnAnnuler.setBounds(464, 188, 109, 40);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
 		formToolkit.adapt(btnAnnuler, true, true);
 		btnAnnuler.setVisible(false);
-
-		btnModifierUserStory = new Button(composite, SWT.NONE);
+		
+		grpParametreUserstory = new Group(composite, SWT.NONE);
+		grpParametreUserstory.setText("Param\u00E8tre UserStory");
+		grpParametreUserstory.setBounds(0, 48, 170, 99);
+		grpParametreUserstory.setVisible(false);
+		formToolkit.adapt(grpParametreUserstory);
+		formToolkit.paintBordersFor(grpParametreUserstory);
+		
+		btnModifierUserStory = new Button(grpParametreUserstory, SWT.NONE);
+		btnModifierUserStory.setBounds(10, 20, 152, 33);
 		btnModifierUserStory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/Modifier_UserStory.png"));
-		btnModifierUserStory.setBounds(10, 112, 152, 40);
 		formToolkit.adapt(btnModifierUserStory, true, true);
 		btnModifierUserStory.setText("Modifier UserStory");
-		btnModifierUserStory.setVisible(false);
-		
-		btnDone = new Button(composite, SWT.NONE);
+		btnModifierUserStory.setVisible(true);
+				
+		btnSupprimerUserstory = new Button(grpParametreUserstory, SWT.NONE);
+		btnSupprimerUserstory.setBounds(10, 60, 152, 33);
+		btnSupprimerUserstory.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/delete_UserStory.png"));
+		formToolkit.adapt(btnSupprimerUserstory, true, true);
+		btnSupprimerUserstory.setText("Supprimer UserStory");
+		btnSupprimerUserstory.setVisible(true);
+				
+		grpChangementDtat = new Group(composite, SWT.NONE);
+		grpChangementDtat.setText("Changement d'\u00E9tat");
+		grpChangementDtat.setBounds(0, 154, 170, 99);
+		grpChangementDtat.setVisible(false);
+		formToolkit.adapt(grpChangementDtat);
+		formToolkit.paintBordersFor(grpChangementDtat);
+				
+		btnDone = new Button(grpChangementDtat, SWT.NONE);
+		btnDone.setBounds(10, 60, 152, 33);
 		btnDone.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/done_UserStory.png"));
-		btnDone.setBounds(10, 158, 152, 40);
 		formToolkit.adapt(btnDone, true, true);
 		btnDone.setText("Cloturer UserStory");
-		btnDone.setVisible(false);
+		btnDone.setVisible(true);
+				
+		btnInProgress = new Button(grpChangementDtat, SWT.NONE);
+		btnInProgress.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/In_Progress_UserStory.png"));
+		btnInProgress.setBounds(10, 20, 152, 33);
+		formToolkit.adapt(btnInProgress, true, true);
+		btnInProgress.setText("En cours UserStory");
 		sashTo1.setWeights(new int[] { 1 });
-		sashToDo.setWeights(new int[] { 31, 239, 257 });
+		sashToDo.setWeights(new int[] {31, 240, 256});
 
 		tbtmInProgress = new TabItem(tbfProductBacklog, SWT.NONE);
 		tbtmInProgress.setText("In Progress");
@@ -348,25 +541,107 @@ public class VAddUserStorie {
 		sashIn3.setWeights(new int[] { 1 });
 
 		SashForm sashIn2 = new SashForm(sashInProgress, SWT.NONE);
+		tLayout = new TableColumnLayout();
+		sashIn2.setLayout(tLayout);
 		formToolkit.adapt(sashIn2);
 		formToolkit.paintBordersFor(sashIn2);
 
-		TableViewer tableViewer_1 = new TableViewer(sashIn2, SWT.BORDER | SWT.FULL_SELECTION);
-		tblInProgress = tableViewer_1.getTable();
+		tblvInProgress = new TableViewer(sashIn2, SWT.BORDER | SWT.FULL_SELECTION);
+		tblInProgress = tblvInProgress.getTable();
 		tblInProgress.setLinesVisible(true);
 		tblInProgress.setHeaderVisible(true);
 		formToolkit.paintBordersFor(tblInProgress);
 		sashIn2.setWeights(new int[] { 1 });
-
+		
+		createColumn(tblInProgress, "Nom des UserStory en cours", 1);
+		
 		SashForm sashIn1 = new SashForm(sashInProgress, SWT.NONE);
 		formToolkit.adapt(sashIn1);
 		formToolkit.paintBordersFor(sashIn1);
-
-		Composite composite_1 = new Composite(sashIn1, SWT.NONE);
-		formToolkit.adapt(composite_1);
-		formToolkit.paintBordersFor(composite_1);
+		
+		Composite composite_3 = new Composite(sashIn1, SWT.NONE);
+		formToolkit.adapt(composite_3);
+		formToolkit.paintBordersFor(composite_3);
+		
+		grpRcapitulatifInProgress = new Group(composite_3, SWT.NONE);
+		grpRcapitulatifInProgress.setEnabled(false);
+		grpRcapitulatifInProgress.setText("R\u00E9capitulatif de la UserStory en cours");
+		grpRcapitulatifInProgress.setBounds(176, 10, 592, 185);
+		grpRcapitulatifInProgress.setVisible(false);
+		formToolkit.adapt(grpRcapitulatifInProgress);
+		formToolkit.paintBordersFor(grpRcapitulatifInProgress);
+		
+		Label lblNomInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblNomInProgress.setText("Nom : ");
+		lblNomInProgress.setBounds(10, 80, 55, 15);
+		formToolkit.adapt(lblNomInProgress, true, true);
+		
+		Label lblDescriptionInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblDescriptionInProgress.setText("Description : ");
+		lblDescriptionInProgress.setBounds(10, 130, 69, 15);
+		formToolkit.adapt(lblDescriptionInProgress, true, true);
+		
+		Label lblSprintInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblSprintInProgress.setText("Sprint :");
+		lblSprintInProgress.setBounds(365, 40, 42, 15);
+		formToolkit.adapt(lblSprintInProgress, true, true);
+		
+		Label lblProjetInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblProjetInProgress.setText("Projet : ");
+		lblProjetInProgress.setBounds(10, 41, 42, 15);
+		formToolkit.adapt(lblProjetInProgress, true, true);
+		
+		Label lblPtattribueInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblPtattribueInProgress.setText("Points attribu\u00E9s : ");
+		lblPtattribueInProgress.setBounds(365, 109, 91, 15);
+		formToolkit.adapt(lblPtattribueInProgress, true, true);
+		
+		Label lblPrioriteInProgress = new Label(grpRcapitulatifInProgress, SWT.NONE);
+		lblPrioriteInProgress.setText("Priorit\u00E9 : ");
+		lblPrioriteInProgress.setBounds(365, 82, 55, 15);
+		formToolkit.adapt(lblPrioriteInProgress, true, true);
+		
+		cbvProjetInProgress = new ComboViewer(grpRcapitulatifInProgress, SWT.NONE);
+		cbProjetInProgress = cbvProjetInProgress.getCombo();
+		cbProjetInProgress.setBounds(85, 38, 244, 23);
+		formToolkit.paintBordersFor(cbProjetInProgress);
+		
+		cbvSprintInProgress = new ComboViewer(grpRcapitulatifInProgress, SWT.NONE);
+		cbSprintInProgress = cbvSprintInProgress.getCombo();
+		cbSprintInProgress.setBounds(466, 37, 116, 23);
+		formToolkit.paintBordersFor(cbSprintInProgress);
+		
+		txtNomInProgress = new Text(grpRcapitulatifInProgress, SWT.BORDER);
+		txtNomInProgress.setBounds(85, 77, 244, 21);
+		formToolkit.adapt(txtNomInProgress, true, true);
+		
+		txtDescriptionInProgress = new Text(grpRcapitulatifInProgress, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
+		txtDescriptionInProgress.setBounds(84, 104, 245, 72);
+		formToolkit.adapt(txtDescriptionInProgress, true, true);
+		
+		txtPrioriteInProgress = new Text(grpRcapitulatifInProgress, SWT.BORDER);
+		txtPrioriteInProgress.setBounds(466, 79, 116, 21);
+		formToolkit.adapt(txtPrioriteInProgress, true, true);
+		
+		txtPtattribueInProgress = new Text(grpRcapitulatifInProgress, SWT.BORDER);
+		txtPtattribueInProgress.setBounds(466, 106, 116, 21);
+		formToolkit.adapt(txtPtattribueInProgress, true, true);
+		
+		grpChangementEtatInProgress = new Group(composite_3, SWT.NONE);
+		grpChangementEtatInProgress.setVisible(false);
+		grpChangementEtatInProgress.setText("Changement d'\u00E9tat");
+		grpChangementEtatInProgress.setBounds(0, 10, 170, 66);
+		formToolkit.adapt(grpChangementEtatInProgress);
+		formToolkit.paintBordersFor(grpChangementEtatInProgress);
+		
+		btncloturerInProgress = new Button(grpChangementEtatInProgress, SWT.NONE);
+		btncloturerInProgress.setVisible(true);
+		btncloturerInProgress.setText("Cloturer UserStory");
+		btncloturerInProgress.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/done_UserStory.png"));
+		btncloturerInProgress.setBounds(10, 22, 152, 33);
+		formToolkit.adapt(btncloturerInProgress, true, true);
 		sashIn1.setWeights(new int[] { 1 });
-		sashInProgress.setWeights(new int[] { 31, 275, 221 });
+		sashInProgress.setWeights(new int[] {30, 275, 222});
 
 		tbtmDone = new TabItem(tbfProductBacklog, SWT.NONE);
 		tbtmDone.setText("Done");
@@ -387,22 +662,101 @@ public class VAddUserStorie {
 		sashDone3.setWeights(new int[] { 1 });
 
 		SashForm sashDone2 = new SashForm(sashDone, SWT.NONE);
+		tLayout = new TableColumnLayout();
+		sashDone2.setLayout(tLayout);
+
 		
 		tblvDone = new TableViewer(sashDone2, SWT.BORDER | SWT.FULL_SELECTION);
 		tblDone = tblvDone.getTable();
 		tblDone.setHeaderVisible(true);
 		tblDone.setLinesVisible(true);
 		formToolkit.paintBordersFor(tblDone);
-		sashDone2.setWeights(new int[] { 1});
-		sashDone.setWeights(new int[] { 31, 282 });
+		sashDone2.setWeights(new int[] { 1, });
 		sashGeneralProductBackLog.setWeights(new int[] { 1 });
+		
+
+		createColumn(tblDone, "Nom des UserStory cloturées", 1);
+		
+		SashForm sashForm = new SashForm(sashDone, SWT.NONE);
+		formToolkit.adapt(sashForm);
+		formToolkit.paintBordersFor(sashForm);
+		
+		Composite composite_2 = new Composite(sashForm, SWT.NONE);
+		formToolkit.adapt(composite_2);
+		formToolkit.paintBordersFor(composite_2);
+		
+		grpRcapitulatifUserStory = new Group(composite_2, SWT.NONE);
+		grpRcapitulatifUserStory.setText("R\u00E9capitulatif de la UserStory Clotur\u00E9");
+		grpRcapitulatifUserStory.setBounds(0, 10, 597, 175);
+		grpRcapitulatifUserStory.setVisible(false);
+		grpRcapitulatifUserStory.setEnabled(false);
+		formToolkit.adapt(grpRcapitulatifUserStory);
+		formToolkit.paintBordersFor(grpRcapitulatifUserStory);
+		
+		Label lblNomDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblNomDone.setBounds(10, 68, 55, 15);
+		formToolkit.adapt(lblNomDone, true, true);
+		lblNomDone.setText("Nom : ");
+		
+		Label lblDescriptionDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblDescriptionDone.setBounds(10, 118, 69, 15);
+		formToolkit.adapt(lblDescriptionDone, true, true);
+		lblDescriptionDone.setText("Description : ");
+		
+		Label lblSprintDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblSprintDone.setBounds(364, 29, 42, 15);
+		formToolkit.adapt(lblSprintDone, true, true);
+		lblSprintDone.setText("Sprint :");
+		
+		Label lblProjetDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblProjetDone.setBounds(10, 29, 42, 15);
+		formToolkit.adapt(lblProjetDone, true, true);
+		lblProjetDone.setText("Projet : ");
+		
+		Label lblPointsAttribueDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblPointsAttribueDone.setBounds(364, 98, 91, 15);
+		formToolkit.adapt(lblPointsAttribueDone, true, true);
+		lblPointsAttribueDone.setText("Points attribu\u00E9s : ");
+		
+		Label lblPrioriteDone = new Label(grpRcapitulatifUserStory, SWT.NONE);
+		lblPrioriteDone.setBounds(364, 71, 55, 15);
+		formToolkit.adapt(lblPrioriteDone, true, true);
+		lblPrioriteDone.setText("Priorit\u00E9 : ");
+		
+		cbvProjetDone = new ComboViewer(grpRcapitulatifUserStory, SWT.NONE);
+		cbProjetDone = cbvProjetDone.getCombo();
+		cbProjetDone.setBounds(85, 26, 244, 23);
+		formToolkit.paintBordersFor(cbProjetDone);
+		
+		cbvSprintDone = new ComboViewer(grpRcapitulatifUserStory, SWT.NONE);
+		cbSprintDone = cbvSprintDone.getCombo();
+		cbSprintDone.setBounds(465, 26, 116, 23);
+		formToolkit.paintBordersFor(cbSprintDone);
+		
+		txtNomDone = new Text(grpRcapitulatifUserStory, SWT.BORDER);
+		txtNomDone.setBounds(85, 65, 244, 21);
+		formToolkit.adapt(txtNomDone, true, true);
+		
+		txtDescriptionDone = new Text(grpRcapitulatifUserStory, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		txtDescriptionDone.setBounds(84, 92, 245, 72);
+		formToolkit.adapt(txtDescriptionDone, true, true);
+		
+		txtPrioriteDone = new Text(grpRcapitulatifUserStory, SWT.BORDER);
+		txtPrioriteDone.setBounds(465, 68, 116, 21);
+		formToolkit.adapt(txtPrioriteDone, true, true);
+		
+		txtPtAttribueDone = new Text(grpRcapitulatifUserStory, SWT.BORDER);
+		txtPtAttribueDone.setBounds(465, 95, 116, 21);
+		formToolkit.adapt(txtPtAttribueDone, true, true);
+		sashForm.setWeights(new int[] {1});
+		sashDone.setWeights(new int[] {30, 240, 258});
 
 	}
 
 	public void createColumn(Table table, String caption, int weight) {
 		TableColumn col = new TableColumn(table, SWT.NONE);
 		col.setWidth(773);
-		col.setText("Nom des UserStory");
+		col.setText(caption);
 		tLayout.setColumnData(col, new ColumnWeightData(weight));
 	}
 }
