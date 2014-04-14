@@ -48,6 +48,10 @@ public class VMyProfile {
 		return linkChangeMdp;
 	}
 
+	public Text getTxtPrenom() {
+		return txtPrenom;
+	}
+
 	/**
 	 * Launch the application.
 	 * 
@@ -156,7 +160,4 @@ public class VMyProfile {
 
 	}
 
-	public Text getTxtPrenom() {
-		return txtPrenom;
-	}
 }

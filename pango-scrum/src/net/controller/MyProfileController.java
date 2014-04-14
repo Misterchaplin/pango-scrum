@@ -73,18 +73,19 @@ public class MyProfileController {
 
 			}
 		});
-		
+
+		// bouton annuler
 		vMyProfile.getBtnAnnuler().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				vMyProfile.getvMyProfile().close();
-				
+				Prog.vAccueil.getLblInformation().setText("");
 			}
-			
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
