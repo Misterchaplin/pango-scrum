@@ -1,19 +1,20 @@
 package net.technics;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.controller.AppController;
 import net.controller.ProductController;
 import net.models.Collaborator;
-import net.models.Playrole;
 import net.models.Product;
+import net.models.Sprint;
 import net.models.Userstory;
+
+import org.hibernate.Query;
 
 public class DAOProduct {
 
 	/**
-	 * Fonction de rÃ©cupÃ©ration de tous les product
+	 * Fonction de récupération de tous les product
 	 * 
 	 * @return List<Product> lesProduits
 	 */
@@ -22,15 +23,108 @@ public class DAOProduct {
 		List<Product> lesProduits = query.list();
 		return lesProduits;
 	}
-	public static List<Userstory> getUserStorie(Product Produit){
-		org.hibernate.Query query = AppController.session.createQuery("from UserStory");
-		List<Userstory> lesUserStorys = query.list();
-		List<Userstory> lesUserStorys1 = null;
-		for (Userstory userstory : lesUserStorys) {
-			if(userstory.getProduct()== Produit){
-				lesUserStorys1.add(userstory);
-			}
+
+	/**
+	 * Fonction de récupération des user stories du produit sélectionné
+	 * 
+	 * @param Produit
+	 * @return List<Userstory> lesUserStories
+	 */
+	public static List<Userstory> getUserStorie(Product Produit) {
+		List<Userstory> lesUserStories = (List<Userstory>) ProductController.getSelectedProduct().getUserstories();
+		return lesUserStories;
+	}
+
+	/**
+	 * Fonction de récupération du product owner du produit sélectionné
+	 * 
+	 * @return Collaborator productOwner
+	 */
+	public static Collaborator getProductOwner() {
+		String sql = "SELECT c FROM Collaborator AS c JOIN c.playroles AS pl "
+				+ "JOIN pl.product AS p "
+				+ "JOIN pl.role AS r "
+				+ "WHERE p.id=" + ProductController.getSelectedProduct().getId() + " AND r.id=2";
+		Query query = AppController.session.createQuery(sql);
+
+		Collaborator productOwner = new Collaborator();
+		if (query.uniqueResult() != null) {
+			productOwner = (Collaborator) query.uniqueResult();
 		}
-		return lesUserStorys1;
+
+		return productOwner;
+	}
+
+	/**
+	 * Fonction de récupération du nombre total de points des user stories du
+	 * projet
+	 * 
+	 * @return int totalPoint
+	 */
+	public static int getUserstoryTotalPoint() {
+		int totalPoint = 0;
+		Query query = AppController.session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =" + ProductController.getSelectedProduct().getId());
+		if (query.uniqueResult() != null) {
+			totalPoint = Integer.valueOf(query.uniqueResult() + "");
+		}
+		return totalPoint;
+	}
+
+	/**
+	 * Fonction de récupération des points effectués
+	 * 
+	 * @return
+	 */
+	public static int getUserstoryDonePoint() {
+		int totalPointFinished = 0;
+		Query query = AppController.session.createQuery("SELECT SUM(storyPoints) FROM Userstory WHERE idproduct =" + ProductController.getSelectedProduct().getId() + " AND finishedAt IS NOT Null");
+		if (query.uniqueResult() != null) {
+			totalPointFinished = Integer.valueOf(query.uniqueResult() + "");
+		}
+		return totalPointFinished;
+	}
+
+	/**
+	 * Fonction de récupération des sprints du produit sélectionné
+	 * 
+	 * @return List<Sprint>
+	 */
+	public static List<Sprint> getLesSprints() {
+		Query query = AppController.session.createQuery("from Sprint where idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Sprint> lesSprints = query.list();
+		return lesSprints;
+	}
+
+	/**
+	 * Fonction de récupération des user stories à faire
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesAFaire() {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idstatus = 1 and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories en cours
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesEnCours() {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idstatus = 2 and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories finies
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesFinies() {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idstatus = 3 and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
 	}
 }
