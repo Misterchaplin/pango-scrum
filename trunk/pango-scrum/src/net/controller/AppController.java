@@ -1,7 +1,6 @@
 package net.controller;
 
 import net.models.Collaborator;
-import net.models.Product;
 import net.technics.HibernateUtil;
 import net.vues.VAccueil;
 import net.vues.VAddUserStorie;
@@ -35,12 +34,6 @@ public class AppController {
 		OverviewController overviewController = new OverviewController(vOverview);
 		vOverview.init();
 		overviewController.init();
-		overviewController.init1();
-		overviewController.init2();
-		overviewController.initSprint();
-		overviewController.initTotalPoint();
-		overviewController.initDonePoint();
-		overviewController.initCustomer();
 	}
 
 	public AppController(VSprint vSprint) {
