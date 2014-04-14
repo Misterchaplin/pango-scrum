@@ -9,6 +9,8 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -38,6 +40,7 @@ public class VOverview {
 	private Label lblAfficherPointSprint;
 	private Label lblAfficherCustomerName;
 	private Label lblAfficherProjet;
+	private Label lblUserstory;
 
 	public TableViewer getTableViewer() {
 		return tvToDo;
@@ -215,7 +218,7 @@ public class VOverview {
 		}
 
 		Label lblProjet = new Label(compositeSummaryProduct, SWT.NONE);
-		lblProjet.setBackground(SWTResourceManager.getColor(SWT.COLOR_INFO_BACKGROUND));
+		lblProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		lblProjet.setBounds(41, 54, 44, 15);
 		lblProjet.setText("Projet :");
 		lblProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
@@ -253,8 +256,18 @@ public class VOverview {
 		composite.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		btnSprintRecent = new Button(composite, SWT.NONE);
-		btnSprintRecent.setBounds(526, 10, 88, 25);
-		btnSprintRecent.setText("Voir les sprints");
+		btnSprintRecent.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		btnSprintRecent.setBounds(510, 10, 104, 25);
+		btnSprintRecent.setText("Gestion des sprints");
+
+		lblUserstory = new Label(composite, SWT.NONE);
+		lblUserstory.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		lblUserstory.setBounds(52, 10, 172, 15);
+
 		sashForm_3.setWeights(new int[] { 1 });
 
 		SashForm sashFormProgression = new SashForm(sashFormContainOverview, SWT.VERTICAL);
@@ -334,5 +347,13 @@ public class VOverview {
 		sashFormProgression.setWeights(new int[] { 233, 57 });
 		sashFormContainOverview.setWeights(new int[] { 309, 45, 202 });
 
+	}
+
+	public Label getLblUserstory() {
+		return lblUserstory;
+	}
+
+	public Table getTableSprintRecent() {
+		return tableSprintRecent;
 	}
 }
