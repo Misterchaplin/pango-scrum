@@ -185,9 +185,13 @@ public class VListProduits {
 		btnAjouterProduits.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/addProduct.PNG"));
 		btnAjouterProduits.setBounds(10, 323, 183, 45);
 		btnAjouterProduits.setText("Ajouter un produit");
-		if (AppController.getActiveUser().getAdministrator()) {
-
+		if (!AppController.getActiveUser().getAdministrator()) {
+			btnAjouterProduits.setVisible(false);
 		}
+		else {
+			btnAjouterProduits.setVisible(true);
+		}
+
 		Label lblNom = new Label(grpProduits, SWT.NONE);
 		lblNom.setBounds(29, 35, 39, 15);
 		lblNom.setText("Nom :");
