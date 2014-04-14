@@ -98,7 +98,9 @@ public class VAccueil {
 		grpNotification.setLayoutData(fd_grpNotification);
 
 		lblInformation = new Label(grpNotification, SWT.NONE);
+		lblInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		lblInformation.setBounds(10, 32, 988, 28);
+		lblInformation.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 
 		ToolBar menuConnexion = new ToolBar(accueil, SWT.FLAT | SWT.RIGHT);
 		menuConnexion.setBackground(SWTResourceManager.getColor(255, 255, 240));
