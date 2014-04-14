@@ -159,7 +159,7 @@ public class VAffectationScrumMasterProjet {
 		tvScrumMasterCollaborators.setLabelProvider(new CollaboratorTvProvider());
 		tvScrumMasterCollaborators.setInput(DAOCollaborator.getCollaborators());
 
-		// createColumn(tableScrumMasterCollaborators, "Nom", 1);
+		createColumn(tableScrumMasterCollaborators, "Nom", 1);
 	}
 
 	public void createColumn(Table table, String caption, int weight) {

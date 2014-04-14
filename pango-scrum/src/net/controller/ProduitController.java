@@ -38,35 +38,39 @@ public class ProduitController implements SelectionListener {
 		// récupération de la session
 		final Session session = AppController.session;
 
-		// sélection d'un produit, seulement si l'utilisateur est
-		// administrateur
-		if (AppController.getActiveUser().getAdministrator()) {
-			vListProduits.getTableProduits().addSelectionListener(new SelectionListener() {
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					// récupération du projet sélectionné et enregistrement
-					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
-					Product selectedProduit = (Product) selection.getFirstElement();
-					ProductController.setSelectedProduct(selectedProduit);
+		// sélection d'un produit
+		vListProduits.getTableProduits().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// récupération du projet sélectionné et enregistrement
+				StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
+				Product selectedProduit = (Product) selection.getFirstElement();
+				ProductController.setSelectedProduct(selectedProduit);
 
-					vListProduits.getGrpProduits().setVisible(true);
-					vListProduits.gettxtNomProduit().setText(selectedProduit.getName());
-					vListProduits.getTxtDescriptif().setText(selectedProduit.getDescription());
-					vListProduits.gettxtNomProduit().setEnabled(false);
-					vListProduits.getBtnOverview().setVisible(true);
-					vListProduits.getGrpActions().setVisible(true);
+				vListProduits.getGrpProduits().setVisible(true);
+				vListProduits.getGrpActions().setVisible(true);
+				vListProduits.gettxtNomProduit().setText(selectedProduit.getName());
+				vListProduits.getTxtDescriptif().setText(selectedProduit.getDescription());
+				vListProduits.gettxtNomProduit().setEnabled(false);
+
+				vListProduits.getLblInformation().setText("");
+
+				if (AppController.getActiveUser().getAdministrator()) {
 					vListProduits.getBtnSupprimerProduits().setVisible(true);
-
-					vListProduits.getLblInformation().setText("");
 				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent arg0) {
-					// TODO Auto-generated method stub
-
+				else {
+					vListProduits.getBtnValider().setVisible(false);
+					vListProduits.getBtnAnnuler().setVisible(false);
+					vListProduits.getBtnSupprimerProduits().setVisible(false);
 				}
-			});
-		}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 
 		// bouton d'ajout d'un produit
 		if (AppController.getActiveUser().getAdministrator()) {
@@ -163,7 +167,7 @@ public class ProduitController implements SelectionListener {
 					messageErreur = messageErreur + " > " + "nom obligatoire";
 				}
 				if (descriptif == "") {
-					messageErreur = messageErreur + " > " + "descriptif obligatoire";
+					messageErreur = messageErreur + " > " + "description obligatoire";
 				}
 				// affichage message erreur
 				vListProduits.getLblInformation().setText(messageErreur);
@@ -196,13 +200,12 @@ public class ProduitController implements SelectionListener {
 						trans1.commit();
 						messageInformation = "opération de mise à  jour réussie";
 					}
-					// vListProduits.getGrpProduits().setVisible(false);
+					vListProduits.getGrpProduits().setVisible(false);
+					vListProduits.getGrpActions().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				vListProduits.getTableViewerProduits().setInput(DAOProduct.getProducts());
-				vListProduits.getGrpProduits().setVisible(false);
-				vListProduits.getGrpActions().setVisible(false);
 			}
 
 			@Override
