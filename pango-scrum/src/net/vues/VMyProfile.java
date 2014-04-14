@@ -106,11 +106,13 @@ public class VMyProfile {
 		lblNom.setLocation(10, 48);
 		lblNom.setSize(40, 15);
 		lblNom.setText("Nom :");
+		lblNom.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblEMail = new Label(grpProfil, SWT.NONE);
 		lblEMail.setLocation(10, 72);
 		lblEMail.setSize(40, 15);
 		lblEMail.setText("Email :");
+		lblEMail.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		txtNom = new Text(grpProfil, SWT.BORDER);
 		txtNom.setText(AppController.getActiveUser().getLastname());
@@ -142,10 +144,12 @@ public class VMyProfile {
 		linkChangeMdp.setLocation(54, 96);
 		linkChangeMdp.setSize(145, 15);
 		linkChangeMdp.setText("<a>Changer le mot de passe</a>");
+		linkChangeMdp.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		lblPrenom = new Label(grpProfil, SWT.NONE);
 		lblPrenom.setBounds(298, 48, 55, 15);
 		lblPrenom.setText("Prénom :");
+		lblPrenom.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label label = new Label(grpProfil, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label.setBounds(10, 136, 542, 2);

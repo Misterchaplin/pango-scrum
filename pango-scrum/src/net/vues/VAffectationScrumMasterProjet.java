@@ -28,6 +28,7 @@ public class VAffectationScrumMasterProjet {
 	private Button btnValider;
 	private Button btnAnnuler;
 	private TableViewer tvScrumMasterCollaborators;
+	private Label label;
 
 	public Shell getvAffectationScrumMasterProjet() {
 		return vAffectationScrumMasterProjet;
@@ -100,19 +101,21 @@ public class VAffectationScrumMasterProjet {
 		Label lblAffecterScrumMasterProjet = new Label(vAffectationScrumMasterProjet, SWT.NONE);
 		lblAffecterScrumMasterProjet.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		FormData fd_lblAffecterScrumMasterProjet = new FormData();
-		fd_lblAffecterScrumMasterProjet.top = new FormAttachment(0, 10);
-		fd_lblAffecterScrumMasterProjet.left = new FormAttachment(0, 58);
-		fd_lblAffecterScrumMasterProjet.right = new FormAttachment(0, 269);
+		fd_lblAffecterScrumMasterProjet.top = new FormAttachment(0);
+		fd_lblAffecterScrumMasterProjet.right = new FormAttachment(0, 211);
 		lblAffecterScrumMasterProjet.setLayoutData(fd_lblAffecterScrumMasterProjet);
 		lblAffecterScrumMasterProjet.setText("Affecter un Scrum Master au projet");
+		lblAffecterScrumMasterProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblChoisirUnScrumMaster = new Label(vAffectationScrumMasterProjet, SWT.NONE);
+		fd_lblAffecterScrumMasterProjet.left = new FormAttachment(lblChoisirUnScrumMaster, 0, SWT.LEFT);
 		FormData fd_lblChoisirUnScrumMaster = new FormData();
 		fd_lblChoisirUnScrumMaster.right = new FormAttachment(0, 244);
 		fd_lblChoisirUnScrumMaster.top = new FormAttachment(0, 45);
 		fd_lblChoisirUnScrumMaster.left = new FormAttachment(0);
 		lblChoisirUnScrumMaster.setLayoutData(fd_lblChoisirUnScrumMaster);
 		lblChoisirUnScrumMaster.setText("Choisir un Scrum Master pour le projet :");
+		lblChoisirUnScrumMaster.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		tLayout = new TableColumnLayout();
 
 		btnValider = new Button(vAffectationScrumMasterProjet, SWT.NONE);
@@ -144,11 +147,19 @@ public class VAffectationScrumMasterProjet {
 		tableScrumMasterCollaborators = tvScrumMasterCollaborators.getTable();
 		tableScrumMasterCollaborators.setHeaderVisible(true);
 		tableScrumMasterCollaborators.setLinesVisible(true);
+
+		label = new Label(vAffectationScrumMasterProjet, SWT.SEPARATOR | SWT.HORIZONTAL);
+		FormData fd_label = new FormData();
+		fd_label.bottom = new FormAttachment(lblAffecterScrumMasterProjet, 8, SWT.BOTTOM);
+		fd_label.top = new FormAttachment(lblAffecterScrumMasterProjet, 6);
+		fd_label.right = new FormAttachment(lblAffecterScrumMasterProjet, 309);
+		fd_label.left = new FormAttachment(lblAffecterScrumMasterProjet, 0, SWT.LEFT);
+		label.setLayoutData(fd_label);
 		tvScrumMasterCollaborators.setContentProvider(new ArrayContentProvider());
 		tvScrumMasterCollaborators.setLabelProvider(new CollaboratorTvProvider());
 		tvScrumMasterCollaborators.setInput(DAOCollaborator.getCollaborators());
 
-		createColumn(tableScrumMasterCollaborators, "Nom", 1);
+		// createColumn(tableScrumMasterCollaborators, "Nom", 1);
 	}
 
 	public void createColumn(Table table, String caption, int weight) {
