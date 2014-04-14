@@ -56,10 +56,8 @@ public class ProduitController implements SelectionListener {
 					vListProduits.getBtnOverview().setVisible(true);
 					vListProduits.getGrpActions().setVisible(true);
 					vListProduits.getBtnSupprimerProduits().setVisible(true);
+
 					vListProduits.getLblInformation().setText("");
-					vListProduits.getTxtDescriptif().setEnabled(true);
-					vListProduits.getBtnValider().setVisible(true);
-					vListProduits.getBtnAnnuler().setVisible(true);
 				}
 
 				@Override
@@ -69,38 +67,6 @@ public class ProduitController implements SelectionListener {
 				}
 			});
 		}
-		else
-		{
-			vListProduits.getTableProduits().addSelectionListener(new SelectionListener() {
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					// récupération du projet sélectionné et enregistrement
-					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
-					Product selectedProduit = (Product) selection.getFirstElement();
-					ProductController.setSelectedProduct(selectedProduit);
-
-					vListProduits.getGrpProduits().setVisible(true);
-					vListProduits.gettxtNomProduit().setText(selectedProduit.getName());
-					vListProduits.getTxtDescriptif().setText(selectedProduit.getDescription());
-					vListProduits.gettxtNomProduit().setEnabled(false);
-					vListProduits.getTxtDescriptif().setEnabled(false);
-					vListProduits.getBtnOverview().setVisible(false);
-					vListProduits.getGrpActions().setVisible(false);
-					vListProduits.getBtnSupprimerProduits().setVisible(false);
-					vListProduits.getLblInformation().setText("");
-					vListProduits.getBtnValider().setVisible(false);
-					vListProduits.getBtnAnnuler().setVisible(false);
-					
-				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent arg0) {
-					// TODO Auto-generated method stub
-
-				}
-			});
-		}
-		
 
 		// bouton d'ajout d'un produit
 		if (AppController.getActiveUser().getAdministrator()) {
@@ -116,7 +82,6 @@ public class ProduitController implements SelectionListener {
 					vListProduits.getBtnSupprimerProduits().setVisible(false);
 					vListProduits.getGrpActions().setVisible(false);
 					vListProduits.getBtnSupprimerProduits().setVisible(false);
-					
 				}
 
 				@Override
@@ -133,11 +98,11 @@ public class ProduitController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (nbOpenedWindowDetail == 0) {
 					nbOpenedWindowDetail = 1;
-				VOverview vOverview = new VOverview();
-				OverviewController OverviewController = new OverviewController(vOverview);
-				vOverview.init();
-				OverviewController.init();
-				vOverview.open();
+					VOverview vOverview = new VOverview();
+					OverviewController OverviewController = new OverviewController(vOverview);
+					vOverview.init();
+					OverviewController.init();
+					vOverview.open();
 				}
 			}
 
@@ -231,12 +196,13 @@ public class ProduitController implements SelectionListener {
 						trans1.commit();
 						messageInformation = "opération de mise à  jour réussie";
 					}
-					vListProduits.getGrpProduits().setVisible(false);
+					// vListProduits.getGrpProduits().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				vListProduits.getTableViewerProduits().setInput(DAOProduct.getProducts());
-
+				vListProduits.getGrpProduits().setVisible(false);
+				vListProduits.getGrpActions().setVisible(false);
 			}
 
 			@Override
@@ -271,11 +237,11 @@ public class ProduitController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (nbOpenedWindowaffectation == 0) {
 					nbOpenedWindowaffectation = 1;
-				vAffectationCollaborator = new VAffectationCollaborator();
-				AffectationController affectationController = new AffectationController(vAffectationCollaborator);
-				vAffectationCollaborator.init();
-				affectationController.init();
-				vAffectationCollaborator.open();
+					vAffectationCollaborator = new VAffectationCollaborator();
+					AffectationController affectationController = new AffectationController(vAffectationCollaborator);
+					vAffectationCollaborator.init();
+					affectationController.init();
+					vAffectationCollaborator.open();
 				}
 			}
 
@@ -293,11 +259,11 @@ public class ProduitController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (nbOpenedWindowsprint == 0) {
 					nbOpenedWindowsprint = 1;
-				VSprint vSprint = new VSprint();
-				SprintController sprintController = new SprintController(vSprint);
-				vSprint.init();
-				sprintController.init();
-				vSprint.open();
+					VSprint vSprint = new VSprint();
+					SprintController sprintController = new SprintController(vSprint);
+					vSprint.init();
+					sprintController.init();
+					vSprint.open();
 				}
 			}
 

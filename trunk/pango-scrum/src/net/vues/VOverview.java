@@ -1,6 +1,5 @@
 package net.vues;
 
-import net.controller.AccueilController;
 import net.controller.ProductController;
 import net.controller.ProduitController;
 import net.technics.DAOProduct;
@@ -189,7 +188,7 @@ public class VOverview {
 
 		Label lblPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
 		lblPointSprint.setBounds(27, 160, 120, 15);
-		lblPointSprint.setText("Total point des sprints");
+		lblPointSprint.setText("Total points réalisés");
 		lblPointSprint.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		lblAfficherPointSprint = new Label(compositeSummaryProduct, SWT.NONE);
