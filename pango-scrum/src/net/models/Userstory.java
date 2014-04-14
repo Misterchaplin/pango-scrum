@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -163,7 +164,7 @@ public class Userstory implements java.io.Serializable {
 		this.finishedAt = finishedAt;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userstory")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userstory",cascade =CascadeType.ALL)
 	public Set<Comment> getComments() {
 		return this.comments;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.models.Playrole;
+import net.models.PlayroleId;
 import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;
@@ -127,10 +128,6 @@ public class ProduitController implements SelectionListener {
 				if (result == 32) {
 					Product selectedproduct = ProductController.getSelectedProduct();
 					Transaction trans = session.beginTransaction();
-					List<Userstory> lesUserStorys = DAOProduct.getUserStorie(selectedproduct);
-					for (Userstory userstory : lesUserStorys) {
-						session.delete(userstory);
-					}
 					session.delete(selectedproduct);
 					trans.commit();
 					vListProduits.getLblInformation().setText("opération de suppression réussie");
