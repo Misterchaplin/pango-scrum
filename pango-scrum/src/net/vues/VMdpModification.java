@@ -95,13 +95,13 @@ public class VMdpModification {
 		lblConfirmationNewMdp.setText("Confirmation nouveau mot de passe :");
 		lblConfirmationNewMdp.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
-		txtOldMdp = new Text(grpChangementDeMot, SWT.BORDER);
+		txtOldMdp = new Text(grpChangementDeMot, SWT.BORDER | SWT.PASSWORD);
 		txtOldMdp.setBounds(220, 34, 177, 21);
 
-		txtNewMdp = new Text(grpChangementDeMot, SWT.BORDER);
+		txtNewMdp = new Text(grpChangementDeMot, SWT.BORDER | SWT.PASSWORD);
 		txtNewMdp.setBounds(220, 66, 177, 21);
 
-		txtNewMdpConfirm = new Text(grpChangementDeMot, SWT.BORDER);
+		txtNewMdpConfirm = new Text(grpChangementDeMot, SWT.BORDER | SWT.PASSWORD);
 		txtNewMdpConfirm.setBounds(220, 101, 177, 21);
 
 		final Label lblInformation = new Label(grpChangementDeMot, SWT.NONE);
