@@ -7,7 +7,6 @@ import net.controller.AppController;
 import net.controller.ProductController;
 import net.models.Collaborator;
 import net.models.Playrole;
-import net.models.PlayroleId;
 import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;
@@ -34,7 +33,7 @@ public class DAOProduct {
 	 * @return List<Userstory> lesUserStories
 	 */
 	public static Set<Userstory> getUserStorie(Product Produit) {
-		Set<Userstory> lesUserStories =  ProductController.getSelectedProduct().getUserstories();
+		Set<Userstory> lesUserStories = ProductController.getSelectedProduct().getUserstories();
 		return lesUserStories;
 	}
 
@@ -130,7 +129,40 @@ public class DAOProduct {
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
 	}
-	
+
+	/**
+	 * Fonction de récupération des user stories à faire pour un sprints
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesAFaireDeSprint(Integer idActiveSprint) {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 1 and idSprint=" + idActiveSprint + " and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories en cours pour un sprints
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesEnCoursDeSprint(Integer idActiveSprint) {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 2 and idSprint=" + idActiveSprint + " and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories fait pour un sprints
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesFaitDeSprint(Integer idActiveSprint) {
+		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 3 and idSprint=" + idActiveSprint + " and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
 	/**
 	 * Fonction de récupération des playrole d'un projet
 	 * 
@@ -138,7 +170,8 @@ public class DAOProduct {
 	 */
 	public static List<Playrole> getPlayroled(int id) {
 		Query query = AppController.session.createQuery("FROM Playrole WHERE idProduct=" + id);
-		List<Playrole> lesplayrole = (List<Playrole>)query.list();
+		List<Playrole> lesplayrole = (List<Playrole>) query.list();
 		return lesplayrole;
 	}
+
 }
