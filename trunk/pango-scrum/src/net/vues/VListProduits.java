@@ -32,14 +32,17 @@ public class VListProduits {
 	private SashForm sashForm;
 	private Composite compositeTable;
 	private Text txtNomProduit;
-	private Text txtDescriptif;
 	private Button btnSupprimerProduits;
 	private Button btnAjouterProduits;
 	private Button btnValider;
 	private Button btnAnnuler;
-	private Button btndetail;
+	private Button btnOverview;
 	private Group grpProduits;
 	private Label lblInformation;
+	private Button btnAffectationCollaborators;
+	private Button btnSprints;
+	private Text txtDescriptif;
+	private Group grpActions;
 
 	public TableViewer getTableViewerProduits() {
 		return tableViewerProduits;
@@ -61,8 +64,8 @@ public class VListProduits {
 		return btnSupprimerProduits;
 	}
 
-	public Button getBtndetail() {
-		return btndetail;
+	public Button getBtnOverview() {
+		return btnOverview;
 	}
 
 	public Button getBtnAjouterProduits() {
@@ -87,6 +90,18 @@ public class VListProduits {
 
 	public Label getLblInformation() {
 		return lblInformation;
+	}
+
+	public Button getBtnAffectationCollaborators() {
+		return btnAffectationCollaborators;
+	}
+
+	public Group getGrpActions() {
+		return grpActions;
+	}
+
+	public Button getBtnSprints() {
+		return btnSprints;
 	}
 
 	/**
@@ -118,23 +133,24 @@ public class VListProduits {
 	 */
 	protected void createContents() {
 		VListProduits = new Shell();
+		VListProduits.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/product.PNG"));
 		VListProduits.setSize(1024, 706);
-		VListProduits.setText("Scrum tool");
+		VListProduits.setText("Scrum Tool - Gestion des produits");
 		VListProduits.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		VListProduits.setLayout(null);
 
 		grpProduits = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_IN);
 		grpProduits.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
-		grpProduits.setBounds(10, 375, 978, 169);
+		grpProduits.setBounds(10, 374, 763, 211);
 		grpProduits.setText("Produit");
-		grpProduits.setVisible(true);
+		grpProduits.setVisible(false);
 
 		compositeTable = new Composite(VListProduits, SWT.NONE);
-		compositeTable.setBounds(0, 0, 1337, 305);
+		compositeTable.setBounds(0, 0, 1337, 317);
 
 		sashForm = new SashForm(compositeTable, SWT.NONE);
 		sashForm.setLocation(0, 0);
-		sashForm.setSize(1005, 305);
+		sashForm.setSize(1005, 317);
 
 		Group grpInformation = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_IN);
 		grpInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
@@ -148,11 +164,6 @@ public class VListProduits {
 		lblInformation = new Label(grpInformation, SWT.NONE);
 		lblInformation.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
 		lblInformation.setBounds(10, 20, 958, 15);
-
-		btnSupprimerProduits = new Button(grpProduits, SWT.NONE);
-		btnSupprimerProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/delete.png"));
-		btnSupprimerProduits.setBounds(509, 113, 194, 40);
-		btnSupprimerProduits.setText("Supprimer ce produit");
 
 		composite = new Composite(sashForm, SWT.NONE);
 		tLayout = new TableColumnLayout();
@@ -170,17 +181,12 @@ public class VListProduits {
 
 		sashForm.setWeights(new int[] { 1 });
 
+		btnAjouterProduits = new Button(VListProduits, SWT.NONE);
+		btnAjouterProduits.setBounds(10, 323, 183, 45);
+		btnAjouterProduits.setText("Ajouter un produit");
 		if (AppController.getActiveUser().getAdministrator()) {
-			btnAjouterProduits = new Button(VListProduits, SWT.NONE);
-			btnAjouterProduits.setBounds(10, 311, 183, 45);
-			btnAjouterProduits.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/produit.PNG"));
-			btnAjouterProduits.setText("Ajouter un produit");
+
 		}
-		btndetail = new Button(VListProduits, SWT.NONE);
-		btndetail.setBounds(250, 311, 183, 45);
-		btndetail.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/produit.PNG"));
-		btndetail.setText("detail");
-		btndetail.setVisible(false);
 		Label lblNom = new Label(grpProduits, SWT.NONE);
 		lblNom.setBounds(29, 35, 39, 15);
 		lblNom.setText("Nom :");
@@ -190,20 +196,48 @@ public class VListProduits {
 		lbdescriptif.setText("Description :");
 
 		txtNomProduit = new Text(grpProduits, SWT.BORDER);
-		txtNomProduit.setBounds(106, 32, 239, 21);
-
-		txtDescriptif = new Text(grpProduits, SWT.BORDER);
-		txtDescriptif.setBounds(108, 66, 238, 21);
+		txtNomProduit.setBounds(106, 32, 241, 21);
 
 		btnValider = new Button(grpProduits, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
-		btnValider.setBounds(730, 113, 109, 40);
+		btnValider.setBounds(529, 158, 109, 40);
 		btnValider.setText("Valider");
 
 		btnAnnuler = new Button(grpProduits, SWT.NONE);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(845, 113, 109, 40);
+		btnAnnuler.setBounds(644, 158, 109, 40);
 		btnAnnuler.setText("Annuler");
+
+		Label label_1 = new Label(grpProduits, SWT.SEPARATOR | SWT.HORIZONTAL);
+		label_1.setBounds(139, 150, 614, 2);
+
+		txtDescriptif = new Text(grpProduits, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		txtDescriptif.setBounds(108, 66, 239, 52);
+		txtDescriptif.setTextLimit(120);
+
+		btnSupprimerProduits = new Button(grpProduits, SWT.NONE);
+		btnSupprimerProduits.setBounds(296, 158, 203, 40);
+		btnSupprimerProduits.setText("Supprimer ce produit");
+
+		grpActions = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_OUT);
+		grpActions.setText("Actions");
+		grpActions.setBounds(797, 374, 201, 211);
+		grpActions.setVisible(false);
+
+		btnOverview = new Button(grpActions, SWT.NONE);
+		btnOverview.setBounds(10, 22, 183, 45);
+		btnOverview.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/product.PNG"));
+		btnOverview.setText("Présentation \r\ndu produit");
+		btnOverview.setVisible(true);
+
+		btnAffectationCollaborators = new Button(grpActions, SWT.NONE);
+		btnAffectationCollaborators.setBounds(10, 87, 183, 45);
+		btnAffectationCollaborators.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/addCollaborator.png"));
+		btnAffectationCollaborators.setText("Affectation de collaborateurs");
+
+		btnSprints = new Button(grpActions, SWT.NONE);
+		btnSprints.setBounds(10, 147, 183, 43);
+		btnSprints.setText("Voir les sprints");
 
 	}
 

@@ -79,19 +79,19 @@ public class VMdpModification {
 
 		Label lblMdpActuel = new Label(grpChangementDeMot, SWT.NONE);
 		lblMdpActuel.setAlignment(SWT.RIGHT);
-		lblMdpActuel.setBounds(0, 37, 214, 15);
+		lblMdpActuel.setBounds(10, 37, 204, 15);
 		lblMdpActuel.setText("Mot de passe actuel :");
 		lblMdpActuel.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblNewMdp = new Label(grpChangementDeMot, SWT.NONE);
 		lblNewMdp.setAlignment(SWT.RIGHT);
-		lblNewMdp.setBounds(0, 69, 214, 15);
+		lblNewMdp.setBounds(10, 69, 204, 15);
 		lblNewMdp.setText("Nouveau mot de passe :");
 		lblNewMdp.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblConfirmationNewMdp = new Label(grpChangementDeMot, SWT.NONE);
 		lblConfirmationNewMdp.setAlignment(SWT.RIGHT);
-		lblConfirmationNewMdp.setBounds(0, 104, 214, 15);
+		lblConfirmationNewMdp.setBounds(10, 104, 204, 15);
 		lblConfirmationNewMdp.setText("Confirmation nouveau mot de passe :");
 		lblConfirmationNewMdp.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
@@ -106,6 +106,7 @@ public class VMdpModification {
 
 		final Label lblInformation = new Label(grpChangementDeMot, SWT.NONE);
 		lblInformation.setBounds(10, 214, 471, 35);
+		lblInformation.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Button btnValider = new Button(grpChangementDeMot, SWT.NONE);
 		btnValider.addSelectionListener(new SelectionAdapter() {
