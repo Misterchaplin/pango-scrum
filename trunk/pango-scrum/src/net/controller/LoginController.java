@@ -62,7 +62,7 @@ public class LoginController implements SelectionListener {
 					// fermeture de la boîte de login
 					vLogin.getShlLogin().close();
 					AccueilController.vAccueil.getItemMonProfil().setText("Mon profil");
-					AccueilController.vAccueil.getItemConnexion().setText("Déconnexion");
+					AccueilController.vAccueil.getItemConnexion().setText("D�connexion");
 					AccueilController.vAccueil.getItemMonProfil().setEnabled(true);
 					AccueilController.vAccueil.getBtnProducts().setEnabled(true);
 					AccueilController.vAccueil.getBtnCollaborators().setEnabled(true);
