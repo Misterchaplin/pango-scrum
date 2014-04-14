@@ -22,6 +22,8 @@ public class OverviewController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
+
+				vAddUserStorie.getTbfProductBacklog().setSelection(0);
 				vAddUserStorie.open();
 
 			}
@@ -39,9 +41,9 @@ public class OverviewController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
-				vAddUserStorie.open();
-				// vAddUserStorie.getTbfProductBacklog().setSelection(vAddUserStorie.getTbtmInProgress());
 
+				vAddUserStorie.getTbfProductBacklog().setSelection(1);
+				vAddUserStorie.open();
 			}
 
 			@Override
@@ -57,9 +59,9 @@ public class OverviewController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				VAddUserStorie vAddUserStorie = new VAddUserStorie();
 				new AppController(vAddUserStorie);
-				vAddUserStorie.open();
-				vAddUserStorie.getTbfProductBacklog().setSelection(2);
 
+				vAddUserStorie.getTbfProductBacklog().setSelection(2);
+				vAddUserStorie.open();
 			}
 
 			@Override

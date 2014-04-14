@@ -216,6 +216,7 @@ public class VOverview {
 		}
 
 		Label lblProjet = new Label(compositeSummaryProduct, SWT.NONE);
+		lblProjet.setBackground(SWTResourceManager.getColor(SWT.COLOR_INFO_BACKGROUND));
 		lblProjet.setBounds(41, 54, 44, 15);
 		lblProjet.setText("Projet :");
 		lblProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
