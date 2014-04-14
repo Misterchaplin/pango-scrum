@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import net.models.Event;
 import net.models.Sprint;
 import net.technics.DAOSprint;
 import net.technics.TvSprintProvider;
 import net.vues.VSprint;
+
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.SelectionEvent;
@@ -24,6 +27,7 @@ public class SprintController implements SelectionListener {
 	private Date newDateDeb;
 	private Date newDateFin;
 	private Sprint activeSprint;
+	private int IdActiveProduct=ProductController.getSelectedProduct().getId();
 
 	public SprintController(VSprint vSprint) {
 		this.vSprint = vSprint;
@@ -40,26 +44,24 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				
-				sprints.add(DAOSprint.addSprint(vSprint));
+				sprints.add(DAOSprint.addSprint(vSprint,IdActiveProduct));
 				vSprint.getTvSprint().refresh();
+							
 				
-				
-			}
-			
+			}	
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
+	
 		
 		vSprint.getTableSprint().addSelectionListener(new SelectionListener() {
 			
 			@SuppressWarnings("deprecation")
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				
 				StructuredSelection sel = (StructuredSelection) vSprint.getTvSprint().getSelection();
 				activeSprint = (Sprint) sel.getFirstElement();
 				oldDateDeb=DAOSprint.getDateDebut(activeSprint);
@@ -106,13 +108,20 @@ public class SprintController implements SelectionListener {
 		vSprint.getBtnModifierSprint().addSelectionListener(new SelectionListener() {
 			
 			@Override
-			public void widgetSelected(SelectionEvent evt) {						
+			public void widgetSelected(SelectionEvent evt) {	
+				// maj dans la bdd
 				newDateDeb=getDateDeb();
 				newDateFin=getDateFin();
 				DAOSprint.updateName(activeSprint, vSprint.getnewNameSprint().getText());
 				DAOSprint.updateDate(activeSprint, newDateDeb, true);
 				DAOSprint.updateDate(activeSprint, newDateFin, false);
-
+				//maj tableviewer
+				activeSprint.setLabel(vSprint.getnewNameSprint().getText());
+				Event debut= DAOSprint.getEventDateDeb(activeSprint);
+				Event fin = DAOSprint.getEventDateFin(activeSprint);
+				debut.setEventDate(newDateDeb);
+				fin.setEventDate(newDateFin);
+				vSprint.getTvSprint().refresh(activeSprint);
 				
 			}
 			
@@ -123,17 +132,34 @@ public class SprintController implements SelectionListener {
 			}
 		});
 		
-	
+		vSprint.getBtnSupprimer().addSelectionListener(new SelectionListener() {
 			
-
-
-		
-
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				DAOSprint.deleteSprint(activeSprint.getId());
+				vSprint.getTvSprint().remove(activeSprint);
+				vSprint.getTvSprint().refresh(activeSprint);
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				
+				
+			}
+		});;
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	// chargement d'un product , en attendant la partie d'Anthony
 	private List<Sprint> getSprint() {
-		Query query = AppController.session.createQuery("from Sprint where product.name='Plan2Tests'");
+		Query query = AppController.session.createQuery("from Sprint where product.id="+ProductController.getSelectedProduct().getId());
 		List<Sprint> lesSprints = query.list();
 
 		return lesSprints;
