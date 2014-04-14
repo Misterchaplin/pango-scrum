@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -86,7 +87,7 @@ public class Sprint implements java.io.Serializable {
 		this.label = label;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint",cascade =CascadeType.ALL)
 	public Set<Event> getEvents() {
 		return this.events;
 	}
@@ -95,7 +96,7 @@ public class Sprint implements java.io.Serializable {
 		this.events = events;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint",cascade =CascadeType.ALL)
 	public Set<Participate> getParticipates() {
 		return this.participates;
 	}
@@ -104,7 +105,7 @@ public class Sprint implements java.io.Serializable {
 		this.participates = participates;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sprint",cascade =CascadeType.ALL)
 	public Set<Userstory> getUserstories() {
 		return this.userstories;
 	}

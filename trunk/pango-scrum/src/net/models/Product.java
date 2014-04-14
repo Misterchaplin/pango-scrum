@@ -5,6 +5,7 @@ package net.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,7 +72,7 @@ public class Product implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product",cascade =CascadeType.ALL)
 	public Set<Sprint> getSprints() {
 		return this.sprints;
 	}
@@ -80,7 +81,7 @@ public class Product implements java.io.Serializable {
 		this.sprints = sprints;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product",cascade =CascadeType.ALL)
 	public Set<Playrole> getPlayroles() {
 		return this.playroles;
 	}
@@ -89,7 +90,7 @@ public class Product implements java.io.Serializable {
 		this.playroles = playroles;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product",cascade =CascadeType.ALL)
 	public Set<Userstory> getUserstories() {
 		return this.userstories;
 	}

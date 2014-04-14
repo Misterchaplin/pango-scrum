@@ -1,10 +1,13 @@
 package net.technics;
 
 import java.util.List;
+import java.util.Set;
 
 import net.controller.AppController;
 import net.controller.ProductController;
 import net.models.Collaborator;
+import net.models.Playrole;
+import net.models.PlayroleId;
 import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;
@@ -30,8 +33,8 @@ public class DAOProduct {
 	 * @param Produit
 	 * @return List<Userstory> lesUserStories
 	 */
-	public static List<Userstory> getUserStorie(Product Produit) {
-		List<Userstory> lesUserStories = (List<Userstory>) ProductController.getSelectedProduct().getUserstories();
+	public static Set<Userstory> getUserStorie(Product Produit) {
+		Set<Userstory> lesUserStories =  ProductController.getSelectedProduct().getUserstories();
 		return lesUserStories;
 	}
 
@@ -126,5 +129,16 @@ public class DAOProduct {
 		Query query = AppController.session.createQuery("FROM Userstory WHERE idstatus = 3 and idProduct=" + ProductController.getSelectedProduct().getId());
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
+	}
+	
+	/**
+	 * Fonction de récupération des playrole d'un projet
+	 * 
+	 * @return List<Playrole>
+	 */
+	public static List<Playrole> getPlayroled(int id) {
+		Query query = AppController.session.createQuery("FROM Playrole WHERE idProduct=" + id);
+		List<Playrole> lesplayrole = (List<Playrole>)query.list();
+		return lesplayrole;
 	}
 }
