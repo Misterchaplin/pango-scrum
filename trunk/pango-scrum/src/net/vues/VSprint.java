@@ -35,15 +35,17 @@ public class VSprint {
 	private DateTime dateFin;
 	private Button btnModifierSprint;
 	private Button btnSupprimer;
-	private Button btnValider;
+	private Composite composite_2;
 
-	public Button getBtnValider() {
-		return btnValider;
+	public Composite getComposite_2() {
+		return composite_2;
 	}
 
-	public void setBtnValider(Button btnValider) {
-		this.btnValider = btnValider;
+	public void setComposite_2(Composite composite_2) {
+		this.composite_2 = composite_2;
 	}
+
+
 
 	public Text getnewNameSprint() {
 		return newNameSprint;
@@ -205,9 +207,10 @@ public class VSprint {
 		Composite composite_1 = new Composite(composite, SWT.NONE);
 		composite_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 
-		Composite composite_2 = new Composite(composite_1, SWT.NONE);
+	    composite_2 = new Composite(composite_1, SWT.NONE);
 		composite_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 		composite_2.setBounds(0, 0, 766, 271);
+		
 
 		Group grpAjouterUnSprint = new Group(composite_2, SWT.SHADOW_OUT);
 		grpAjouterUnSprint.setLocation(384, 0);
@@ -239,24 +242,28 @@ public class VSprint {
 
 		dateFin = new DateTime(grpAjouterUnSprint, SWT.DATE);
 		dateFin.setBounds(150, 142, 93, 24);
-
-		btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
-		btnValider.setBounds(152, 202, 74, 25);
-		btnValider.setText("Valider");
-		Image imAdd = new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
+		
+		
+		Image imgAdd = new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
 		composite.layout(true, true);
 		btAddSprint = new Button(composite_2, SWT.NONE);
 		btAddSprint.setBounds(10, 39, 191, 54);
 		btAddSprint.setText("Ajouter Sprint");
-		btAddSprint.setImage(imAdd);
-
+		btAddSprint.setImage(imgAdd);
+		
+		Image imgModSprint= new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/Modifier_UserStory.png"));
 		btnModifierSprint = new Button(composite_2, SWT.NONE);
 		btnModifierSprint.setBounds(10, 99, 191, 56);
 		btnModifierSprint.setText("Modifier sprint");
+		btnModifierSprint.setImage(imgModSprint);
+		
 
+		Image imgSupSprint= new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/cancel.png"));
 		btnSupprimer = new Button(composite_2, SWT.NONE);
 		btnSupprimer.setBounds(10, 161, 191, 48);
 		btnSupprimer.setText("Supprimer");
+		btnSupprimer.setImage(imgSupSprint);
+		
 
 	}
 }
