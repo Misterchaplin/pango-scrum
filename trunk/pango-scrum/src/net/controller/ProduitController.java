@@ -9,8 +9,10 @@ import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;
 import net.technics.DAOProduct;
+import net.vues.VAffectationCollaborator;
 import net.vues.VListProduits;
 import net.vues.VOverview;
+import net.vues.VSprint;
 
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -24,6 +26,7 @@ import org.hibernate.Transaction;
 public class ProduitController implements SelectionListener {
 	private VListProduits vListProduits;
 	public static int nbOpenedWindowDetail = 0;
+	public static VAffectationCollaborator vAffectationCollaborator;
 
 	public ProduitController(net.vues.VListProduits vListProduit) {
 		this.vListProduits = vListProduit;
@@ -39,15 +42,19 @@ public class ProduitController implements SelectionListener {
 			vListProduits.getTableProduits().addSelectionListener(new SelectionListener() {
 				@Override
 				public void widgetSelected(SelectionEvent arg0) {
-					vListProduits.getGrpProduits().setVisible(true);
+					// récupération du projet sélectionné et enregistrement
 					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
 					Product selectedProduit = (Product) selection.getFirstElement();
 					ProductController.setSelectedProduct(selectedProduit);
-					System.out.println(ProductController.getSelectedProduct().getName());
+
+					vListProduits.getGrpProduits().setVisible(true);
 					vListProduits.gettxtNomProduit().setText(selectedProduit.getName());
 					vListProduits.getTxtDescriptif().setText(selectedProduit.getDescription());
 					vListProduits.gettxtNomProduit().setEnabled(false);
-					vListProduits.getBtndetail().setVisible(true);
+					vListProduits.getBtnOverview().setVisible(true);
+					vListProduits.getGrpActions().setVisible(true);
+					vListProduits.getBtnSupprimerProduits().setVisible(true);
+
 				}
 
 				@Override
@@ -58,6 +65,7 @@ public class ProduitController implements SelectionListener {
 			});
 		}
 
+		// bouton d'ajout d'un produit
 		if (AppController.getActiveUser().getAdministrator()) {
 			vListProduits.getBtnAjouterProduits().addSelectionListener(new SelectionListener() {
 				@Override
@@ -69,6 +77,8 @@ public class ProduitController implements SelectionListener {
 					vListProduits.gettxtNomProduit().setEnabled(true);
 					vListProduits.getTxtDescriptif().setVisible(true);
 					vListProduits.getBtnSupprimerProduits().setVisible(false);
+					vListProduits.getGrpActions().setVisible(false);
+					vListProduits.getBtnSupprimerProduits().setVisible(false);
 				}
 
 				@Override
@@ -79,25 +89,15 @@ public class ProduitController implements SelectionListener {
 			});
 		}
 
-		// bouton detail
-		vListProduits.getBtndetail().addSelectionListener(new SelectionListener() {
+		// bouton overveiw
+		vListProduits.getBtnOverview().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (nbOpenedWindowDetail == 0) {
-					nbOpenedWindowDetail = 1;
-
-					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
-					Product selectedproduct = (Product) selection.getFirstElement();
-
-					VOverview vOverview = new VOverview();
-					OverviewController OverviewController = new OverviewController(vOverview);
-					vOverview.init();
-					OverviewController.init();
-					vOverview.open();
-				}
-
-				// envoi vers la page de charli
-
+				VOverview vOverview = new VOverview();
+				OverviewController OverviewController = new OverviewController(vOverview);
+				vOverview.init();
+				OverviewController.init();
+				vOverview.open();
 			}
 
 			@Override
@@ -115,8 +115,7 @@ public class ProduitController implements SelectionListener {
 				messageConfirmSuppression.setMessage("Etes-vous sûr de vouloir supprimer ce projet ?");
 				int result = messageConfirmSuppression.open();
 				if (result == 32) {
-					StructuredSelection selection = (StructuredSelection) vListProduits.getTableViewerProduits().getSelection();
-					Product selectedproduct = (Product) selection.getFirstElement();
+					Product selectedproduct = ProductController.getSelectedProduct();
 					Transaction trans = session.beginTransaction();
 					List<Userstory> lesUserStorys = DAOProduct.getUserStorie(selectedproduct);
 					for (Userstory userstory : lesUserStorys) {
@@ -124,7 +123,7 @@ public class ProduitController implements SelectionListener {
 					}
 					session.delete(selectedproduct);
 					trans.commit();
-					vListProduits.getLblInformation().setText("opération d'annulation réussie");
+					vListProduits.getLblInformation().setText("opération de suppression réussie");
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				else {
@@ -149,11 +148,11 @@ public class ProduitController implements SelectionListener {
 				// initialisation message erreur
 				String messageErreur = "";
 
-				// rÃ©cupÃ©ration donnÃ©es saisies
+				// récupération données saisies
 				String nom = vListProduits.gettxtNomProduit().getText();
 				String descriptif = vListProduits.getTxtDescriptif().getText();
 
-				// vÃ©rification donnÃ©es
+				// vérification donnés
 				if (nom == "") {
 					messageErreur = messageErreur + " > " + "nom obligatoire";
 				}
@@ -189,7 +188,7 @@ public class ProduitController implements SelectionListener {
 						Transaction trans1 = session.beginTransaction();
 						session.update(selectedProduct);
 						trans1.commit();
-						messageInformation = "opÃ©ration de mise Ã  jour rÃ©ussie";
+						messageInformation = "opération de mise à  jour réussie";
 					}
 					vListProduits.getGrpProduits().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
@@ -212,8 +211,47 @@ public class ProduitController implements SelectionListener {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				vListProduits.getGrpProduits().setVisible(false);
+				vListProduits.getGrpActions().setVisible(false);
 				vListProduits.getLblInformation().setText("opération annulée");
 				vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_BLUE));
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// bouton affectation de collaborateurs
+		vListProduits.getBtnAffectationCollaborators().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				vAffectationCollaborator = new VAffectationCollaborator();
+				AffectationController affectationController = new AffectationController(vAffectationCollaborator);
+				vAffectationCollaborator.init();
+				affectationController.init();
+				vAffectationCollaborator.open();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		// bouton voir sprints
+		vListProduits.getBtnSprints().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				VSprint vSprint = new VSprint();
+				SprintController sprintController = new SprintController(vSprint);
+				vSprint.init();
+				sprintController.init();
+				vSprint.open();
 			}
 
 			@Override

@@ -96,7 +96,7 @@ public class CollaboratorController implements SelectionListener {
 					Transaction trans = session.beginTransaction();
 					session.delete(selectedCollaborator);
 					trans.commit();
-					vListCollaborator.getLblInformation().setText("opération d'annulation réussie");
+					vListCollaborator.getLblInformation().setText("opération de suppression réussie");
 					vListCollaborator.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
 				else {

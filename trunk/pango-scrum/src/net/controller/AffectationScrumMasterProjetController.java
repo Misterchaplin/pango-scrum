@@ -57,7 +57,7 @@ public class AffectationScrumMasterProjetController {
 
 				// affichage du nouveau scrum master dans la zone de texte de la
 				// vue vAffectationCollaborator
-				Prog.vAffectationCollaborator.getTxtScrumMaster().setText(DAOCollaborator.getScrumMaster().getFirstname() + " " + DAOCollaborator.getScrumMaster().getLastname());
+				ProduitController.vAffectationCollaborator.getTxtScrumMaster().setText(DAOCollaborator.getScrumMaster().getFirstname() + " " + DAOCollaborator.getScrumMaster().getLastname());
 
 				// fermeture de la vue
 				vAffectationScrumMasterProjet.getvAffectationScrumMasterProjet().close();
