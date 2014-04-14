@@ -56,6 +56,8 @@ public class ProduitController implements SelectionListener {
 					vListProduits.getBtnOverview().setVisible(true);
 					vListProduits.getGrpActions().setVisible(true);
 					vListProduits.getBtnSupprimerProduits().setVisible(true);
+
+					vListProduits.getLblInformation().setText("");
 				}
 
 				@Override
@@ -194,7 +196,7 @@ public class ProduitController implements SelectionListener {
 						trans1.commit();
 						messageInformation = "opération de mise à  jour réussie";
 					}
-					vListProduits.getGrpProduits().setVisible(false);
+					//vListProduits.getGrpProduits().setVisible(false);
 					vListProduits.getLblInformation().setText(messageInformation);
 					vListProduits.getLblInformation().setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 				}
