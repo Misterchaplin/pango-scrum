@@ -141,7 +141,7 @@ public class VListProduits {
 
 		grpProduits = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_IN);
 		grpProduits.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.BOLD));
-		grpProduits.setBounds(10, 374, 763, 211);
+		grpProduits.setBounds(10, 374, 763, 223);
 		grpProduits.setText("Produit");
 		grpProduits.setVisible(false);
 
@@ -201,12 +201,12 @@ public class VListProduits {
 
 		btnValider = new Button(grpProduits, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/accept.png"));
-		btnValider.setBounds(529, 158, 109, 40);
+		btnValider.setBounds(529, 158, 109, 43);
 		btnValider.setText("Valider");
 
 		btnAnnuler = new Button(grpProduits, SWT.NONE);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VListCollaborators.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(644, 158, 109, 40);
+		btnAnnuler.setBounds(644, 158, 109, 43);
 		btnAnnuler.setText("Annuler");
 
 		Label label_1 = new Label(grpProduits, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -217,7 +217,8 @@ public class VListProduits {
 		txtDescriptif.setTextLimit(120);
 
 		btnSupprimerProduits = new Button(grpProduits, SWT.NONE);
-		btnSupprimerProduits.setBounds(296, 158, 203, 40);
+		btnSupprimerProduits.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/deleteProduct.PNG"));
+		btnSupprimerProduits.setBounds(296, 158, 203, 43);
 		btnSupprimerProduits.setText("Supprimer ce produit");
 
 		grpActions = new Group(VListProduits, SWT.BORDER | SWT.SHADOW_OUT);
