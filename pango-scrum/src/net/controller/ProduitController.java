@@ -56,7 +56,6 @@ public class ProduitController implements SelectionListener {
 					vListProduits.getBtnOverview().setVisible(true);
 					vListProduits.getGrpActions().setVisible(true);
 					vListProduits.getBtnSupprimerProduits().setVisible(true);
-
 				}
 
 				@Override
