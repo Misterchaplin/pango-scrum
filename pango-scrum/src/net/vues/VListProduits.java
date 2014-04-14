@@ -182,6 +182,7 @@ public class VListProduits {
 		sashForm.setWeights(new int[] { 1 });
 
 		btnAjouterProduits = new Button(VListProduits, SWT.NONE);
+		btnAjouterProduits.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/addProduct.PNG"));
 		btnAjouterProduits.setBounds(10, 323, 183, 45);
 		btnAjouterProduits.setText("Ajouter un produit");
 		if (AppController.getActiveUser().getAdministrator()) {
@@ -236,6 +237,7 @@ public class VListProduits {
 		btnAffectationCollaborators.setText("Affectation de collaborateurs");
 
 		btnSprints = new Button(grpActions, SWT.NONE);
+		btnSprints.setImage(SWTResourceManager.getImage(VListProduits.class, "/net/images/sprint.PNG"));
 		btnSprints.setBounds(10, 147, 183, 43);
 		btnSprints.setText("Voir les sprints");
 
