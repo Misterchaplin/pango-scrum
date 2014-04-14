@@ -26,6 +26,8 @@ import org.hibernate.Transaction;
 public class ProduitController implements SelectionListener {
 	private VListProduits vListProduits;
 	public static int nbOpenedWindowDetail = 0;
+	public static int nbOpenedWindowaffectation = 0;
+	public static int nbOpenedWindowsprint = 0;
 	public static VAffectationCollaborator vAffectationCollaborator;
 
 	public ProduitController(net.vues.VListProduits vListProduit) {
@@ -93,11 +95,14 @@ public class ProduitController implements SelectionListener {
 		vListProduits.getBtnOverview().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if (nbOpenedWindowDetail == 0) {
+					nbOpenedWindowDetail = 1;
 				VOverview vOverview = new VOverview();
 				OverviewController OverviewController = new OverviewController(vOverview);
 				vOverview.init();
 				OverviewController.init();
 				vOverview.open();
+				}
 			}
 
 			@Override
@@ -228,11 +233,14 @@ public class ProduitController implements SelectionListener {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if (nbOpenedWindowaffectation == 0) {
+					nbOpenedWindowaffectation = 1;
 				vAffectationCollaborator = new VAffectationCollaborator();
 				AffectationController affectationController = new AffectationController(vAffectationCollaborator);
 				vAffectationCollaborator.init();
 				affectationController.init();
 				vAffectationCollaborator.open();
+				}
 			}
 
 			@Override
@@ -247,11 +255,14 @@ public class ProduitController implements SelectionListener {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if (nbOpenedWindowsprint == 0) {
+					nbOpenedWindowsprint = 1;
 				VSprint vSprint = new VSprint();
 				SprintController sprintController = new SprintController(vSprint);
 				vSprint.init();
 				sprintController.init();
 				vSprint.open();
+				}
 			}
 
 			@Override

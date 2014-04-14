@@ -1,6 +1,8 @@
 package net.vues;
 
+import net.controller.AccueilController;
 import net.controller.ProductController;
+import net.controller.ProduitController;
 import net.technics.DAOProduct;
 
 import org.eclipse.jface.layout.TableColumnLayout;
@@ -127,6 +129,7 @@ public class VOverview {
 				display.sleep();
 			}
 		}
+		ProduitController.nbOpenedWindowDetail = 0;
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package net.vues;
 
+import net.controller.ProduitController;
+
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
@@ -144,6 +146,7 @@ public class VSprint {
 				display.sleep();
 			}
 		}
+		ProduitController.nbOpenedWindowsprint=0;
 	}
 
 	/**
