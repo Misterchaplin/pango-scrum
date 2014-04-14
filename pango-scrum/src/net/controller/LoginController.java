@@ -62,10 +62,11 @@ public class LoginController implements SelectionListener {
 					// fermeture de la boîte de login
 					vLogin.getShlLogin().close();
 					AccueilController.vAccueil.getItemMonProfil().setText("Mon profil");
+					AccueilController.vAccueil.getItemConnexion().setText("Déconnexion");
 					AccueilController.vAccueil.getItemMonProfil().setEnabled(true);
+					AccueilController.vAccueil.getBtnProducts().setEnabled(true);
+					AccueilController.vAccueil.getBtnCollaborators().setEnabled(true);
 					AccueilController.vAccueil.getItemLogin().setText(AppController.getActiveUser().getLogin());
-					AccueilController.vAccueil.getItemProduits().setEnabled(true);
-					AccueilController.vAccueil.getItemCollaborateurs().setEnabled(true);
 					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {

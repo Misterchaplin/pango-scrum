@@ -42,12 +42,10 @@ public class AccueilController implements SelectionListener {
 				// si on se déconnecte
 				else {
 					AppController.setActiveUser(null);
-					vAccueil.getItemConnexion().setText("Déconnexion");
-					vAccueil.getItemProduits().setText("");
-					vAccueil.getItemProduits().setEnabled(false);
-					vAccueil.getItemCollaborateurs().setText("");
-					vAccueil.getItemCollaborateurs().setEnabled(false);
+					vAccueil.getItemConnexion().setText("Connexion");
 					vAccueil.getItemMonProfil().setEnabled(false);
+					vAccueil.getBtnProducts().setEnabled(false);
+					vAccueil.getBtnCollaborators().setEnabled(false);
 					vAccueil.getItemMonProfil().setText("");
 					vAccueil.getLblInformation().setText("");
 					vAccueil.getItemLogin().setText("");
@@ -63,7 +61,7 @@ public class AccueilController implements SelectionListener {
 		});
 
 		// onglet collaborateurs
-		vAccueil.getItemProduits().addSelectionListener(new SelectionListener() {
+		vAccueil.getBtnProducts().addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -86,7 +84,7 @@ public class AccueilController implements SelectionListener {
 			}
 		});
 		// onglet produit
-		vAccueil.getItemCollaborateurs().addSelectionListener(new SelectionListener() {
+		vAccueil.getBtnCollaborators().addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {

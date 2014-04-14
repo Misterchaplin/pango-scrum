@@ -113,8 +113,7 @@ public class AffectationController {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
-
+				vAffectationCollaborator.getvAffectationCollaborator().close();
 			}
 
 			@Override
