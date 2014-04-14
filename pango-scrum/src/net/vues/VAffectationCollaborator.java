@@ -1,6 +1,7 @@
 package net.vues;
 
 import net.controller.ProductController;
+import net.controller.ProduitController;
 import net.models.Collaborator;
 import net.technics.CollaboratorTvProvider;
 import net.technics.DAOCollaborator;
@@ -93,6 +94,7 @@ public class VAffectationCollaborator {
 				display.sleep();
 			}
 		}
+		ProduitController.nbOpenedWindowaffectation=0;
 	}
 
 	/**
