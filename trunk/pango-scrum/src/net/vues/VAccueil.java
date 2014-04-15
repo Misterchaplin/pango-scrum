@@ -1,5 +1,6 @@
 package net.vues;
 
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -9,6 +10,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -25,6 +27,9 @@ public class VAccueil {
 	private Group grpCollaborateurs;
 	private Button btnCollaborators;
 	private Button btnProducts;
+	private Group grpProduits;
+	private Table tableMesProjets;
+	private TableViewer tvMesProjets;
 
 	public Shell getAccueil() {
 		return accueil;
@@ -52,6 +57,18 @@ public class VAccueil {
 
 	public Button getBtnProducts() {
 		return btnProducts;
+	}
+
+	public Group getGrpCollaborateurs() {
+		return grpCollaborateurs;
+	}
+
+	public Group getGrpProduits() {
+		return grpProduits;
+	}
+
+	public Table getTableMesProjets() {
+		return tableMesProjets;
 	}
 
 	/**
@@ -150,7 +167,7 @@ public class VAccueil {
 		fd_label.left = new FormAttachment(0);
 		label.setLayoutData(fd_label);
 
-		Group grpProduits = new Group(accueil, SWT.BORDER | SWT.SHADOW_OUT);
+		grpProduits = new Group(accueil, SWT.BORDER | SWT.SHADOW_OUT);
 		grpProduits.setText("Produits");
 		FormData fd_grpProduits = new FormData();
 		fd_grpProduits.bottom = new FormAttachment(100, -95);
@@ -169,18 +186,24 @@ public class VAccueil {
 		fd_grpCollaborateurs.bottom = new FormAttachment(100, -95);
 		fd_grpCollaborateurs.top = new FormAttachment(grpNotification, 22);
 
+		grpProduits.setVisible(false);
+		grpCollaborateurs.setVisible(false);
+
 		btnProducts = new Button(grpProduits, SWT.NONE);
-		btnProducts.setEnabled(false);
 		btnProducts.setImage(SWTResourceManager.getImage(VAccueil.class, "/net/images/product.PNG"));
 		btnProducts.setBounds(10, 315, 200, 53);
 		btnProducts.setText("Gestion des produits");
+
+		tvMesProjets = new TableViewer(grpProduits, SWT.BORDER | SWT.FULL_SELECTION);
+		tableMesProjets = tvMesProjets.getTable();
+		tableMesProjets.setBounds(10, 29, 435, 339);
+		tableMesProjets.setVisible(false);
 
 		fd_grpCollaborateurs.left = new FormAttachment(100, -512);
 		fd_grpCollaborateurs.right = new FormAttachment(100, -10);
 		grpCollaborateurs.setLayoutData(fd_grpCollaborateurs);
 
 		btnCollaborators = new Button(grpCollaborateurs, SWT.NONE);
-		btnCollaborators.setEnabled(false);
 		btnCollaborators.setImage(SWTResourceManager.getImage(VAccueil.class, "/net/images/user.PNG"));
 		btnCollaborators.setBounds(10, 317, 193, 54);
 		btnCollaborators.setText("Gestion des collaborateurs");
