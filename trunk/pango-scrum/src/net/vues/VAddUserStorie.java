@@ -454,6 +454,7 @@ public class VAddUserStorie {
 
 		cbvProjet = new ComboViewer(grpUserstory, SWT.NONE);
 		cbProjet = cbvProjet.getCombo();
+		cbProjet.setEnabled(false);
 		cbProjet.setBounds(482, 61, 91, 23);
 		formToolkit.paintBordersFor(cbProjet);
 
