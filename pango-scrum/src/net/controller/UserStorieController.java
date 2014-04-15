@@ -22,6 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import net.models.Product;
+import net.technics.DAOProduct;
 import net.technics.HibernateUtil;
 
 public class UserStorieController implements SelectionListener {
@@ -44,7 +45,7 @@ public class UserStorieController implements SelectionListener {
 		
 		//Chargement des différentes listes
 		vAddUserStorie.getTblvUserStory().setContentProvider(new ArrayContentProvider());
-		vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+		vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
 		
 		vAddUserStorie.getCbvSprint().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvSprint().setInput(getSprint());
@@ -120,7 +121,7 @@ public class UserStorieController implements SelectionListener {
 					vAddUserStorie.getGrpChangementDtat().setVisible(false);
 				}
 				vAddUserStorie.getGrpUserstory().setVisible(false);
-				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
 			}
 			
 			@Override
@@ -139,10 +140,10 @@ public class UserStorieController implements SelectionListener {
 				Integer priorite = Integer.parseInt(vAddUserStorie.getTxtPriorite().getText());
 				Status status=new Status();
 				status.setIdStatus(1);
-				IStructuredSelection sel = (IStructuredSelection) (vAddUserStorie.getCbvSprint().getSelection());
-				Sprint sprint = (Sprint) (sel.iterator().next());
-				Product product= new Product();//ProductController.getSelectedProduct();
-				product.setId(2);
+				StructuredSelection sel = (StructuredSelection) (vAddUserStorie.getCbvSprint().getSelection());
+				Sprint sprint = (Sprint) (sel.getFirstElement());
+				Product product= new Product();
+				product.setId(ProductController.getSelectedProduct().getId());
 				StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
 				Userstory selectedUserStory = (Userstory) select.getFirstElement();
 				selectedUserStory.setLabel(label);
@@ -154,7 +155,7 @@ public class UserStorieController implements SelectionListener {
 				Transaction trans = session.beginTransaction();
 				session.update(selectedUserStory);
 				trans.commit();
-				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
 				vAddUserStorie.getGrpParametreUserstory().setVisible(false);
 				vAddUserStorie.getGrpChangementDtat().setVisible(false);
@@ -178,8 +179,8 @@ public class UserStorieController implements SelectionListener {
 				Transaction trans = session.beginTransaction();
 				session.update(selectedUserStory);
 				trans.commit();
-				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
-				vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+				vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
+				vAddUserStorie.getTblvDone().setInput(DAOProduct.getLesUserstoriesFinies());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
 				vAddUserStorie.getGrpParametreUserstory().setVisible(false);
 				vAddUserStorie.getGrpChangementDtat().setVisible(false);
@@ -204,8 +205,8 @@ public class UserStorieController implements SelectionListener {
 						Transaction trans = session.beginTransaction();
 						session.update(selectedUserStory);
 						trans.commit();
-						vAddUserStorie.getTblvUserStory().setInput(getUserstories());
-						vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
+						vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
+						vAddUserStorie.getTblvInProgress().setInput(DAOProduct.getLesUserstoriesEnCours());
 						vAddUserStorie.getGrpUserstory().setVisible(false);
 						vAddUserStorie.getGrpParametreUserstory().setVisible(false);
 						vAddUserStorie.getGrpChangementDtat().setVisible(false);
@@ -237,7 +238,7 @@ public class UserStorieController implements SelectionListener {
 				session.persist(userStorie);
 				trans.commit();
 				
-				vAddUserStorie.getTblvUserStory().setInput(getUserstories());
+				vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
 				vAddUserStorie.getGrpUserstory().setVisible(false);
 			}
 			
@@ -279,7 +280,7 @@ public class UserStorieController implements SelectionListener {
 	public void initInProgress(){
 		final Session session = AppController.session;
 		vAddUserStorie.getTblvInProgress().setContentProvider(new ArrayContentProvider());
-		vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
+		vAddUserStorie.getTblvInProgress().setInput(DAOProduct.getLesUserstoriesEnCours());
 	
 		vAddUserStorie.getCbvSprintInProgress().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvSprintInProgress().setInput(getSprint());
@@ -328,8 +329,8 @@ public class UserStorieController implements SelectionListener {
 				Transaction trans = session.beginTransaction();
 				session.update(selectedUserStoryInProgress);
 				trans.commit();
-				vAddUserStorie.getTblvInProgress().setInput(getUserStoryInProgress());
-				vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+				vAddUserStorie.getTblvInProgress().setInput(DAOProduct.getLesUserstoriesEnCours());
+				vAddUserStorie.getTblvDone().setInput(DAOProduct.getLesUserstoriesFinies());
 				vAddUserStorie.getGrpRcapitulatifInProgress().setVisible(false);
 				vAddUserStorie.getGrpChangementEtatInProgress().setVisible(false);
 			}
@@ -348,7 +349,7 @@ public class UserStorieController implements SelectionListener {
 	
 	public void initDone(){
 		vAddUserStorie.getTblvDone().setContentProvider(new ArrayContentProvider());
-		vAddUserStorie.getTblvDone().setInput(getUserStoryDone());
+		vAddUserStorie.getTblvDone().setInput(DAOProduct.getLesUserstoriesFinies());
 		
 		vAddUserStorie.getCbvSprintDone().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvSprintDone().setInput(getSprint());
@@ -392,11 +393,6 @@ public class UserStorieController implements SelectionListener {
 	 * @wbp.parser.entryPoint
 	 */
 	//Chargement des listes
-	private List<Userstory> getUserstories() {
-		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus= 1");
-		List<Userstory> userStories = query.list();
-		return userStories;
-	}
 	
 	private List<Product> getProduct() {
 		Session session = HibernateUtil.getSession();
@@ -407,20 +403,8 @@ public class UserStorieController implements SelectionListener {
 	
 	private List<Sprint> getSprint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("FROM Sprint");//SELECT label FROM Sprint WHERE idproduct="+ ProductController.getSelectedProduct().getId());
+		Query query = session.createQuery("SELECT label FROM Sprint WHERE idProduct="+ ProductController.getSelectedProduct().getId());
 		List<Sprint> lessprints = query.list();
 		return lessprints;
-	}
-	
-	private List<Userstory> getUserStoryInProgress(){
-		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 2");
-		List<Userstory> lesuserStoriesInProgress = query.list();
-		return lesuserStoriesInProgress;
-	}
-	
-	private List<Userstory> getUserStoryDone(){
-		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 3");
-		List<Userstory> lesuserStories = query.list();
-		return lesuserStories;
 	}
 }
