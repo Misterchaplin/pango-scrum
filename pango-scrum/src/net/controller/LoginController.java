@@ -64,9 +64,21 @@ public class LoginController implements SelectionListener {
 					AccueilController.vAccueil.getItemMonProfil().setText("Mon profil");
 					AccueilController.vAccueil.getItemConnexion().setText("Déconnexion");
 					AccueilController.vAccueil.getItemMonProfil().setEnabled(true);
-					AccueilController.vAccueil.getBtnProducts().setEnabled(true);
-					AccueilController.vAccueil.getBtnCollaborators().setEnabled(true);
 					AccueilController.vAccueil.getItemLogin().setText(AppController.getActiveUser().getLogin());
+					AccueilController.vAccueil.getGrpProduits().setVisible(true);
+					if (AppController.getActiveUser().getAdministrator()) {
+						AccueilController.vAccueil.getBtnProducts().setVisible(true);
+						AccueilController.vAccueil.getBtnCollaborators().setVisible(true);
+						AccueilController.vAccueil.getGrpCollaborateurs().setVisible(true);
+					}
+					else {
+						AccueilController.vAccueil.getBtnProducts().setVisible(false);
+						AccueilController.vAccueil.getBtnCollaborators().setVisible(false);
+						AccueilController.vAccueil.getGrpCollaborateurs().setVisible(false);
+						AccueilController.vAccueil.getGrpCollaborateurs().setText("Détail du produit");
+						AccueilController.vAccueil.getTableMesProjets().setVisible(true);
+					}
+
 					// identification incorrecte
 				} else {
 					if (login == "" || password == "") {

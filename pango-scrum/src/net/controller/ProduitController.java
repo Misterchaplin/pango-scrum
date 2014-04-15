@@ -1,11 +1,9 @@
 package net.controller;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import net.models.Playrole;
-import net.models.PlayroleId;
 import net.models.Product;
 import net.models.Sprint;
 import net.models.Userstory;

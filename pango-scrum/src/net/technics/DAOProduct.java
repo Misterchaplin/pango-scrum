@@ -1,5 +1,6 @@
 package net.technics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,53 @@ import net.models.Userstory;
 import org.hibernate.Query;
 
 public class DAOProduct {
+	/**
+	 * Fonction de récupération des produits dans lesquels le collaborateur
+	 * connecté joue un rôle
+	 * 
+	 * @return List<Product>
+	 */
+	public static List<Product> getMyProducts() {
+		org.hibernate.Query query = AppController.session.createQuery("from PlayRole where idCollaborator =" + AppController.getActiveUser().getId());
+		List<Playrole> lesRolesJoues = query.list();
+		List<Product> lesProduits = new ArrayList<>();
+		for (Playrole playrole : lesRolesJoues) {
+			Product product = (Product) AppController.session.get(Product.class, playrole.getProduct().getId());
+			lesProduits.add(product);
+		}
+		return lesProduits;
+	}
+
+	public static List<Product> getMyCurrentProducts() {
+		// récupération des produits
+		List<Product> lesProducts = DAOProduct.getMyProducts();
+
+		List<Product> lesProduitsEnCours = new ArrayList<>();
+
+		// on vérifie si le projet est terminé ou non
+		for (Product product : lesProduitsEnCours) {
+			// récupération des sprints du produit
+			org.hibernate.Query query = AppController.session.createQuery("from Sprint where idProduct=" + product.getId());
+			List<Sprint> lesSprints = query.list();
+			// pour chaque sprint
+			int i = 0;
+			boolean trouve = false;
+			while ((!trouve) && (i < lesSprints.size())) {
+				// récupération de la date de fin
+				org.hibernate.Query queryEvent = AppController.session.createQuery("from Event where idSprint=" + lesSprints.get(i).getId() + "and idEventType=2");
+
+				if (queryEvent.uniqueResult() != null) {
+					net.models.Event evenement = (net.models.Event) queryEvent.uniqueResult();
+					/*
+					 * if (evenement.getEventDate() < ){ trouve = true; }
+					 */
+				}
+			}
+			i = i + 1;
+		}
+
+		return lesProduitsEnCours;
+	}
 
 	/**
 	 * Fonction de récupération de tous les product
