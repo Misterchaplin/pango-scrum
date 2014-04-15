@@ -44,10 +44,12 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				sprints.add(DAOSprint.addSprint(vSprint,IdActiveProduct));
-				vSprint.getTvSprint().refresh();
-							
-				
+				vSprint.getComposite_2().setVisible(true);
+				vSprint.getBtnModifierSprint().setVisible(false);
+				vSprint.getBtnSupprimer().setVisible(false);
+				vSprint.getGrpAjouterUnSprint().setText("Nouveau sprint");
+				vSprint.getBtnValider().setVisible(true);
+											
 			}	
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
@@ -55,15 +57,38 @@ public class SprintController implements SelectionListener {
 				
 			}
 		});
-	
 		
+		vSprint.getBtnValider().addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				sprints.add(DAOSprint.addSprint(vSprint,IdActiveProduct));
+				vSprint.getTvSprint().refresh();
+				
+				vSprint.getLblInformation().setText("Ajout réussi");
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		vSprint.getTableSprint().addSelectionListener(new SelectionListener() {
 			
 			@SuppressWarnings("deprecation")
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
+				vSprint.getComposite_2().setVisible(true);
+				vSprint.getLblInformation().setText("");
+				vSprint.getBtnValider().setVisible(false);
+				vSprint.getBtnModifierSprint().setVisible(true);
+				vSprint.getBtnSupprimer().setVisible(true);
+				
 				StructuredSelection sel = (StructuredSelection) vSprint.getTvSprint().getSelection();
 				activeSprint = (Sprint) sel.getFirstElement();
+				vSprint.getGrpAjouterUnSprint().setText("Information "+activeSprint.getLabel());
 				oldDateDeb=DAOSprint.getDateDebut(activeSprint);
 			    olDateFin=DAOSprint.getDateFin(activeSprint);
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -122,6 +147,7 @@ public class SprintController implements SelectionListener {
 				debut.setEventDate(newDateDeb);
 				fin.setEventDate(newDateFin);
 				vSprint.getTvSprint().refresh(activeSprint);
+				vSprint.getLblInformation().setText("Modification effectué");
 				
 			}
 			
@@ -139,6 +165,7 @@ public class SprintController implements SelectionListener {
 				DAOSprint.deleteSprint(activeSprint.getId());
 				vSprint.getTvSprint().remove(activeSprint);
 				vSprint.getTvSprint().refresh(activeSprint);
+				vSprint.getLblInformation().setText("Sprint Suprimmé");
 				
 			}
 			
