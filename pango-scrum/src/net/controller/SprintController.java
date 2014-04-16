@@ -44,7 +44,7 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				vSprint.getComposite_2().setVisible(true);
+				//vSprint.getComposite_2().setVisible(true);
 				vSprint.getBtnModifierSprint().setVisible(false);
 				vSprint.getBtnSupprimer().setVisible(false);
 				vSprint.getGrpAjouterUnSprint().setText("Nouveau sprint");
@@ -80,7 +80,7 @@ public class SprintController implements SelectionListener {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				vSprint.getComposite_2().setVisible(true);
+				//vSprint.getComposite_2().setVisible(true);
 				vSprint.getLblInformation().setText("");
 				vSprint.getBtnValider().setVisible(false);
 				vSprint.getBtnModifierSprint().setVisible(true);
