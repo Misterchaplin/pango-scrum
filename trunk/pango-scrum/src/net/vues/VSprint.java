@@ -36,7 +36,6 @@ public class VSprint {
 	private DateTime dateFin;
 	private Button btnModifierSprint;
 	private Button btnSupprimer;
-	private Composite composite_2;
 	private Button btnValider;
 	private Label lblInformation;
 	private Group grpAjouterUnSprint;
@@ -57,13 +56,7 @@ public class VSprint {
 		this.btnValider = btnValider;
 	}
 
-	public Composite getComposite_2() {
-		return composite_2;
-	}
 
-	public void setComposite_2(Composite composite_2) {
-		this.composite_2 = composite_2;
-	}
 
 
 
@@ -180,7 +173,7 @@ public class VSprint {
 		shellSprint = new Shell();
 		shellSprint.setImage(SWTResourceManager.getImage(VSprint.class, "/net/images/logo.PNG"));
 		shellSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_SELECTION_TEXT));
-		shellSprint.setSize(800, 681);
+		shellSprint.setSize(800, 600);
 		shellSprint.setText("Gestion des sprints");
 		shellSprint.setLayout(new FormLayout());
 
@@ -226,60 +219,11 @@ public class VSprint {
 
 		Composite composite_1 = new Composite(composite, SWT.NONE);
 		composite_1.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-
-	    composite_2 = new Composite(composite_1, SWT.NONE);
-		composite_2.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		composite_2.setBounds(0, 57, 766, 214);
-		//composite_2.setVisible(false);
-		
-
-	    grpAjouterUnSprint = new Group(composite_2, SWT.SHADOW_OUT);
-		grpAjouterUnSprint.setLocation(0, 0);
-		grpAjouterUnSprint.setSize(766, 209);
-		grpAjouterUnSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		grpAjouterUnSprint.setText("Ajouter/Modifier un sprint");
-		grpAjouterUnSprint.setLayout(null);
-
-		Label lblNom = new Label(grpAjouterUnSprint, SWT.NONE);
-		lblNom.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		lblNom.setBounds(51, 48, 70, 15);
-		lblNom.setText("Nom :");
-
-		newNameSprint = new Text(grpAjouterUnSprint, SWT.BORDER);
-		newNameSprint.setBounds(150, 45, 93, 21);
-
-		Label lblDateDeDbut = new Label(grpAjouterUnSprint, SWT.NONE);
-		lblDateDeDbut.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		lblDateDeDbut.setBounds(51, 110, 74, 15);
-		lblDateDeDbut.setText("Date de début");
-
-		dateDebut = new DateTime(grpAjouterUnSprint, SWT.DATE);
-		dateDebut.setBounds(150, 100, 93, 25);
-
-		Label lblDateDeFin = new Label(grpAjouterUnSprint, SWT.NONE);
-		lblDateDeFin.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
-		lblDateDeFin.setBounds(51, 151, 74, 15);
-		lblDateDeFin.setText("Date de fin");
 		
 		Image imgModSprint= new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/Modifier_UserStory.png"));
 		
 
 		Image imgSupSprint= new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/cancel.png"));
-		
-		dateFin = new DateTime(grpAjouterUnSprint, SWT.DATE);
-		dateFin.setBounds(150, 142, 93, 24);
-		btnModifierSprint = new Button(grpAjouterUnSprint, SWT.NONE);
-		btnModifierSprint.setBounds(259, 142, 191, 56);
-		btnModifierSprint.setText("Modifier sprint");
-		btnModifierSprint.setImage(imgModSprint);
-		btnSupprimer = new Button(grpAjouterUnSprint, SWT.NONE);
-		btnSupprimer.setBounds(476, 146, 191, 48);
-		btnSupprimer.setText("Supprimer");
-		btnSupprimer.setImage(imgSupSprint);
-		
-		btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
-		btnValider.setBounds(150, 173, 75, 25);
-		btnValider.setText("Ajouter");
 		
 		
 		Image imgAdd = new Image(Display.getCurrent(), getClass().getResourceAsStream("/net/images/addButton.png"));
@@ -287,9 +231,70 @@ public class VSprint {
 		
 
 		btAddSprint = new Button(composite_1, SWT.NONE);
-		btAddSprint.setBounds(0, 0, 191, 45);
+		btAddSprint.setBounds(10, 10, 151, 34);
 		btAddSprint.setText("Ajouter Sprint");
 		btAddSprint.setImage(imgAdd);
+		btnModifierSprint = new Button(composite_1, SWT.NONE);
+		btnModifierSprint.setBounds(10, 96, 151, 34);
+		btnModifierSprint.setText("Modifier sprint");
+		btnModifierSprint.setImage(imgModSprint);
+		btnSupprimer = new Button(composite_1, SWT.NONE);
+		btnSupprimer.setBounds(10, 136, 151, 30);
+		btnSupprimer.setText("Supprimer");
+		btnSupprimer.setImage(imgSupSprint);
+		//composite_2.setVisible(false);
+		
+
+	    grpAjouterUnSprint = new Group(composite_1, SWT.SHADOW_OUT);
+	    grpAjouterUnSprint.setLocation(206, 10);
+	    grpAjouterUnSprint.setSize(560, 194);
+	    grpAjouterUnSprint.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    grpAjouterUnSprint.setText("Ajouter/Modifier un sprint");
+	    grpAjouterUnSprint.setLayout(null);
+	    
+	    		Label lblNom = new Label(grpAjouterUnSprint, SWT.NONE);
+	    		lblNom.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    		lblNom.setBounds(70, 31, 70, 15);
+	    		lblNom.setText("Nom :");
+	    		
+	    				newNameSprint = new Text(grpAjouterUnSprint, SWT.BORDER);
+	    				newNameSprint.setBounds(150, 28, 93, 21);
+	    				
+	    						Label lblDateDeDbut = new Label(grpAjouterUnSprint, SWT.NONE);
+	    						lblDateDeDbut.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    						lblDateDeDbut.setBounds(70, 69, 74, 25);
+	    						lblDateDeDbut.setText("Date de début");
+	    						
+	    								dateDebut = new DateTime(grpAjouterUnSprint, SWT.DATE);
+	    								dateDebut.setBounds(150, 69, 93, 21);
+	    								
+	    										Label lblDateDeFin = new Label(grpAjouterUnSprint, SWT.NONE);
+	    										lblDateDeFin.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    										lblDateDeFin.setBounds(70, 106, 74, 24);
+	    										lblDateDeFin.setText("Date de fin");
+	    										
+	    										dateFin = new DateTime(grpAjouterUnSprint, SWT.DATE);
+	    										dateFin.setBounds(150, 106, 93, 21);
+	    										
+	    										btnValider = new Button(grpAjouterUnSprint, SWT.NONE);
+	    										btnValider.setBounds(245, 143, 102, 25);
+	    										btnValider.setText("Ajouter");
+	    										
+	    										Label lblDateDeReview = new Label(grpAjouterUnSprint, SWT.NONE);
+	    										lblDateDeReview.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    										lblDateDeReview.setBounds(285, 31, 118, 15);
+	    										lblDateDeReview.setText("Date de review");
+	    										
+	    										Label lblDateDeRetrospective = new Label(grpAjouterUnSprint, SWT.NONE);
+	    										lblDateDeRetrospective.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
+	    										lblDateDeRetrospective.setBounds(285, 69, 118, 15);
+	    										lblDateDeRetrospective.setText("Date de retrospective");
+	    										
+	    										DateTime dateTime = new DateTime(grpAjouterUnSprint, SWT.NONE);
+	    										dateTime.setBounds(409, 31, 93, 21);
+	    										
+	    										DateTime dateTime_1 = new DateTime(grpAjouterUnSprint, SWT.NONE);
+	    										dateTime_1.setBounds(409, 69, 93, 21);
 		
 		lblInformation = new Label(shellSprint, SWT.NONE);
 		FormData fd_lblInformation = new FormData();
