@@ -21,6 +21,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 
 public class VAddUserStorie {
 
@@ -49,6 +51,8 @@ public class VAddUserStorie {
 	private ComboViewer cbvSprint;
 	private Combo cbProjet;
 	private ComboViewer cbvProjet;
+	private Combo cbAffectationCollab;
+	private ComboViewer cbvAffectationCollab;
 	
 	private Button btnAjouterUserstorie;
 	private Button btnModifierUserStory;
@@ -61,6 +65,7 @@ public class VAddUserStorie {
 	private Group grpParametreUserstory;
 	private Group grpChangementDtat;
 	private Group grpUserstory;
+	private Group grpAffectationDunCollaborateur;
 	
 	private Table tblUserStory;
 	private TableViewer tblvUserStory;
@@ -105,7 +110,14 @@ public class VAddUserStorie {
 
 	private Table tblDone;
 	private TableViewer tblvDone;
+	private Button btnAdd;
 	
+	
+	
+	public Button getBtnAdd() {
+		return btnAdd;
+	}
+
 	/**
 	 * Getteurs Général
 	 */
@@ -166,6 +178,14 @@ public class VAddUserStorie {
 		return cbvProjet;
 	}
 	
+	public Combo getCbAffectationCollab() {
+		return cbAffectationCollab;
+	}
+
+	public ComboViewer getCbvAffectationCollab() {
+		return cbvAffectationCollab;
+	}
+
 	public Button getBtnAjouterUserstorie() {
 		return btnAjouterUserstorie;
 	}
@@ -206,6 +226,10 @@ public class VAddUserStorie {
 		return grpUserstory;
 	}
 	
+	public Group getGrpAffectationDunCollaborateur() {
+		return grpAffectationDunCollaborateur;
+	}
+
 	public Table getTable() {
 		return tblUserStory;
 	}
@@ -407,77 +431,98 @@ public class VAddUserStorie {
 		grpUserstory.setVisible(true);
 
 		Label lblNom = new Label(grpUserstory, SWT.NONE);
-		lblNom.setBounds(10, 35, 39, 15);
+		lblNom.setBounds(10, 26, 39, 15);
 		lblNom.setText("Nom :");
 		formToolkit.adapt(lblNom, true, true);
 
 		txtNom = new Text(grpUserstory, SWT.BORDER);
-		txtNom.setBounds(119, 32, 245, 23);
+		txtNom.setBounds(119, 23, 245, 23);
 		formToolkit.adapt(txtNom, true, true);
 
 		txtDescription = new Text(grpUserstory, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
-		txtDescription.setBounds(119, 61, 245, 72);
+		txtDescription.setBounds(119, 52, 245, 72);
 		txtDescription.setTextLimit(120);
 		formToolkit.adapt(txtDescription, true, true);
 
 		txtPtAttribue = new Text(grpUserstory, SWT.BORDER);
-		txtPtAttribue.setBounds(482, 90, 91, 23);
+		txtPtAttribue.setBounds(482, 81, 91, 23);
 		formToolkit.adapt(txtPtAttribue, true, true);
 
 		Label lblDescription = new Label(grpUserstory, SWT.NONE);
-		lblDescription.setBounds(10, 64, 69, 15);
+		lblDescription.setBounds(10, 55, 69, 15);
 		formToolkit.adapt(lblDescription, true, true);
 		lblDescription.setText("Description : ");
 
 		Label lblPtAttribue = new Label(grpUserstory, SWT.NONE);
-		lblPtAttribue.setBounds(385, 93, 91, 15);
+		lblPtAttribue.setBounds(385, 84, 91, 15);
 		formToolkit.adapt(lblPtAttribue, true, true);
 		lblPtAttribue.setText("Points attribu\u00E9s : ");
 
 		Label lblSprint = formToolkit.createLabel(grpUserstory, "Sprint : ", SWT.NONE);
-		lblSprint.setBounds(385, 35, 45, 15);
+		lblSprint.setBounds(385, 26, 45, 15);
 
 		Label lblProjet = new Label(grpUserstory, SWT.NONE);
-		lblProjet.setBounds(385, 64, 40, 15);
+		lblProjet.setBounds(385, 55, 40, 15);
 		lblProjet.setText("Projet : ");
 		formToolkit.adapt(lblProjet, true, true);
 
 		Label lblPriorite = new Label(grpUserstory, SWT.NONE);
-		lblPriorite.setBounds(385, 122, 49, 15);
+		lblPriorite.setBounds(385, 113, 49, 15);
 		formToolkit.adapt(lblPriorite, true, true);
 		lblPriorite.setText("Priorit\u00E9 :");
 
 		cbvSprint = new ComboViewer(grpUserstory, SWT.NONE);
 		cbSprint = cbvSprint.getCombo();
-		cbSprint.setBounds(482, 32, 91, 23);
+		cbSprint.setBounds(482, 23, 91, 23);
 		formToolkit.paintBordersFor(cbSprint);
 
 		cbvProjet = new ComboViewer(grpUserstory, SWT.NONE);
 		cbProjet = cbvProjet.getCombo();
 		cbProjet.setEnabled(false);
-		cbProjet.setBounds(482, 61, 91, 23);
+		cbProjet.setBounds(482, 52, 91, 23);
 		formToolkit.paintBordersFor(cbProjet);
 
 		txtPriorite = new Text(grpUserstory, SWT.BORDER);
-		txtPriorite.setBounds(482, 119, 91, 23);
+		txtPriorite.setBounds(482, 110, 91, 23);
 		formToolkit.adapt(txtPriorite, true, true);
 
 		btnValider = new Button(grpUserstory, SWT.NONE);
-		btnValider.setBounds(349, 188, 109, 40);
+		btnValider.setBounds(385, 200, 91, 33);
 		btnValider.setText("Valider");
 		btnValider.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/accept.png"));
 		formToolkit.adapt(btnValider, true, true);
-		btnValider.setVisible(false);
+		btnValider.setVisible(true);
 		// composite.setTabList(new Control[]{btnAjouterUserstorie, txtNom,
 		// txtDescription, txtPtAttribue, cbSprint, cbProjet, txtPriorite,
 		// btnValider, btnAnnuler, btnSupprimerUserstory});
 
 		btnAnnuler = new Button(grpUserstory, SWT.NONE);
-		btnAnnuler.setBounds(464, 188, 109, 40);
+		btnAnnuler.setBounds(482, 200, 91, 33);
 		btnAnnuler.setText("Annuler");
 		btnAnnuler.setImage(SWTResourceManager.getImage(VAddUserStorie.class, "/net/images/cancel.png"));
 		formToolkit.adapt(btnAnnuler, true, true);
-		btnAnnuler.setVisible(false);
+		btnAnnuler.setVisible(true);
+		
+		grpAffectationDunCollaborateur = new Group(grpUserstory, SWT.NONE);
+		grpAffectationDunCollaborateur.setText("Affectation d'un collaborateur \u00E0 la UserStory s\u00E9lectionn\u00E9e");
+		grpAffectationDunCollaborateur.setBounds(10, 139, 560, 55);
+		formToolkit.adapt(grpAffectationDunCollaborateur);
+		formToolkit.paintBordersFor(grpAffectationDunCollaborateur);
+		
+		Label lblChoisirLeCollaborateur = new Label(grpAffectationDunCollaborateur, SWT.NONE);
+		lblChoisirLeCollaborateur.setBounds(10, 28, 183, 15);
+		formToolkit.adapt(lblChoisirLeCollaborateur, true, true);
+		lblChoisirLeCollaborateur.setText("Choisir le collaborateur \u00E0 affecter : ");
+		
+		cbvAffectationCollab = new ComboViewer(grpAffectationDunCollaborateur, SWT.NONE);
+		cbAffectationCollab = cbvAffectationCollab.getCombo();
+		cbAffectationCollab.setBounds(199, 24, 205, 23);
+		formToolkit.paintBordersFor(cbAffectationCollab);
+		
+		btnAdd = new Button(grpAffectationDunCollaborateur, SWT.NONE);
+		btnAdd.setBounds(414, 23, 136, 25);
+		formToolkit.adapt(btnAdd, true, true);
+		btnAdd.setText("Ajouter le collaborateur");
 		
 		grpParametreUserstory = new Group(composite, SWT.NONE);
 		grpParametreUserstory.setText("Param\u00E8tre UserStory");
@@ -750,7 +795,7 @@ public class VAddUserStorie {
 		txtPtAttribueDone.setBounds(465, 95, 116, 21);
 		formToolkit.adapt(txtPtAttribueDone, true, true);
 		sashForm.setWeights(new int[] {1});
-		sashDone.setWeights(new int[] {30, 240, 258});
+		sashDone.setWeights(new int[] {29, 239, 259});
 
 	}
 

@@ -3,10 +3,14 @@ package net.technics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.IdClass;
+
 import net.controller.AppController;
 import net.controller.ProductController;
+import net.controller.UserStorieController;
 import net.models.Collaborator;
 import net.models.Playrole;
+import net.models.Realize;
 
 /**
  * Classe technique d'accès aux données pour la table Collaborator
@@ -86,7 +90,7 @@ public class DAOCollaborator {
 		Collaborator scrumMaster = new Collaborator();
 
 		// execution requête hql
-		org.hibernate.Query query = AppController.session.createQuery("from Playrole where idProduct = " + ProductController.getSelectedProduct().getId() + " and idRole = 1");
+		org.hibernate.Query query = AppController.session.createQuery("From Playrole where idProduct = " + ProductController.getSelectedProduct().getId() + " and idRole = 1");
 		Playrole roleJoue = (Playrole) query.uniqueResult();
 
 		// récupération du scrum master
@@ -95,5 +99,13 @@ public class DAOCollaborator {
 		}
 
 		return scrumMaster;
+	}
+	
+	public static Collaborator getCollaboratorsUserStory() {
+		org.hibernate.Query query = AppController.session.createQuery("From Realize WHERE idUserStory = 29");
+		Realize realize = (Realize) query.uniqueResult();
+		Collaborator collaborator = (Collaborator) AppController.session.get(Collaborator.class, realize.getCollaborator().getId());
+		return collaborator;
+		
 	}
 }

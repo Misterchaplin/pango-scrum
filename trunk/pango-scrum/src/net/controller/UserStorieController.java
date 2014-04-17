@@ -2,6 +2,12 @@ package net.controller;
 
 import java.util.List;
 
+import net.models.Collaborator;
+import net.models.Playrole;
+import net.models.PlayroleId;
+import net.models.Realize;
+import net.models.RealizeId;
+import net.models.Role;
 import net.models.Sprint;
 import net.models.Status;
 import net.models.Userstory;
@@ -22,6 +28,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import net.models.Product;
+import net.technics.DAOCollaborator;
 import net.technics.DAOProduct;
 import net.technics.HibernateUtil;
 
@@ -36,6 +43,10 @@ public class UserStorieController implements SelectionListener {
 		this.vAddUserStorie = vAddUserStorie;
 	}
 
+	private static Userstory selectedUserStory;
+	public static Userstory getSelectedUserStory() {
+		return selectedUserStory;
+	}
 	/**
 	 * Onglet To-Do
 	 * @wbp.parser.entryPoint
@@ -46,6 +57,9 @@ public class UserStorieController implements SelectionListener {
 		//Chargement des diff√©rentes listes
 		vAddUserStorie.getTblvUserStory().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getTblvUserStory().setInput(DAOProduct.getLesUserstoriesAFaire());
+		
+		vAddUserStorie.getCbvAffectationCollab().setContentProvider(new ArrayContentProvider());
+		vAddUserStorie.getCbvAffectationCollab().setInput(DAOCollaborator.getAffectedCollaborators());
 		
 		vAddUserStorie.getCbvSprint().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvSprint().setInput(getSprint());
@@ -81,6 +95,7 @@ public class UserStorieController implements SelectionListener {
 				vAddUserStorie.getGrpUserstory().setVisible(true);
 				StructuredSelection sel = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
 				Userstory selectedUserStory = (Userstory) sel.getFirstElement();
+				
 				vAddUserStorie.getTxtNom().setText(selectedUserStory.getLabel());
 				vAddUserStorie.getTxtDescription().setText(selectedUserStory.getDescription());
 				vAddUserStorie.getTxtPtAttribue().setText(selectedUserStory.getStoryPoints().toString());
@@ -94,8 +109,13 @@ public class UserStorieController implements SelectionListener {
 					vAddUserStorie.getCbSprint().setText("Aucun");
 				}
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
+				vAddUserStorie.getCbvAffectationCollab().setSelection(new StructuredSelection(selectedUserStory.getCollaborators()));
+				
+				
 				vAddUserStorie.getGrpParametreUserstory().setVisible(true);
 				vAddUserStorie.getGrpChangementDtat().setVisible(true);
+				vAddUserStorie.getBtnValider().setVisible(false);
+				vAddUserStorie.getBtnAnnuler().setVisible(false);
 			}
 			
 			@Override
@@ -109,7 +129,7 @@ public class UserStorieController implements SelectionListener {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				MessageBox msgSupprimer = new MessageBox(vAddUserStorie.getShlProductBacklog(), SWT.OK | SWT.ICON_CANCEL | SWT.ICON_QUESTION);
-				msgSupprimer.setMessage("Etes-vous s√É¬ªr de vouloir supprimer cette UserStory ?");
+				msgSupprimer.setMessage("Etes-vous sur de vouloir supprimer cette UserStory ?");
 				int result = msgSupprimer.open();
 				if (result == 32) {
 					StructuredSelection sel = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
@@ -261,6 +281,45 @@ public class UserStorieController implements SelectionListener {
 				// TODO Auto-generated method stub
 			}
 		});
+		// Bouton affectation d'un collaborateur ‡ une UserStory
+		vAddUserStorie.getBtnAdd().addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				
+				StructuredSelection selectCollab = (StructuredSelection) vAddUserStorie.getCbvAffectationCollab().getSelection();
+				Collaborator selectedCollaborator = (Collaborator) selectCollab.getFirstElement();
+				
+				StructuredSelection select = (StructuredSelection) vAddUserStorie.getTblvUserStory().getSelection();
+				Userstory selectaz = (Userstory) select.getFirstElement();
+				
+				if (selectedCollaborator != null) {
+
+					Integer idCollaborator = selectedCollaborator.getId();
+					Integer idUserStory = selectaz.getId();
+					RealizeId realizeId = new RealizeId(idCollaborator, idUserStory);
+					Session session = AppController.session;
+					Transaction trans = session.beginTransaction();
+					
+					Userstory userStory =(Userstory) AppController.session.get(Userstory.class, idUserStory);
+					trans.commit();
+					Realize realize = new Realize(realizeId, userStory, selectedCollaborator);
+					Transaction transRealize = session.beginTransaction();
+					session.persist(realize);
+					transRealize.commit();
+				}else{
+					String firstname = "Aucun collaborateur";
+					Collaborator collaborator = new Collaborator(firstname);
+					DAOCollaborator.getCollaborators().add(collaborator);
+					vAddUserStorie.getCbAffectationCollab().setText(firstname);
+				}
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	@Override
@@ -317,7 +376,7 @@ public class UserStorieController implements SelectionListener {
 			}
 		});
 		
-		//Bouton permettant de passer la UserStory √† l'√©tat clotur√© (Done)
+		//Bouton permettant de passer la UserStory √† l'Ètat cloturÈ (Done)
 		vAddUserStorie.getBtncloturerInProgress().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -357,7 +416,7 @@ public class UserStorieController implements SelectionListener {
 		vAddUserStorie.getCbvProjetDone().setContentProvider(new ArrayContentProvider());
 		vAddUserStorie.getCbvProjetDone().setInput(getProduct());
 		
-		//Charge les √©l√©ments de la ligne s√©lectionn√©
+		//Charge les ÈlÈments de la ligne sÈlectionnÈe
 		vAddUserStorie.getTblDone().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -382,7 +441,6 @@ public class UserStorieController implements SelectionListener {
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
-				
 			}
 		});
 	}
@@ -403,7 +461,7 @@ public class UserStorieController implements SelectionListener {
 	
 	private List<Sprint> getSprint() {
 		Session session = HibernateUtil.getSession();
-		Query query = session.createQuery("SELECT label FROM Sprint WHERE idProduct="+ ProductController.getSelectedProduct().getId());
+		Query query = session.createQuery("FROM Sprint WHERE idProduct="+ ProductController.getSelectedProduct().getId());
 		List<Sprint> lessprints = query.list();
 		return lessprints;
 	}
