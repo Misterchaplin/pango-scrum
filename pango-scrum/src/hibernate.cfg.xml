@@ -26,6 +26,8 @@
                 <mapping class="net.models.Playrole" />
                 <mapping class="net.models.PlayroleId" />
                 <mapping class="net.models.Product" />
+                <mapping class="net.models.Realize" />
+                <mapping class="net.models.RealizeId" />
                 <mapping class="net.models.Role" />
                 <mapping class="net.models.Sprint" />
                 <mapping class="net.models.Status" />

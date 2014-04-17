@@ -173,7 +173,7 @@ public class Userstory implements java.io.Serializable {
 		this.comments = comments;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "realize", catalog = "scrumtool", joinColumns = { @JoinColumn(name = "idUserStory", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "idCollaborator", nullable = false, updatable = false) })
 	public Set<Collaborator> getCollaborators() {
 		return this.collaborators;
@@ -187,5 +187,16 @@ public class Userstory implements java.io.Serializable {
 	public String toString() {
 
 		return label;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+			return false;
+		if(obj.getClass().equals(this.getClass())){
+			Userstory userStory=(Userstory) obj;
+			return id.equals(userStory.getId());
+		}
+		return false;
 	}
 }

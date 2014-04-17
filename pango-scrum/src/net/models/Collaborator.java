@@ -67,6 +67,10 @@ public class Collaborator implements java.io.Serializable {
 		this.administrator = administrator;
 	}
 
+	public Collaborator(String firsname) {
+		this.firstname = firstname;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -167,6 +171,21 @@ public class Collaborator implements java.io.Serializable {
 
 	public void setComments(Set<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Override
+	public String toString() {
+		return firstname +" "+ lastname;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==null)
+			return false;
+		if(obj.getClass().equals(this.getClass())){
+			Collaborator collaborator=(Collaborator) obj;
+			return id.equals(collaborator.getId());
+		}
+		return false;
 	}
 
 }
