@@ -9,16 +9,16 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 public class VOverview {
@@ -35,12 +35,12 @@ public class VOverview {
 	private Button btnDone;
 	private Button btnProgress;
 	private TableViewer tvInProgress;
-	private Button btnSprintRecent;
 	private Label lblAfficherPointProjet;
 	private Label lblAfficherPointSprint;
 	private Label lblAfficherCustomerName;
 	private Label lblAfficherProjet;
-	private Label lblUserstory;
+	private Text textNom;
+	private Text textDescription;
 
 	public TableViewer getTableViewer() {
 		return tvToDo;
@@ -76,10 +76,6 @@ public class VOverview {
 
 	public Button getBtnProgress() {
 		return btnProgress;
-	}
-
-	public Button getBtnSprintRecent() {
-		return btnSprintRecent;
 	}
 
 	public TableViewer getTableVOverview() {
@@ -142,10 +138,10 @@ public class VOverview {
 	protected void createContents() {
 		shlGestionDesProduits = new Shell();
 		shlGestionDesProduits.setImage(SWTResourceManager.getImage(VOverview.class, "/net/images/logo.PNG"));
-		shlGestionDesProduits.setSize(800, 600);
+		shlGestionDesProduits.setSize(1024, 706);
 		shlGestionDesProduits.setText("Gestion des produits");
-		shlGestionDesProduits.setLayout(new FillLayout(SWT.HORIZONTAL));
 		shlGestionDesProduits.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		shlGestionDesProduits.setLayout(new FillLayout(SWT.HORIZONTAL));
 
 		SashForm sashFormContainOverview = new SashForm(shlGestionDesProduits, SWT.VERTICAL);
 
@@ -153,19 +149,6 @@ public class VOverview {
 		TableColumnLayout layout = new TableColumnLayout();
 
 		SashForm sashFormSummary = new SashForm(sashForm, SWT.VERTICAL);
-
-		SashForm sashFormSummaryLabel = new SashForm(sashFormSummary, SWT.NONE);
-
-		Composite compositeSummaryLabel = new Composite(sashFormSummaryLabel, SWT.NONE);
-		compositeSummaryLabel.setBackground(SWTResourceManager.getColor(255, 255, 240));
-
-		Label lblSummary = new Label(compositeSummaryLabel, SWT.NONE);
-		lblSummary.setBackground(SWTResourceManager.getColor(255, 255, 240));
-		lblSummary.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_CYAN));
-		lblSummary.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
-		lblSummary.setBounds(26, 23, 100, 28);
-		lblSummary.setText("Summary");
-		sashFormSummaryLabel.setWeights(new int[] { 1 });
 
 		SashForm sashFormSummaryProduct = new SashForm(sashFormSummary, SWT.NONE);
 
@@ -229,7 +212,7 @@ public class VOverview {
 		lblAfficherProjet.setText(ProductController.getSelectedProduct().getName());
 
 		sashFormSummaryProduct.setWeights(new int[] { 1 });
-		sashFormSummary.setWeights(new int[] { 61, 244 });
+		sashFormSummary.setWeights(new int[] { 309 });
 
 		SashForm sashForm_1 = new SashForm(sashForm, SWT.VERTICAL);
 
@@ -241,7 +224,7 @@ public class VOverview {
 
 		// Créer une colonne
 		TableColumn col = new TableColumn(tableSprintRecent, SWT.CENTER);
-		col.setWidth(423);
+		col.setWidth(548);
 		col.setText("Sprints");
 		// Afficher en-tête+lignes
 		tableSprintRecent.setHeaderVisible(true);
@@ -250,25 +233,33 @@ public class VOverview {
 		sashForm_1.setWeights(new int[] { 244 });
 		sashForm.setWeights(new int[] { 351, 430 });
 
-		SashForm sashForm_3 = new SashForm(sashFormContainOverview, SWT.NONE);
+		SashForm sashFormInformation = new SashForm(sashFormContainOverview, SWT.NONE);
 
-		Composite composite = new Composite(sashForm_3, SWT.NONE);
-		composite.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		Composite compositeInformation = new Composite(sashFormInformation, SWT.NONE);
+		compositeInformation.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
-		btnSprintRecent = new Button(composite, SWT.NONE);
-		btnSprintRecent.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
-		btnSprintRecent.setBounds(510, 10, 104, 25);
-		btnSprintRecent.setText("Gestion des sprints");
+		Group group = new Group(compositeInformation, SWT.NONE);
+		group.setBounds(238, 0, 503, 145);
 
-		lblUserstory = new Label(composite, SWT.NONE);
-		lblUserstory.setBackground(SWTResourceManager.getColor(255, 255, 240));
-		lblUserstory.setBounds(52, 10, 172, 15);
+		textNom = new Text(group, SWT.BORDER);
+		textNom.setLocation(203, 19);
+		textNom.setSize(127, 21);
 
-		sashForm_3.setWeights(new int[] { 1 });
+		Label lblNom = new Label(group, SWT.NONE);
+		lblNom.setLocation(129, 22);
+		lblNom.setSize(55, 15);
+		lblNom.setText("Nom :");
+
+		Label lblDescription = new Label(group, SWT.NONE);
+		lblDescription.setLocation(129, 43);
+		lblDescription.setSize(68, 15);
+		lblDescription.setText("Description");
+
+		textDescription = new Text(group, SWT.BORDER);
+		textDescription.setLocation(203, 46);
+		textDescription.setSize(230, 76);
+
+		sashFormInformation.setWeights(new int[] { 1 });
 
 		SashForm sashFormProgression = new SashForm(sashFormContainOverview, SWT.VERTICAL);
 		sashFormProgression.setSashWidth(7);
@@ -344,13 +335,9 @@ public class VOverview {
 		btnDone.setText("Voir tous");
 		sashFormLinkDone.setWeights(new int[] { 1 });
 		sashFormLink.setWeights(new int[] { 1, 1, 1 });
-		sashFormProgression.setWeights(new int[] { 233, 57 });
-		sashFormContainOverview.setWeights(new int[] { 309, 45, 202 });
+		sashFormProgression.setWeights(new int[] { 167, 76 });
+		sashFormContainOverview.setWeights(new int[] { 267, 145, 250 });
 
-	}
-
-	public Label getLblUserstory() {
-		return lblUserstory;
 	}
 
 	public Table getTableSprintRecent() {
