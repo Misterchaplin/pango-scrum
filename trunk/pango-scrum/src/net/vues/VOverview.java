@@ -25,6 +25,7 @@ public class VOverview {
 
 	protected Shell shlGestionDesProduits;
 	private Table tableToDo;
+
 	private TableViewer tvToDo;
 	private Table tableInProgress;
 	private Table tableDone;
@@ -36,11 +37,52 @@ public class VOverview {
 	private Button btnProgress;
 	private TableViewer tvInProgress;
 	private Label lblAfficherPointProjet;
+
 	private Label lblAfficherPointSprint;
 	private Label lblAfficherCustomerName;
 	private Label lblAfficherProjet;
 	private Text textNom;
 	private Text textDescription;
+
+	public Table getTableToDo() {
+		return tableToDo;
+	}
+
+	public Table getTableInProgress() {
+		return tableInProgress;
+	}
+
+	public Table getTableDone() {
+		return tableDone;
+	}
+
+	public TableViewer getTvToDo() {
+		return tvToDo;
+	}
+
+	public TableViewer getTvDone() {
+		return tvDone;
+	}
+
+	public TableViewer getTvInProgress() {
+		return tvInProgress;
+	}
+
+	public void setTextNom(Text textNom) {
+		this.textNom = textNom;
+	}
+
+	public void setTextDescription(Text textDescription) {
+		this.textDescription = textDescription;
+	}
+
+	public Text getTextNom() {
+		return textNom;
+	}
+
+	public Text getTextDescription() {
+		return textDescription;
+	}
 
 	public TableViewer getTableViewer() {
 		return tvToDo;
