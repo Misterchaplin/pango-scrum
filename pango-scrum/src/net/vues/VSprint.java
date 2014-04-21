@@ -427,6 +427,7 @@ public class VSprint {
 	    lblInformation.setText("Information :");
 	       
 	    lblInfoTraitement = new Label(composite_1, SWT.NONE);
+	    lblInfoTraitement.setForeground(SWTResourceManager.getColor(SWT.COLOR_GREEN));
 	    lblInfoTraitement.setBackground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 	    lblInfoTraitement.setBounds(0, 214, 378, 48);
 	    sashGroupAction.setWeights(new int[] {1});

@@ -207,9 +207,9 @@ public class DAOSprint {
 
 	
 	
-	public static Sprint addSprint(VSprint sprint,int idProduct){
+	public static Sprint AddSprint(VSprint sprint,int idProduct){
 		Session session = HibernateUtil.getSession();
-		Transaction trans = session.beginTransaction();
+		
 		
 		@SuppressWarnings("deprecation")
 		Date dateDeb = new Date(sprint.getDateDebut().getYear()-1900,sprint.getDateDebut().getMonth(),sprint.getDateDebut().getDay());
@@ -222,30 +222,22 @@ public class DAOSprint {
 		
 		product = (Product) session.get(Product.class, idProduct);
 		Sprint sprint1 = new Sprint(product);
-		sprint1.setLabel(sprint.getNewNameSprint().getText());
-		session.persist(sprint1);
+		sprint1.setLabel(sprint.getNewNameSprint().getText());		
 		
 	    event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 1),dateDeb);
-		evenements.add(event);
-		session.persist(event);
+		evenements.add(event);		
 		
 		event1=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 2),dateFin);
-		evenements.add(event1);
-		session.persist(event1);
+		evenements.add(event1);		
 		sprint1.setEvents(evenements);
 		if(DAOSprint.VerifSprint(sprint1, idProduct)==false){
-			//trans.wasCommitted()
-			//session.clear();
-			session.delete(event);
-			session.delete(event1);
-			session.delete(sprint1);
-			
+
 			session.close();
 			return null;
 		}
 		else {
 		
-		trans.commit();
+		DAOSprint.addSprint(sprint1, event, event1);
 		session.close();
 		return sprint1;
 		}
@@ -254,14 +246,22 @@ public class DAOSprint {
 		
 	}
 	
+	public static void addSprint(Sprint sprint,Event dateD, Event dateF){
+		Session session = HibernateUtil.getSession();
+		Transaction trans = session.beginTransaction();
+		session.persist(sprint);
+		session.persist(dateD);
+		session.persist(dateF);
+		trans.commit();
+		session.close();
+		
+	}
+	
 	public static Boolean VerifSprint(Sprint sprint,int idProduct) {
 		Session session = HibernateUtil.getSession();
 		Query query=session.createQuery("From Sprint Where product.id=:activeProduct");
 		query.setParameter("activeProduct",idProduct);
 		List<Sprint> lesSprints=query.list();
-		//Set<Event> lesEventsSprintAAjouter= new HashSet<Event>();
-		//lesEventsSprintAAjouter=sprint.getEvents();
-		//Iterator<Event> it= lesEventsSprintAAjouter.iterator();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		boolean result = false;
 		Date DateDebNewSprint = null;
@@ -294,13 +294,19 @@ public class DAOSprint {
 			else if (DateFinNewSprint.compareTo(dateDebut) == 1 && DateFinNewSprint.compareTo(dateFin) == -1){
 				result = false;
 			}
+			else if (DateDebNewSprint.compareTo(dateDebut) == -1 && DateFinNewSprint.compareTo(dateFin) == 1){
+				result = false;
+			}
+			else if (DateDebNewSprint.compareTo(dateDebut) == 1 && DateFinNewSprint.compareTo(dateFin) == -1){
+				result = false;
+			}
 			else if (DateDebNewSprint.compareTo(dateDebut) == 0 || DateDebNewSprint.compareTo(dateFin) == 0){
 				result = false;
 			}
 			else if (DateFinNewSprint.compareTo(dateDebut) == 0 || DateFinNewSprint.compareTo(dateFin) == 0){
 				result = false;
 			}
-			
+	
 			else{
 				result = true;
 			}

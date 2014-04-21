@@ -72,13 +72,13 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Sprint newSprint=DAOSprint.addSprint(vSprint,IdActiveProduct);
+				Sprint newSprint=DAOSprint.AddSprint(vSprint,IdActiveProduct);
 				if (newSprint== null){
 					MessageDialog.openError(vSprint.getShellSprint(), "Erreur lors de l'insertion", "Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
-					System.out.println("error");
+					
 				}
 				else if (newSprint!= null){
-				System.out.println("ok");
+				
 				sprints.add(newSprint);
 				vSprint.getTvSprint().refresh();	
 				vSprint.getLblInfoTraitement().setText("Ajout rÃ©ussi");
