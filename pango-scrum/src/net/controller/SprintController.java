@@ -13,6 +13,7 @@ import net.technics.DAOSprint;
 import net.technics.TvSprintProvider;
 import net.vues.VSprint;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.SelectionEvent;
@@ -32,6 +33,11 @@ public class SprintController implements SelectionListener {
 	public SprintController(VSprint vSprint) {
 		this.vSprint = vSprint;
 	}
+	
+	public int getIdActiveProduct() {
+		return IdActiveProduct;
+	}
+
 
 	public void init() {
 		sprints = new ArrayList<Sprint>();
@@ -39,16 +45,20 @@ public class SprintController implements SelectionListener {
 		vSprint.getTvSprint().setContentProvider(new ArrayContentProvider());
 		vSprint.getTvSprint().setLabelProvider(new TvSprintProvider());
 		vSprint.getTvSprint().setInput(sprints);
+		vSprint.getGrpAjouterUnSprint().setVisible(false);
+		
 	
 		vSprint.getBtAddSprint().addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				vSprint.getComposite_1().setVisible(true);
-				vSprint.getBtnModifierSprint().setVisible(false);
+				vSprint.getGrpAjouterUnSprint().setVisible(true);
+				vSprint.getBtnValider().setVisible(true);
+				vSprint.getBtnModifierSprint().setVisible(false);		
 				vSprint.getBtnSupprimer().setVisible(false);
 				vSprint.getGrpAjouterUnSprint().setText("Nouveau sprint");
-				vSprint.getBtnValider().setVisible(true);
+				vSprint.getNewNameSprint().setText("");
+				
 											
 			}	
 			@Override
@@ -62,10 +72,19 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				sprints.add(DAOSprint.addSprint(vSprint,IdActiveProduct));
-				vSprint.getTvSprint().refresh();
+				Sprint newSprint=DAOSprint.addSprint(vSprint,IdActiveProduct);
+				if (newSprint== null){
+					MessageDialog.openError(vSprint.getShellSprint(), "Erreur lors de l'insertion", "Impossible d'ajouter ce sprint car la date de debut et/ou de fin interf�re sur la date d'un autre sprint");
+					System.out.println("error");
+				}
+				else if (newSprint!= null){
+				System.out.println("ok");
+				sprints.add(newSprint);
+				vSprint.getTvSprint().refresh();	
+				vSprint.getLblInfoTraitement().setText("Ajout réussi");
+				vSprint.getGrpAjouterUnSprint().setVisible(false);
+				}
 				
-				vSprint.getLblInformation().setText("Ajout réussi");
 				
 			}
 			
@@ -77,11 +96,10 @@ public class SprintController implements SelectionListener {
 		});
 		vSprint.getTableSprint().addSelectionListener(new SelectionListener() {
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void widgetSelected(SelectionEvent evt) {
-				vSprint.getComposite_1().setVisible(true);
-				vSprint.getLblInformation().setText("");
+				vSprint.getGrpAjouterUnSprint().setVisible(true);
+				vSprint.getLblInfoTraitement().setText("");
 				vSprint.getBtnValider().setVisible(false);
 				vSprint.getBtnModifierSprint().setVisible(true);
 				vSprint.getBtnSupprimer().setVisible(true);
@@ -94,7 +112,7 @@ public class SprintController implements SelectionListener {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 				Calendar calDeb = null;
 				Calendar calFin = null;
-				vSprint.getnewNameSprint().setText(activeSprint.getLabel());
+				vSprint.getNewNameSprint().setText(activeSprint.getLabel());
 				
 				try {
 					calDeb = Calendar.getInstance();
@@ -137,17 +155,19 @@ public class SprintController implements SelectionListener {
 				// maj dans la bdd
 				newDateDeb=getDateDeb();
 				newDateFin=getDateFin();
-				DAOSprint.updateName(activeSprint, vSprint.getnewNameSprint().getText());
+				DAOSprint.updateName(activeSprint, vSprint.getNewNameSprint().getText());
 				DAOSprint.updateDate(activeSprint, newDateDeb, true);
 				DAOSprint.updateDate(activeSprint, newDateFin, false);
 				//maj tableviewer
-				activeSprint.setLabel(vSprint.getnewNameSprint().getText());
+				activeSprint.setLabel(vSprint.getNewNameSprint().getText());
 				Event debut= DAOSprint.getEventDateDeb(activeSprint);
 				Event fin = DAOSprint.getEventDateFin(activeSprint);
 				debut.setEventDate(newDateDeb);
 				fin.setEventDate(newDateFin);
 				vSprint.getTvSprint().refresh(activeSprint);
-				vSprint.getLblInformation().setText("Modification effectué");
+				vSprint.getLblInfoTraitement().setText("Modification effectué");
+				vSprint.getNewNameSprint().setText("");
+				vSprint.getGrpAjouterUnSprint().setVisible(false);
 				
 			}
 			
@@ -162,10 +182,13 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				vSprint.getGrpAjouterUnSprint().setVisible(true);
 				DAOSprint.deleteSprint(activeSprint.getId());
 				vSprint.getTvSprint().remove(activeSprint);
 				vSprint.getTvSprint().refresh(activeSprint);
-				vSprint.getLblInformation().setText("Sprint Suprimmé");
+				sprints.remove(activeSprint);
+				vSprint.getLblInfoTraitement().setText("Sprint Suprimmé");
+				vSprint.getGrpAjouterUnSprint().setVisible(false);
 				
 			}
 			
@@ -183,6 +206,7 @@ public class SprintController implements SelectionListener {
 			public void widgetSelected(SelectionEvent arg0) {
 				vSprint.getBtnModifierSprint().setVisible(true);
 				vSprint.getBtnSupprimer().setVisible(true);
+				vSprint.getGrpAjouterUnSprint().setVisible(false);
 				
 				
 			}
@@ -194,15 +218,7 @@ public class SprintController implements SelectionListener {
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
 
-	// chargement d'un product , en attendant la partie d'Anthony
 	private List<Sprint> getSprint() {
 		Query query = AppController.session.createQuery("from Sprint where product.id="+ProductController.getSelectedProduct().getId());
 		List<Sprint> lesSprints = query.list();

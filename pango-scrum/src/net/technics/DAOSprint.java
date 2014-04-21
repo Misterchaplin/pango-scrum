@@ -1,11 +1,14 @@
 package net.technics;
 
 import java.text.Format;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import net.controller.SprintController;
 import net.models.Event;
 import net.models.Eventtype;
 import net.models.Product;
@@ -213,29 +216,98 @@ public class DAOSprint {
 		@SuppressWarnings("deprecation")
 		Date dateFin = new Date(sprint.getDateFin().getYear()-1900,sprint.getDateFin().getMonth(),sprint.getDateFin().getDay());
 		Product product;
-		Event event;
-		Userstory userStory;
+		Event event=null;
+		Event event1=null;
 		Set<Event> evenements = new HashSet<Event>();
 		
 		product = (Product) session.get(Product.class, idProduct);
 		Sprint sprint1 = new Sprint(product);
-		sprint1.setLabel(sprint.getnewNameSprint().getText());
+		sprint1.setLabel(sprint.getNewNameSprint().getText());
 		session.persist(sprint1);
 		
 	    event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 1),dateDeb);
 		evenements.add(event);
 		session.persist(event);
 		
-		event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 2),dateFin);
-		evenements.add(event);
-		session.persist(event);
+		event1=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 2),dateFin);
+		evenements.add(event1);
+		session.persist(event1);
 		sprint1.setEvents(evenements);
-	
+		if(DAOSprint.VerifSprint(sprint1, idProduct)==false){
+			//trans.wasCommitted()
+			//session.clear();
+			session.delete(event);
+			session.delete(event1);
+			session.delete(sprint1);
+			
+			session.close();
+			return null;
+		}
+		else {
 		
 		trans.commit();
 		session.close();
-		
 		return sprint1;
+		}
+		
+		
+		
+	}
+	
+	public static Boolean VerifSprint(Sprint sprint,int idProduct) {
+		Session session = HibernateUtil.getSession();
+		Query query=session.createQuery("From Sprint Where product.id=:activeProduct");
+		query.setParameter("activeProduct",idProduct);
+		List<Sprint> lesSprints=query.list();
+		//Set<Event> lesEventsSprintAAjouter= new HashSet<Event>();
+		//lesEventsSprintAAjouter=sprint.getEvents();
+		//Iterator<Event> it= lesEventsSprintAAjouter.iterator();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		boolean result = false;
+		Date DateDebNewSprint = null;
+		Date DateFinNewSprint= null;
+		try {
+			DateDebNewSprint = sdf.parse(DAOSprint.getDateDebut(sprint));
+			DateFinNewSprint = sdf.parse(DAOSprint.getDateFin(sprint));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Date dateDebut = null;
+		Date dateFin = null;
+		
+		for (Sprint s:lesSprints){
+			try {
+				dateDebut=sdf.parse(DAOSprint.getDateDebut(s));
+				dateFin=sdf.parse(DAOSprint.getDateFin(s));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			/*// traitement du cas date1 < date2	
+			if (date1.compareTo(date2 ) == -1){*/
+			if (DateDebNewSprint.compareTo(dateDebut) == 1 && DateDebNewSprint.compareTo(dateFin) == -1){
+				result = false;
+			}
+			else if (DateFinNewSprint.compareTo(dateDebut) == 1 && DateFinNewSprint.compareTo(dateFin) == -1){
+				result = false;
+			}
+			else if (DateDebNewSprint.compareTo(dateDebut) == 0 || DateDebNewSprint.compareTo(dateFin) == 0){
+				result = false;
+			}
+			else if (DateFinNewSprint.compareTo(dateDebut) == 0 || DateFinNewSprint.compareTo(dateFin) == 0){
+				result = false;
+			}
+			
+			else{
+				result = true;
+			}
+		
+	
+		}
+		return result;
 		
 	}
 	
