@@ -16,6 +16,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
@@ -43,6 +45,17 @@ public class VOverview {
 	private Label lblAfficherProjet;
 	private Text textNom;
 	private Text textDescription;
+	private Table tableSprintRecentUtilisateur;
+	private Text textDescriptionUtil;
+	private Text textNomUtil;
+	private Table tableToDoUtil;
+	private Table tableInProgressUtil;
+	private Table tableDoneUtil;
+	private TableViewer tableViewer;
+	private TableViewer tvToDoUtil;
+	private TableViewer tvInProgressUtil;
+	private TableViewer tvDoneUtil;
+	private Label lblAfficherCustomerNameUtil;
 
 	public Table getTableToDo() {
 		return tableToDo;
@@ -184,11 +197,21 @@ public class VOverview {
 		shlGestionDesProduits.setText("Gestion des produits");
 		shlGestionDesProduits.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		shlGestionDesProduits.setLayout(new FillLayout(SWT.HORIZONTAL));
+		TableColumnLayout layout = new TableColumnLayout();
+		if ((DAOProduct.getProductOwner().getFirstname() != null) && (DAOProduct.getProductOwner().getLastname() != null)) {
+			lblAfficherCustomerName.setText(DAOProduct.getProductOwner().getFirstname() + " " + DAOProduct.getProductOwner().getLastname());
+			lblAfficherCustomerNameUtil.setText(DAOProduct.getProductOwner().getFirstname() + " " + DAOProduct.getProductOwner().getLastname());
+		}
 
-		SashForm sashFormContainOverview = new SashForm(shlGestionDesProduits, SWT.VERTICAL);
+		TabFolder tabGestionDesProduits = new TabFolder(shlGestionDesProduits, SWT.NONE);
+
+		TabItem tbtmGestionDesTousProduits = new TabItem(tabGestionDesProduits, SWT.NONE);
+		tbtmGestionDesTousProduits.setText("Projet");
+
+		SashForm sashFormContainOverview = new SashForm(tabGestionDesProduits, SWT.VERTICAL);
+		tbtmGestionDesTousProduits.setControl(sashFormContainOverview);
 
 		SashForm sashForm = new SashForm(sashFormContainOverview, SWT.NONE);
-		TableColumnLayout layout = new TableColumnLayout();
 
 		SashForm sashFormSummary = new SashForm(sashForm, SWT.VERTICAL);
 
@@ -231,16 +254,13 @@ public class VOverview {
 		lblDf.setBounds(26, 102, 228, 2);
 
 		Label lblClient = new Label(compositeSummaryProduct, SWT.NONE);
-		lblClient.setBounds(41, 81, 44, 15);
+		lblClient.setBounds(41, 75, 55, 15);
 		lblClient.setText("Client :");
 		lblClient.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		lblAfficherCustomerName = new Label(compositeSummaryProduct, SWT.NONE);
 		lblAfficherCustomerName.setBounds(94, 81, 191, 15);
 		lblAfficherCustomerName.setBackground(SWTResourceManager.getColor(255, 255, 240));
-		if ((DAOProduct.getProductOwner().getFirstname() != null) && (DAOProduct.getProductOwner().getLastname() != null)) {
-			lblAfficherCustomerName.setText(DAOProduct.getProductOwner().getFirstname() + " " + DAOProduct.getProductOwner().getLastname());
-		}
 
 		Label lblProjet = new Label(compositeSummaryProduct, SWT.NONE);
 		lblProjet.setBackground(SWTResourceManager.getColor(255, 255, 240));
@@ -353,7 +373,7 @@ public class VOverview {
 		compositeLinkToDo.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		btnToDo = new Button(compositeLinkToDo, SWT.NONE);
-		btnToDo.setBounds(87, 10, 75, 25);
+		btnToDo.setBounds(114, 10, 75, 25);
 		btnToDo.setText("Voir tous");
 		sashFormLinkToDo.setWeights(new int[] { 1 });
 
@@ -363,7 +383,7 @@ public class VOverview {
 		compositeLinkProgress.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		btnProgress = new Button(compositeLinkProgress, SWT.NONE);
-		btnProgress.setBounds(86, 10, 75, 25);
+		btnProgress.setBounds(123, 10, 75, 25);
 		btnProgress.setText("Voir tous");
 		sashFormLinkProgress.setWeights(new int[] { 1 });
 
@@ -373,12 +393,182 @@ public class VOverview {
 		compositeLinkDone.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		btnDone = new Button(compositeLinkDone, SWT.NONE);
-		btnDone.setBounds(88, 10, 75, 25);
+		btnDone.setBounds(123, 10, 75, 25);
 		btnDone.setText("Voir tous");
 		sashFormLinkDone.setWeights(new int[] { 1 });
 		sashFormLink.setWeights(new int[] { 1, 1, 1 });
 		sashFormProgression.setWeights(new int[] { 167, 76 });
 		sashFormContainOverview.setWeights(new int[] { 267, 145, 250 });
+
+		TabItem tbtmGestionDesProduitsUtilisateur = new TabItem(tabGestionDesProduits, SWT.NONE);
+		tbtmGestionDesProduitsUtilisateur.setText("Utilisateur");
+
+		SashForm sashFormCaintainOverviewUtilisateur = new SashForm(tabGestionDesProduits, SWT.VERTICAL);
+		tbtmGestionDesProduitsUtilisateur.setControl(sashFormCaintainOverviewUtilisateur);
+
+		SashForm sashFormUtilisateur = new SashForm(sashFormCaintainOverviewUtilisateur, SWT.NONE);
+
+		SashForm sashFormSummaryUtilisateur = new SashForm(sashFormUtilisateur, SWT.NONE);
+
+		Composite compositeSummaryUtilisateur = new Composite(sashFormSummaryUtilisateur, SWT.NONE);
+
+		Label lblSummaryAvanceUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblSummaryAvanceUtil.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		lblSummaryAvanceUtil.setBounds(26, 10, 158, 22);
+		lblSummaryAvanceUtil.setText("Avancée dans le projet");
+		lblSummaryAvanceUtil.setBackground(SWTResourceManager.getColor(255, 255, 240));
+
+		Label lblPointProjetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblPointProjetUtil.setBounds(26, 129, 121, 15);
+		lblPointProjetUtil.setText("Total point du projet");
+
+		Label lblAfficherPointProjetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblAfficherPointProjetUtil.setBounds(176, 129, 55, 15);
+		lblAfficherPointProjetUtil.setText("0");
+
+		Label lblPointSprintUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblPointSprintUtil.setBounds(27, 160, 120, 15);
+		lblPointSprintUtil.setText("Total points réalisés");
+
+		Label lblAfficherPointSprintUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblAfficherPointSprintUtil.setBounds(176, 160, 55, 15);
+		lblAfficherPointSprintUtil.setText("0");
+
+		lblAfficherCustomerNameUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblAfficherCustomerNameUtil.setBounds(94, 81, 191, 15);
+
+		Label lblprojetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblprojetUtil.setBounds(41, 54, 55, 15);
+		lblprojetUtil.setText("Projet :");
+
+		Label lblAfficherProjetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblAfficherProjetUtil.setBounds(94, 54, 191, 15);
+		lblAfficherProjetUtil.setText(ProductController.getSelectedProduct().getName());
+
+		Label lblClientUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
+		lblClientUtil.setBounds(41, 75, 55, 15);
+		lblClientUtil.setText("Client :");
+
+		Label lblDfUtil = new Label(compositeSummaryUtilisateur, SWT.SEPARATOR | SWT.HORIZONTAL | SWT.SHADOW_NONE);
+		lblDfUtil.setBackground(SWTResourceManager.getColor(SWT.COLOR_DARK_CYAN));
+		lblDfUtil.setFont(SWTResourceManager.getFont("Segoe UI", 12, SWT.NORMAL));
+		lblDfUtil.setText("lblSeparatorSummary");
+		lblDfUtil.setBounds(26, 102, 228, 2);
+		sashFormSummaryUtilisateur.setWeights(new int[] { 1 });
+
+		SashForm sashFormSprintUtilisateur = new SashForm(sashFormUtilisateur, SWT.NONE);
+
+		tableViewer = new TableViewer(sashFormSprintUtilisateur, SWT.BORDER | SWT.FULL_SELECTION);
+		tableSprintRecentUtilisateur = tableViewer.getTable();
+		sashFormSprintUtilisateur.setWeights(new int[] { 1 });
+		sashFormUtilisateur.setWeights(new int[] { 427, 570 });
+
+		tableSprintRecentUtilisateur.getParent().setLayout(layout);
+		tableViewer.setContentProvider(new ArrayContentProvider());
+		tableViewer.setInput(DAOProduct.getLesSprints());
+
+		// Créer une colonne
+		TableColumn col11 = new TableColumn(tableSprintRecentUtilisateur, SWT.CENTER);
+		col11.setWidth(548);
+		col11.setText("Sprints");
+		// Afficher en-tête+lignes
+		tableSprintRecentUtilisateur.setHeaderVisible(true);
+		tableSprintRecentUtilisateur.setLinesVisible(true);
+
+		SashForm sashFormInformationUtilisateur = new SashForm(sashFormCaintainOverviewUtilisateur, SWT.NONE);
+
+		Composite compositeInformationUtilisateur = new Composite(sashFormInformationUtilisateur, SWT.NONE);
+
+		Group groupUtilisateur = new Group(compositeInformationUtilisateur, SWT.NONE);
+		groupUtilisateur.setText("");
+		groupUtilisateur.setBounds(409, 0, 367, 156);
+
+		Label lblDescriptionUtil = new Label(groupUtilisateur, SWT.NONE);
+		lblDescriptionUtil.setBounds(40, 61, 67, 15);
+		lblDescriptionUtil.setText("Description :");
+
+		Label lblNomUtil = new Label(groupUtilisateur, SWT.NONE);
+		lblNomUtil.setBounds(40, 27, 55, 15);
+		lblNomUtil.setText("Nom :");
+
+		textDescriptionUtil = new Text(groupUtilisateur, SWT.BORDER);
+		textDescriptionUtil.setBounds(128, 58, 229, 88);
+
+		textNomUtil = new Text(groupUtilisateur, SWT.BORDER);
+		textNomUtil.setBounds(128, 24, 115, 21);
+		sashFormInformationUtilisateur.setWeights(new int[] { 1 });
+
+		SashForm sashFormFormProgressionUtilisateur = new SashForm(sashFormCaintainOverviewUtilisateur, SWT.VERTICAL);
+
+		SashForm sashFormTableProgressionUtil = new SashForm(sashFormFormProgressionUtilisateur, SWT.NONE);
+
+		tvToDoUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
+		tvToDoUtil.setContentProvider(new ArrayContentProvider());
+		tvToDoUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tableToDoUtil = tvToDoUtil.getTable();
+
+		// Créer une colonne
+		TableColumn col4 = new TableColumn(tableToDoUtil, SWT.CENTER);
+		col4.setWidth(252);
+		col4.setText("A faire");
+		tableToDoUtil.setHeaderVisible(true);
+		tableToDoUtil.setLinesVisible(true);
+
+		tvInProgressUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
+		tvInProgressUtil.setContentProvider(new ArrayContentProvider());
+		tvInProgressUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tableInProgressUtil = tvInProgressUtil.getTable();
+
+		// Créer une colonne
+		TableColumn col5 = new TableColumn(tableInProgressUtil, SWT.CENTER);
+		col5.setWidth(252);
+		col5.setText("En cours");
+		tableInProgressUtil.setHeaderVisible(true);
+		tableInProgressUtil.setLinesVisible(true);
+
+		tvDoneUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
+		tvDoneUtil.setContentProvider(new ArrayContentProvider());
+		tvDoneUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tableDoneUtil = tvDoneUtil.getTable();
+		TableColumn col6 = new TableColumn(tableDoneUtil, SWT.CENTER);
+		col6.setWidth(252);
+		col6.setText("Fait");
+		tableDoneUtil.setHeaderVisible(true);
+		tableDoneUtil.setLinesVisible(true);
+
+		sashFormTableProgressionUtil.setWeights(new int[] { 1, 1, 1 });
+
+		SashForm sashFormLinkUtil = new SashForm(sashFormFormProgressionUtilisateur, SWT.NONE);
+
+		SashForm sashFormLinkToDoUtil = new SashForm(sashFormLinkUtil, SWT.NONE);
+
+		Composite compositeLinkToDoUtil = new Composite(sashFormLinkToDoUtil, SWT.NONE);
+
+		Button btnToDoUtil = new Button(compositeLinkToDoUtil, SWT.NONE);
+		btnToDoUtil.setBounds(118, 10, 75, 25);
+		btnToDoUtil.setText("Voir tous");
+		sashFormLinkToDoUtil.setWeights(new int[] { 1 });
+
+		SashForm sashFormLinkProgressUtil = new SashForm(sashFormLinkUtil, SWT.NONE);
+
+		Composite CompositeLinkProgressUtil = new Composite(sashFormLinkProgressUtil, SWT.NONE);
+
+		Button btnProgressUtil = new Button(CompositeLinkProgressUtil, SWT.NONE);
+		btnProgressUtil.setBounds(138, 10, 75, 25);
+		btnProgressUtil.setText("Voir tous");
+		sashFormLinkProgressUtil.setWeights(new int[] { 1 });
+
+		SashForm sashFormLinkDoneUtil = new SashForm(sashFormLinkUtil, SWT.NONE);
+
+		Composite compositeLinkDoneUtil = new Composite(sashFormLinkDoneUtil, SWT.NONE);
+
+		Button btnDoneUtil = new Button(compositeLinkDoneUtil, SWT.NONE);
+		btnDoneUtil.setBounds(128, 10, 75, 25);
+		btnDoneUtil.setText("Voir tous");
+		sashFormLinkDoneUtil.setWeights(new int[] { 1 });
+		sashFormLinkUtil.setWeights(new int[] { 1, 1, 1 });
+		sashFormFormProgressionUtilisateur.setWeights(new int[] { 133, 76 });
+		sashFormCaintainOverviewUtilisateur.setWeights(new int[] { 242, 156, 236 });
 
 	}
 
