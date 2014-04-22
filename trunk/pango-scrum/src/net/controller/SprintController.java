@@ -1,5 +1,6 @@
 package net.controller;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.hibernate.Query;
 
 public class SprintController implements SelectionListener {
@@ -40,6 +42,9 @@ public class SprintController implements SelectionListener {
 
 
 	public void init() {
+	    final Color red = new Color(vSprint.getShellSprint().getDisplay(), 247, 35, 12);
+		final Color vert = new Color(vSprint.getShellSprint().getDisplay(), 0, 255, 0);
+		final Calendar calDateActuel=Calendar.getInstance();
 		sprints = new ArrayList<Sprint>();
 		sprints = getSprint();
 		vSprint.getTvSprint().setContentProvider(new ArrayContentProvider());
@@ -56,6 +61,9 @@ public class SprintController implements SelectionListener {
 				vSprint.getBtnValider().setVisible(true);
 				vSprint.getBtnModifierSprint().setVisible(false);		
 				vSprint.getBtnSupprimer().setVisible(false);
+				vSprint.getLblNewLabel().setText("Sprint du produit : "+ProductController.getSelectedProduct().getName());
+				vSprint.getDateDebut().setDate(calDateActuel.get(Calendar.YEAR),calDateActuel.get(Calendar.MONTH),calDateActuel.get(Calendar.DAY_OF_MONTH));
+				vSprint.getDateFin().setDate(calDateActuel.get(Calendar.YEAR),calDateActuel.get(Calendar.MONTH),calDateActuel.get(Calendar.DAY_OF_MONTH));
 				vSprint.getGrpAjouterUnSprint().setText("Nouveau sprint");
 				vSprint.getNewNameSprint().setText("");
 				
@@ -73,16 +81,30 @@ public class SprintController implements SelectionListener {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				Sprint newSprint=DAOSprint.AddSprint(vSprint,IdActiveProduct);
-				if (newSprint== null){
-					MessageDialog.openError(vSprint.getShellSprint(), "Erreur lors de l'insertion", "Impossible d'ajouter ce sprint car la date de debut et/ou de fin interf�re sur la date d'un autre sprint");
+				if (newSprint== null){				
+					vSprint.getLblInfoTraitement().setForeground(red);
+					vSprint.getLblInfoTraitement().setText("Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
+					
 					
 				}
 				else if (newSprint!= null){
+					
+					if (getDateDeb().compareTo(getDateFin()) == 0){
+						vSprint.getLblInfoTraitement().setForeground(red);
+						vSprint.getLblInfoTraitement().setText("Les date de début et de fin doivent être différentes");
+					}
+					else if (getDateDeb().compareTo(getDateFin()) == 1){
+						vSprint.getLblInfoTraitement().setForeground(red);
+						vSprint.getLblInfoTraitement().setText("La date de fin du sprint ne peut avoir lieu avant la date de début... ");
+					}
+					else{
 				
-				sprints.add(newSprint);
-				vSprint.getTvSprint().refresh();	
-				vSprint.getLblInfoTraitement().setText("Ajout réussi");
-				vSprint.getGrpAjouterUnSprint().setVisible(false);
+						sprints.add(newSprint);
+						vSprint.getTvSprint().refresh();
+						vSprint.getLblInfoTraitement().setForeground(vert);
+						vSprint.getLblInfoTraitement().setText("Ajout réussi");
+						vSprint.getGrpAjouterUnSprint().setVisible(false);
+					}
 				}
 				
 				

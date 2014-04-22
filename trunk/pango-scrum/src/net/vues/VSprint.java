@@ -51,7 +51,7 @@ public class VSprint {
 	private SashForm sashLblPresentation;
 	private SashForm sashTviewer;
 	private SashForm sashGroupAction;
-	private Label lblNewLabel;
+	private Label lblProduct;
 	private Composite composite_1;
 	private Group grpAjouterUnSprint;
 	private Button btnAnnuler;
@@ -229,11 +229,11 @@ public class VSprint {
 	}
 
 	public Label getLblNewLabel() {
-		return lblNewLabel;
+		return lblProduct;
 	}
 
 	public void setLblNewLabel(Label lblNewLabel) {
-		this.lblNewLabel = lblNewLabel;
+		this.lblProduct = lblNewLabel;
 	}
 
 	public Composite getComposite_1() {
@@ -315,9 +315,9 @@ public class VSprint {
 	    
 	    sashLblPresentation = new SashForm(sashFormSprint, SWT.NONE);
 	    
-	    lblNewLabel = new Label(sashLblPresentation, SWT.NONE);
-	    lblNewLabel.setFont(SWTResourceManager.getFont("Tahoma", 14, SWT.ITALIC));
-	    lblNewLabel.setText("Sprint du produit :");
+	    lblProduct = new Label(sashLblPresentation, SWT.NONE);
+	    lblProduct.setFont(SWTResourceManager.getFont("Tahoma", 14, SWT.ITALIC));
+	    lblProduct.setText("Sprint du produit :");
 	    sashLblPresentation.setWeights(new int[] {1});
 	    
 	    sashTviewer = new SashForm(sashFormSprint, SWT.NONE);
