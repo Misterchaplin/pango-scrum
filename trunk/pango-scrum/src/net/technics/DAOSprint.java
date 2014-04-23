@@ -256,6 +256,14 @@ public class DAOSprint {
 		session.close();
 		
 	}
+	public static void addSprint(Sprint sprint){
+		Session session = HibernateUtil.getSession();
+		Transaction trans = session.beginTransaction();
+		session.persist(sprint);
+		trans.commit();
+		session.close();
+		
+	}
 	
 	public static Boolean VerifSprint(Sprint sprint,int idProduct) {
 		Session session = HibernateUtil.getSession();
@@ -356,5 +364,20 @@ public class DAOSprint {
 		trans.commit();
 		session.close();
 				
+	}
+	public static Eventtype getEventType(int idEventType){
+		Session session = HibernateUtil.getSession();
+		Eventtype evt = (Eventtype) session.get(Eventtype.class, idEventType);
+		session.close();
+		return evt;
+		
+	}
+	
+	public static Product getProduct(int idProduit){
+		Session session = HibernateUtil.getSession();
+		Product product = (Product) session.get(Product.class, idProduit);
+		session.close();
+		return product;
+		
 	}
 }
