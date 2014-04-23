@@ -146,6 +146,7 @@ public class OverviewController implements SelectionListener {
 
 			}
 		});
+
 	}
 
 	@Override
