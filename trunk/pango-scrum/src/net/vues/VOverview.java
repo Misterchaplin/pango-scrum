@@ -198,10 +198,6 @@ public class VOverview {
 		shlGestionDesProduits.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		shlGestionDesProduits.setLayout(new FillLayout(SWT.HORIZONTAL));
 		TableColumnLayout layout = new TableColumnLayout();
-		if ((DAOProduct.getProductOwner().getFirstname() != null) && (DAOProduct.getProductOwner().getLastname() != null)) {
-			lblAfficherCustomerName.setText(DAOProduct.getProductOwner().getFirstname() + " " + DAOProduct.getProductOwner().getLastname());
-			lblAfficherCustomerNameUtil.setText(DAOProduct.getProductOwner().getFirstname() + " " + DAOProduct.getProductOwner().getLastname());
-		}
 
 		TabFolder tabGestionDesProduits = new TabFolder(shlGestionDesProduits, SWT.NONE);
 
@@ -259,7 +255,7 @@ public class VOverview {
 		lblClient.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		lblAfficherCustomerName = new Label(compositeSummaryProduct, SWT.NONE);
-		lblAfficherCustomerName.setBounds(94, 81, 191, 15);
+		lblAfficherCustomerName.setBounds(94, 75, 191, 15);
 		lblAfficherCustomerName.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		Label lblProjet = new Label(compositeSummaryProduct, SWT.NONE);
@@ -435,14 +431,14 @@ public class VOverview {
 		lblAfficherPointSprintUtil.setText("0");
 
 		lblAfficherCustomerNameUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
-		lblAfficherCustomerNameUtil.setBounds(94, 81, 191, 15);
+		lblAfficherCustomerNameUtil.setBounds(94, 75, 191, 15);
 
 		Label lblprojetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
-		lblprojetUtil.setBounds(41, 54, 55, 15);
+		lblprojetUtil.setBounds(41, 54, 43, 15);
 		lblprojetUtil.setText("Projet :");
 
 		Label lblAfficherProjetUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
-		lblAfficherProjetUtil.setBounds(94, 54, 191, 15);
+		lblAfficherProjetUtil.setBounds(88, 54, 197, 15);
 		lblAfficherProjetUtil.setText(ProductController.getSelectedProduct().getName());
 
 		Label lblClientUtil = new Label(compositeSummaryUtilisateur, SWT.NONE);
@@ -465,7 +461,7 @@ public class VOverview {
 
 		tableSprintRecentUtilisateur.getParent().setLayout(layout);
 		tableViewer.setContentProvider(new ArrayContentProvider());
-		tableViewer.setInput(DAOProduct.getLesSprints());
+		tableViewer.setInput(DAOProduct.getLesSprintsUtilisateur());
 
 		// Créer une colonne
 		TableColumn col11 = new TableColumn(tableSprintRecentUtilisateur, SWT.CENTER);
@@ -569,6 +565,13 @@ public class VOverview {
 		sashFormLinkUtil.setWeights(new int[] { 1, 1, 1 });
 		sashFormFormProgressionUtilisateur.setWeights(new int[] { 133, 76 });
 		sashFormCaintainOverviewUtilisateur.setWeights(new int[] { 242, 156, 236 });
+
+		if ((DAOProduct.getProductOwner().getFirstname() != null) && (DAOProduct.getProductOwner().getLastname() != null)) {
+			lblAfficherCustomerName.setText(DAOProduct.getProductOwner().getFirstname()
+					+ " " + DAOProduct.getProductOwner().getLastname());
+			lblAfficherCustomerNameUtil.setText(DAOProduct.getProductOwner().getFirstname()
+					+ " " + DAOProduct.getProductOwner().getLastname());
+		}
 
 	}
 

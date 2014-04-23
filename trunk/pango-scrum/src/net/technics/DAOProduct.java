@@ -146,6 +146,19 @@ public class DAOProduct {
 	}
 
 	/**
+	 * Fonction de récupération des sprints d'un utilisateur
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Sprint> getLesSprintsUtilisateur() {
+		Query query = AppController.session.createQuery("SELECT s FROM Sprint AS s JOIN s.userstories AS us "
+				+ "JOIN us.collaborators AS co WHERE s.product=" + ProductController.getSelectedProduct().getId() + " AND co.id =" + AppController.getActiveUser().getId());
+		List<Sprint> lesSprints = query.list();
+		return lesSprints;
+
+	}
+
+	/**
 	 * Fonction de récupération des user stories à faire
 	 * 
 	 * @return List<Userstory>
