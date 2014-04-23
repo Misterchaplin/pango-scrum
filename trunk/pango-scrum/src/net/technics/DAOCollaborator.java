@@ -101,8 +101,8 @@ public class DAOCollaborator {
 		return scrumMaster;
 	}
 	
-	public static Collaborator getCollaboratorsUserStory() {
-		org.hibernate.Query query = AppController.session.createQuery("From Realize WHERE idUserStory = 29");
+	public static Collaborator getCollaboratorsUserStory(Integer idActiveUserStory) {
+		org.hibernate.Query query = AppController.session.createQuery("From Realize WHERE idUserStory ="+ idActiveUserStory );
 		Realize realize = (Realize) query.uniqueResult();
 		Collaborator collaborator = (Collaborator) AppController.session.get(Collaborator.class, realize.getCollaborator().getId());
 		return collaborator;

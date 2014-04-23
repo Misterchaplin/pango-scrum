@@ -109,9 +109,13 @@ public class UserStorieController implements SelectionListener {
 					vAddUserStorie.getCbSprint().setText("Aucun");
 				}
 				vAddUserStorie.getCbvProjet().setSelection(new StructuredSelection(selectedUserStory.getProduct()));
-				vAddUserStorie.getCbvAffectationCollab().setSelection(new StructuredSelection(selectedUserStory.getCollaborators()));
 				
-				
+				if(selectedUserStory.getCollaborators() != null){
+				vAddUserStorie.getCbvAffectationCollab().setSelection(new StructuredSelection(DAOCollaborator.getCollaboratorsUserStory(selectedUserStory.getId())));
+				}else{
+					String collaborateur ="Aucun Collaborateur";
+					vAddUserStorie.getCbAffectationCollab().setText(collaborateur);
+				}
 				vAddUserStorie.getGrpParametreUserstory().setVisible(true);
 				vAddUserStorie.getGrpChangementDtat().setVisible(true);
 				vAddUserStorie.getBtnValider().setVisible(false);
