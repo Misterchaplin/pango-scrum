@@ -6,9 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.models.Event;
+import net.models.Product;
 import net.models.Sprint;
 import net.technics.DAOSprint;
 import net.technics.TvSprintProvider;
@@ -21,6 +24,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.hibernate.Query;
+import org.hibernate.property.Getter;
 
 public class SprintController implements SelectionListener {
 	private VSprint vSprint;
@@ -80,16 +84,27 @@ public class SprintController implements SelectionListener {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				Sprint newSprint=DAOSprint.AddSprint(vSprint,IdActiveProduct);
-				if (newSprint== null){				
-					vSprint.getLblInfoTraitement().setForeground(red);
-					vSprint.getLblInfoTraitement().setText("Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
-					
-					
+				Product leProduit = DAOSprint.getProduct(IdActiveProduct);
+				Sprint newSprint = new Sprint(leProduit);
+				newSprint.setLabel(vSprint.getNewNameSprint().getText());
+				Set<Event> evenements = new HashSet<Event>();
+				Date dateDebNvSprint=getDateDeb();
+				Date dateFinNvSprint=getDateFin();
+				Event debut = new Event(newSprint,DAOSprint.getEventType(1), dateDebNvSprint);
+				Event fin = new Event(newSprint,DAOSprint.getEventType(2), dateFinNvSprint);
+				evenements.add(debut);
+				evenements.add(fin);
+				newSprint.setEvents(evenements);
+				if (DAOSprint.VerifSprint(newSprint, IdActiveProduct) == true){
+					DAOSprint.addSprint(newSprint,debut,fin);
+					sprints.add(newSprint);
+					vSprint.getTvSprint().refresh();
+					vSprint.getLblInfoTraitement().setForeground(vert);
+					vSprint.getLblInfoTraitement().setText("Ajout réussi");
+					vSprint.getGrpAjouterUnSprint().setVisible(false);
 				}
-				else if (newSprint!= null){
-					
-					if (getDateDeb().compareTo(getDateFin()) == 0){
+				else {
+					/*if (getDateDeb().compareTo(getDateFin()) == 0){
 						vSprint.getLblInfoTraitement().setForeground(red);
 						vSprint.getLblInfoTraitement().setText("Les date de début et de fin doivent être différentes");
 					}
@@ -97,16 +112,12 @@ public class SprintController implements SelectionListener {
 						vSprint.getLblInfoTraitement().setForeground(red);
 						vSprint.getLblInfoTraitement().setText("La date de fin du sprint ne peut avoir lieu avant la date de début... ");
 					}
-					else{
-				
-						sprints.add(newSprint);
-						vSprint.getTvSprint().refresh();
-						vSprint.getLblInfoTraitement().setForeground(vert);
-						vSprint.getLblInfoTraitement().setText("Ajout réussi");
-						vSprint.getGrpAjouterUnSprint().setVisible(false);
-					}
+					else{*/
+					vSprint.getLblInfoTraitement().setForeground(red);
+					vSprint.getLblInfoTraitement().setText("Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
+					
 				}
-				
+			
 				
 			}
 			
@@ -209,6 +220,7 @@ public class SprintController implements SelectionListener {
 				vSprint.getTvSprint().remove(activeSprint);
 				vSprint.getTvSprint().refresh(activeSprint);
 				sprints.remove(activeSprint);
+				vSprint.getLblInfoTraitement().setForeground(vert);
 				vSprint.getLblInfoTraitement().setText("Sprint Suprimmé");
 				vSprint.getGrpAjouterUnSprint().setVisible(false);
 				
