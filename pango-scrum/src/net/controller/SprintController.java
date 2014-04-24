@@ -90,35 +90,38 @@ public class SprintController implements SelectionListener {
 				Set<Event> evenements = new HashSet<Event>();
 				Date dateDebNvSprint=getDateDeb();
 				Date dateFinNvSprint=getDateFin();
-				Event debut = new Event(newSprint,DAOSprint.getEventType(1), dateDebNvSprint);
-				Event fin = new Event(newSprint,DAOSprint.getEventType(2), dateFinNvSprint);
-				evenements.add(debut);
-				evenements.add(fin);
-				newSprint.setEvents(evenements);
-				if (DAOSprint.VerifSprint(newSprint, IdActiveProduct) == true){
-					DAOSprint.addSprint(newSprint,debut,fin);
-					sprints.add(newSprint);
-					vSprint.getTvSprint().refresh();
-					vSprint.getLblInfoTraitement().setForeground(vert);
-					vSprint.getLblInfoTraitement().setText("Ajout réussi");
-					vSprint.getGrpAjouterUnSprint().setVisible(false);
-				}
-				else {
-					/*if (getDateDeb().compareTo(getDateFin()) == 0){
-						vSprint.getLblInfoTraitement().setForeground(red);
-						vSprint.getLblInfoTraitement().setText("Les date de début et de fin doivent être différentes");
-					}
-					else if (getDateDeb().compareTo(getDateFin()) == 1){
-						vSprint.getLblInfoTraitement().setForeground(red);
-						vSprint.getLblInfoTraitement().setText("La date de fin du sprint ne peut avoir lieu avant la date de début... ");
-					}
-					else{*/
+				if (dateDebNvSprint.compareTo(dateFinNvSprint)==0){
 					vSprint.getLblInfoTraitement().setForeground(red);
-					vSprint.getLblInfoTraitement().setText("Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
+					vSprint.getLblInfoTraitement().setText("Les date de début et de fin doivent être différentes");
 					
 				}
+				else if (dateDebNvSprint.compareTo(dateFinNvSprint)==1){
+					vSprint.getLblInfoTraitement().setForeground(red);
+					vSprint.getLblInfoTraitement().setText("La date de fin du sprint ne peut avoir lieu avant la date de début...");
+				}
+				else{
+					Event debut = new Event(newSprint,DAOSprint.getEventType(1), dateDebNvSprint);
+					Event fin = new Event(newSprint,DAOSprint.getEventType(2), dateFinNvSprint);
+					evenements.add(debut);
+					evenements.add(fin);
+					newSprint.setEvents(evenements);
+					if (DAOSprint.VerifSprint(newSprint, IdActiveProduct) == true){
+						DAOSprint.addSprint(newSprint,debut,fin);
+						sprints.add(newSprint);
+						vSprint.getTvSprint().refresh();
+						vSprint.getLblInfoTraitement().setForeground(vert);
+						vSprint.getLblInfoTraitement().setText("Ajout réussi");
+						vSprint.getGrpAjouterUnSprint().setVisible(false);
+					}
+					else {
+
+						vSprint.getLblInfoTraitement().setForeground(red);
+						vSprint.getLblInfoTraitement().setText("Impossible d'ajouter ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
+					
+					}
 			
 				
+				}
 			}
 			
 			@Override
@@ -188,19 +191,40 @@ public class SprintController implements SelectionListener {
 				// maj dans la bdd
 				newDateDeb=getDateDeb();
 				newDateFin=getDateFin();
-				DAOSprint.updateName(activeSprint, vSprint.getNewNameSprint().getText());
-				DAOSprint.updateDate(activeSprint, newDateDeb, true);
-				DAOSprint.updateDate(activeSprint, newDateFin, false);
-				//maj tableviewer
-				activeSprint.setLabel(vSprint.getNewNameSprint().getText());
-				Event debut= DAOSprint.getEventDateDeb(activeSprint);
-				Event fin = DAOSprint.getEventDateFin(activeSprint);
-				debut.setEventDate(newDateDeb);
-				fin.setEventDate(newDateFin);
-				vSprint.getTvSprint().refresh(activeSprint);
-				vSprint.getLblInfoTraitement().setText("Modification effectué");
-				vSprint.getNewNameSprint().setText("");
-				vSprint.getGrpAjouterUnSprint().setVisible(false);
+				if (newDateDeb.compareTo(newDateFin)==0){
+					vSprint.getLblInfoTraitement().setForeground(red);
+					vSprint.getLblInfoTraitement().setText("Les date de début et de fin doivent être différentes");
+					
+				}
+				else if (newDateDeb.compareTo(newDateFin)==1){
+					vSprint.getLblInfoTraitement().setForeground(red);
+					vSprint.getLblInfoTraitement().setText("La date de fin du sprint ne peut avoir lieu avant la date de début...");
+				}
+				else{
+					if (DAOSprint.VerifSprint(activeSprint, IdActiveProduct)==true){
+						DAOSprint.updateName(activeSprint, vSprint.getNewNameSprint().getText());
+						DAOSprint.updateDate(activeSprint, newDateDeb, true);
+						DAOSprint.updateDate(activeSprint, newDateFin, false);
+						//maj tableviewer
+						activeSprint.setLabel(vSprint.getNewNameSprint().getText());
+						Event debut= DAOSprint.getEventDateDeb(activeSprint);
+						Event fin = DAOSprint.getEventDateFin(activeSprint);
+						debut.setEventDate(newDateDeb);
+						fin.setEventDate(newDateFin);
+						vSprint.getTvSprint().refresh(activeSprint);
+						vSprint.getLblInfoTraitement().setForeground(vert);
+						vSprint.getLblInfoTraitement().setText("Modification effectué");
+						vSprint.getNewNameSprint().setText("");
+						vSprint.getGrpAjouterUnSprint().setVisible(false);
+							
+					}
+					else {
+						vSprint.getLblInfoTraitement().setForeground(red);
+						vSprint.getLblInfoTraitement().setText("Impossible de modifier ce sprint car la date de debut et/ou de fin interfère sur la date d'un autre sprint");
+					}
+					
+				}
+
 				
 			}
 			
