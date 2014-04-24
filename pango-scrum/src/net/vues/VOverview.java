@@ -46,6 +46,11 @@ public class VOverview {
 	private Text textNom;
 	private Text textDescription;
 	private Table tableSprintRecentUtilisateur;
+
+	public Table getTableSprintRecentUtilisateur() {
+		return tableSprintRecentUtilisateur;
+	}
+
 	private Text textDescriptionUtil;
 	private Text textNomUtil;
 	private Table tableToDoUtil;
@@ -97,26 +102,23 @@ public class VOverview {
 		return textDescription;
 	}
 
-	public TableViewer getTableViewer() {
-		return tvToDo;
-	}
-
+	/*
+	 * public TableViewer getTableViewer() { return tvToDo; }
+	 */
 	public void setTableViewer(TableViewer tableViewer) {
 		this.tvToDo = tableViewer;
 	}
 
-	public TableViewer getTableViewer2() {
-		return tvInProgress;
-	}
-
+	/*
+	 * public TableViewer getTableViewer2() { return tvInProgress; }
+	 */
 	public void setTableViewer2(TableViewer tableViewer2) {
 		this.tvInProgress = tableViewer2;
 	}
 
-	public TableViewer getTableViewer3() {
-		return tvDone;
-	}
-
+	/*
+	 * public TableViewer getTableViewer3() { return tvDone; }
+	 */
 	public void setTableViewer3(TableViewer tableViewer3) {
 		this.tvDone = tableViewer3;
 	}
@@ -500,7 +502,7 @@ public class VOverview {
 
 		tvToDoUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
 		tvToDoUtil.setContentProvider(new ArrayContentProvider());
-		tvToDoUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tvToDoUtil.setInput(DAOProduct.getLesUserstoriesAFaireUtils());
 		tableToDoUtil = tvToDoUtil.getTable();
 
 		// Créer une colonne
@@ -512,7 +514,7 @@ public class VOverview {
 
 		tvInProgressUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
 		tvInProgressUtil.setContentProvider(new ArrayContentProvider());
-		tvInProgressUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tvInProgressUtil.setInput(DAOProduct.getLesUserstoriesEnCoursUtils());
 		tableInProgressUtil = tvInProgressUtil.getTable();
 
 		// Créer une colonne
@@ -524,7 +526,7 @@ public class VOverview {
 
 		tvDoneUtil = new TableViewer(sashFormTableProgressionUtil, SWT.BORDER | SWT.FULL_SELECTION);
 		tvDoneUtil.setContentProvider(new ArrayContentProvider());
-		tvDoneUtil.setInput(DAOProduct.getLesUserstoriesAFaire());
+		tvDoneUtil.setInput(DAOProduct.getLesUserstoriesFiniesUtils());
 		tableDoneUtil = tvDoneUtil.getTable();
 		TableColumn col6 = new TableColumn(tableDoneUtil, SWT.CENTER);
 		col6.setWidth(252);
@@ -573,6 +575,42 @@ public class VOverview {
 					+ " " + DAOProduct.getProductOwner().getLastname());
 		}
 
+	}
+
+	public TableViewer getTvToDoUtil() {
+		return tvToDoUtil;
+	}
+
+	public void setTvToDoUtil(TableViewer tvToDoUtil) {
+		this.tvToDoUtil = tvToDoUtil;
+	}
+
+	public Text getTextDescriptionUtil() {
+		return textDescriptionUtil;
+	}
+
+	public Text getTextNomUtil() {
+		return textNomUtil;
+	}
+
+	public Table getTableToDoUtil() {
+		return tableToDoUtil;
+	}
+
+	public Table getTableInProgressUtil() {
+		return tableInProgressUtil;
+	}
+
+	public Table getTableDoneUtil() {
+		return tableDoneUtil;
+	}
+
+	public TableViewer getTvInProgressUtil() {
+		return tvInProgressUtil;
+	}
+
+	public TableViewer getTvDoneUtil() {
+		return tvDoneUtil;
 	}
 
 	public Table getTableSprintRecent() {

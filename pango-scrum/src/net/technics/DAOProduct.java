@@ -148,13 +148,13 @@ public class DAOProduct {
 	/**
 	 * Fonction de récupération des sprints d'un utilisateur
 	 * 
-	 * @return List<Userstory>
+	 * @return List<Sprint>
 	 */
 	public static List<Sprint> getLesSprintsUtilisateur() {
 		Query query = AppController.session.createQuery("SELECT s FROM Sprint AS s JOIN s.userstories AS us "
 				+ "JOIN us.collaborators AS co WHERE s.product=" + ProductController.getSelectedProduct().getId() + " AND co.id =" + AppController.getActiveUser().getId());
-		List<Sprint> lesSprints = query.list();
-		return lesSprints;
+		List<Sprint> lesSprintsUtils = query.list();
+		return lesSprintsUtils;
 
 	}
 
@@ -165,6 +165,17 @@ public class DAOProduct {
 	 */
 	public static List<Userstory> getLesUserstoriesAFaire() {
 		Query query = AppController.session.createQuery("FROM Userstory WHERE idstatus = 1 and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories à faire d'un utilisateur
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesAFaireUtils() {
+		Query query = AppController.session.createQuery("SELECT us FROM Userstory AS us JOIN us.collaborators AS co WHERE us.status = 1 and us.product=" + ProductController.getSelectedProduct().getId() + " AND co.id=" + AppController.getActiveUser().getId());
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
 	}
@@ -181,6 +192,17 @@ public class DAOProduct {
 	}
 
 	/**
+	 * Fonction de récupération des user stories en cours d'un utilisateur
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesEnCoursUtils() {
+		Query query = AppController.session.createQuery("SELECT us FROM Userstory AS us JOIN us.collaborators AS co WHERE us.status = 2 and us.product=" + ProductController.getSelectedProduct().getId() + " AND co.id=" + AppController.getActiveUser().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
 	 * Fonction de récupération des user stories finies
 	 * 
 	 * @return List<Userstory>
@@ -192,12 +214,35 @@ public class DAOProduct {
 	}
 
 	/**
+	 * Fonction de récupération des user stories finies d'un utilisateur
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesFiniesUtils() {
+		Query query = AppController.session.createQuery("SELECT us FROM Userstory AS us JOIN us.collaborators AS co WHERE us.status = 3 and us.product=" + ProductController.getSelectedProduct().getId() + " AND co.id=" + AppController.getActiveUser().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
 	 * Fonction de récupération des user stories à faire pour un sprints
 	 * 
 	 * @return List<Userstory>
 	 */
 	public static List<Userstory> getLesUserstoriesAFaireDeSprint(Integer idActiveSprint) {
 		Query query = AppController.session.createQuery("FROM Userstory WHERE idStatus = 1 and idSprint=" + idActiveSprint + " and idProduct=" + ProductController.getSelectedProduct().getId());
+		List<Userstory> lesUserstories = query.list();
+		return lesUserstories;
+	}
+
+	/**
+	 * Fonction de récupération des user stories à faire pour un sprint d'un
+	 * utilisateur
+	 * 
+	 * @return List<Userstory>
+	 */
+	public static List<Userstory> getLesUserstoriesAFaireDeSprintUtils(Integer idActiveSprint) {
+		Query query = AppController.session.createQuery("SELECT us FROM Userstory AS us JOIN us.collaborators AS co WHERE us.idStatus = 1 and us.idSprint=" + idActiveSprint + " and us.idProduct=" + ProductController.getSelectedProduct().getId() + " and co.id=" + AppController.getActiveUser().getId());
 		List<Userstory> lesUserstories = query.list();
 		return lesUserstories;
 	}

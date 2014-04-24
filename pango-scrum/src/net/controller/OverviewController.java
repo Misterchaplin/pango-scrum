@@ -81,9 +81,28 @@ public class OverviewController implements SelectionListener {
 				StructuredSelection selection = (StructuredSelection) vOverview.getTableVOverview().getSelection();
 				Sprint activeSprint = (Sprint) selection.getFirstElement();
 
-				vOverview.getTableViewer().setInput(DAOProduct.getLesUserstoriesAFaireDeSprint(activeSprint.getId()));
-				vOverview.getTableViewer2().setInput(DAOProduct.getLesUserstoriesEnCoursDeSprint(activeSprint.getId()));
-				vOverview.getTableViewer3().setInput(DAOProduct.getLesUserstoriesFaitDeSprint(activeSprint.getId()));
+				vOverview.getTvToDo().setInput(DAOProduct.getLesUserstoriesAFaireDeSprint(activeSprint.getId()));
+				vOverview.getTvInProgress().setInput(DAOProduct.getLesUserstoriesEnCoursDeSprint(activeSprint.getId()));
+				vOverview.getTvDone().setInput(DAOProduct.getLesUserstoriesFaitDeSprint(activeSprint.getId()));
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		vOverview.getTableSprintRecentUtilisateur().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				StructuredSelection selection = (StructuredSelection) vOverview.getTableVOverview().getSelection();
+				Sprint activeSprint = (Sprint) selection.getFirstElement();
+
+				vOverview.getTvToDoUtil().setInput(DAOProduct.getLesUserstoriesAFaireDeSprintUtils(activeSprint.getId()));
+				vOverview.getTvInProgressUtil().setInput(DAOProduct.getLesUserstoriesEnCoursDeSprint(activeSprint.getId()));
+				vOverview.getTvDoneUtil().setInput(DAOProduct.getLesUserstoriesFaitDeSprint(activeSprint.getId()));
 			}
 
 			@Override
@@ -111,6 +130,24 @@ public class OverviewController implements SelectionListener {
 			}
 		});
 
+		vOverview.getTableToDoUtil().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				StructuredSelection selection = (StructuredSelection) vOverview.getTvToDoUtil().getSelection();
+				Userstory activeUserstoies = (Userstory) selection.getFirstElement();
+
+				vOverview.getTextNomUtil().setText(activeUserstoies.getLabel());
+				vOverview.getTextDescriptionUtil().setText(activeUserstoies.getDescription());
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		vOverview.getTableInProgress().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -129,6 +166,24 @@ public class OverviewController implements SelectionListener {
 			}
 		});
 
+		vOverview.getTableInProgressUtil().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				StructuredSelection selection = (StructuredSelection) vOverview.getTvInProgressUtil().getSelection();
+				Userstory activeUserstoies = (Userstory) selection.getFirstElement();
+
+				vOverview.getTextNomUtil().setText(activeUserstoies.getLabel());
+				vOverview.getTextDescriptionUtil().setText(activeUserstoies.getDescription());
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		vOverview.getTableDone().addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -138,6 +193,24 @@ public class OverviewController implements SelectionListener {
 
 				vOverview.getTextNom().setText(activeUserstoies.getLabel());
 				vOverview.getTextDescription().setText(activeUserstoies.getDescription());
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		vOverview.getTableDoneUtil().addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				StructuredSelection selection = (StructuredSelection) vOverview.getTvDoneUtil().getSelection();
+				Userstory activeUserstoies = (Userstory) selection.getFirstElement();
+
+				vOverview.getTextNomUtil().setText(activeUserstoies.getLabel());
+				vOverview.getTextDescriptionUtil().setText(activeUserstoies.getDescription());
 			}
 
 			@Override
