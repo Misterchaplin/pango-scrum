@@ -207,44 +207,7 @@ public class DAOSprint {
 
 	
 	
-	public static Sprint AddSprint(VSprint sprint,int idProduct){
-		Session session = HibernateUtil.getSession();
-		
-		
-		@SuppressWarnings("deprecation")
-		Date dateDeb = new Date(sprint.getDateDebut().getYear()-1900,sprint.getDateDebut().getMonth(),sprint.getDateDebut().getDay());
-		@SuppressWarnings("deprecation")
-		Date dateFin = new Date(sprint.getDateFin().getYear()-1900,sprint.getDateFin().getMonth(),sprint.getDateFin().getDay());
-		Product product;
-		Event event=null;
-		Event event1=null;
-		Set<Event> evenements = new HashSet<Event>();
-		
-		product = (Product) session.get(Product.class, idProduct);
-		Sprint sprint1 = new Sprint(product);
-		sprint1.setLabel(sprint.getNewNameSprint().getText());		
-		
-	    event=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 1),dateDeb);
-		evenements.add(event);		
-		
-		event1=new Event(sprint1,(Eventtype)session.get(Eventtype.class, 2),dateFin);
-		evenements.add(event1);		
-		sprint1.setEvents(evenements);
-		if(DAOSprint.VerifSprint(sprint1, idProduct)==false){
 
-			session.close();
-			return null;
-		}
-		else {
-		
-		DAOSprint.addSprint(sprint1, event, event1);
-		session.close();
-		return sprint1;
-		}
-		
-		
-		
-	}
 	
 	public static void addSprint(Sprint sprint,Event dateD, Event dateF){
 		Session session = HibernateUtil.getSession();
