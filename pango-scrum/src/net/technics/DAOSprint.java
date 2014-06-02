@@ -41,7 +41,7 @@ public class DAOSprint {
 			Date date2=ev2.getEventDate();
 
 			// traitement du cas date1 < date2	
-			if (date1.compareTo(date2 ) == -1){
+			if (date1.compareTo(date2 ) == -1 ){
 				if(dateDebut==null){
 				dateDebut=date1;
 				}
@@ -89,7 +89,7 @@ public class DAOSprint {
 			ev2=it.next();
 			Date date1=ev.getEventDate();
 			Date date2=ev2.getEventDate();
-			if (date1.compareTo(date2 ) == -1 ){
+			if (date1.compareTo(date2) == -1 ){
 				if (dateFin==null){
 					dateFin=date2;
 				}

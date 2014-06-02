@@ -39,14 +39,12 @@ public class VSprint {
 	private Text newNameSprint;
 	private DateTime dateDebut;
 	private DateTime dateFin;
-	private DateTime dateEvent;
 	private Button btnModifierSprint;
 	private Button btnSupprimer;
 	private Button btnValider;
 	private SashForm sashForm;
 	private TabFolder tabFolder;
 	private TabItem tbtmSprint;
-	private TabItem tbtmEvenement;
 	private SashForm sashFormSprint;
 	private SashForm sashLblPresentation;
 	private SashForm sashTviewer;
@@ -56,20 +54,6 @@ public class VSprint {
 	private Group grpAjouterUnSprint;
 	private Button btnAnnuler;
 	private Label lblInfoTraitement;
-	private SashForm sashEvent;
-	private SashForm sashEventLbl;
-	private SashForm sashEventViewer;
-	private Label lblEvenement;
-	private SashForm sashForm_1;
-	private Composite composite_Action_Event;
-	private Table table;
-	private SashForm sashGroupSaisie;
-	private Group groupSaisieEvent;
-	private Button btnValider_1;
-	private Button btnAnnuler_1;
-	private Label lblInfoEvent;
-	private Label labalEventInfoRes;
-	private Label lblSprint;
 	
 	
 	
@@ -432,92 +416,6 @@ public class VSprint {
 	    lblInfoTraitement.setBounds(0, 214, 378, 48);
 	    sashGroupAction.setWeights(new int[] {1});
 	    sashFormSprint.setWeights(new int[] {34, 232, 262});
-          
-        tbtmEvenement = new TabItem(tabFolder, SWT.NONE);
-        tbtmEvenement.setText("Evenement");
-        
-        sashEvent = new SashForm(tabFolder, SWT.VERTICAL);
-        tbtmEvenement.setControl(sashEvent);
-        
-        sashEventLbl = new SashForm(sashEvent, SWT.NONE);
-        
-        lblEvenement = new Label(sashEventLbl, SWT.NONE);
-        lblEvenement.setFont(SWTResourceManager.getFont("Tahoma", 14, SWT.ITALIC));
-        lblEvenement.setText("Evenements :");
-        sashEventLbl.setWeights(new int[] {1});
-        
-        sashEventViewer = new SashForm(sashEvent, SWT.NONE);
-        
-        Composite Composite_Tv_Event = new Composite(sashEventViewer, SWT.NONE);
-        Composite_Tv_Event.setLayout(new FillLayout(SWT.HORIZONTAL));
-        
-        TableViewer tableViewer = new TableViewer(Composite_Tv_Event, SWT.BORDER | SWT.FULL_SELECTION);
-        table = tableViewer.getTable();
-        table.setLinesVisible(true);
-        table.setHeaderVisible(true);
-        sashEventViewer.setWeights(new int[] {1});
-        
-        sashForm_1 = new SashForm(sashEvent, SWT.NONE);
-        
-        composite_Action_Event = new Composite(sashForm_1, SWT.NONE);
-        
-        Button btnNewButton = new Button(composite_Action_Event, SWT.NONE);
-        btnNewButton.setBounds(0, 0, 161, 34);
-        btnNewButton.setText("Ajouter Event");
-        
-        Button btnModifierEvent = new Button(composite_Action_Event, SWT.NONE);
-        btnModifierEvent.setBounds(0, 64, 161, 34);
-        btnModifierEvent.setText("Modifier Event");
-        
-        Button btnSupprimerEvent = new Button(composite_Action_Event, SWT.NONE);
-        btnSupprimerEvent.setBounds(0, 104, 161, 34);
-        btnSupprimerEvent.setText("Supprimer Event");
-        
-        lblInfoEvent = new Label(composite_Action_Event, SWT.NONE);
-        lblInfoEvent.setBounds(0, 158, 77, 15);
-        lblInfoEvent.setText("Information");
-        
-        labalEventInfoRes = new Label(composite_Action_Event, SWT.NONE);
-        labalEventInfoRes.setBounds(0, 181, 376, 50);
-        labalEventInfoRes.setText("\"\"");
-        
-        sashGroupSaisie = new SashForm(sashForm_1, SWT.NONE);
-        
-        groupSaisieEvent = new Group(sashGroupSaisie, SWT.NONE);
-        groupSaisieEvent.setText("\"\"");
-        
-        Label lblTypeDevent = new Label(groupSaisieEvent, SWT.NONE);
-        lblTypeDevent.setBounds(53, 66, 88, 15);
-        lblTypeDevent.setText("Type d'Event :");
-        
-        ComboViewer comboViewer = new ComboViewer(groupSaisieEvent, SWT.NONE);
-        Combo combo = comboViewer.getCombo();
-        combo.setBounds(160, 63, 109, 23);
-        
-        Label lblDateDeLevent = new Label(groupSaisieEvent, SWT.NONE);
-        lblDateDeLevent.setBounds(53, 112, 88, 15);
-        lblDateDeLevent.setText("Date de l'Event :");
-        dateEvent = new DateTime(groupSaisieEvent,SWT.DATE);
-	    dateEvent.setBounds(160, 104, 109, 23);
-	    
-	    btnValider_1 = new Button(groupSaisieEvent, SWT.NONE);
-	    btnValider_1.setBounds(111, 164, 75, 25);
-	    btnValider_1.setText("Valider");
-	    
-	    btnAnnuler_1 = new Button(groupSaisieEvent, SWT.NONE);
-	    btnAnnuler_1.setBounds(194, 164, 75, 25);
-	    btnAnnuler_1.setText("Annuler");
-	    
-	    lblSprint = new Label(groupSaisieEvent, SWT.NONE);
-	    lblSprint.setBounds(53, 34, 88, 15);
-	    lblSprint.setText("Sprint :");
-	    
-	    ComboViewer comboViewer_1 = new ComboViewer(groupSaisieEvent, SWT.NONE);
-	    Combo combo_1 = comboViewer_1.getCombo();
-	    combo_1.setBounds(160, 23, 109, 23);
-        sashGroupSaisie.setWeights(new int[] {1});
-        sashForm_1.setWeights(new int[] {1, 1});
-        sashEvent.setWeights(new int[] {25, 273, 230});
         sashForm.setWeights(new int[] {1});
 
 	}
