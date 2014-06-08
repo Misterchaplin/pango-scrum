@@ -10,22 +10,28 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Label;
 
 public class VLogin {
 
 	protected Shell shlLogin;
-	private Text text_login;
+	private Text txtVotreLogin;
 	private Text text_mdp;
 	private Button btnValider;
 	private Button btnAnnuler;
-	private Button btnAdmin;
+	private Label lblmsgerreur;
 
 	public Shell getShlLogin() {
 		return shlLogin;
 	}
 
 	public Text getText_login() {
-		return text_login;
+		return txtVotreLogin;
+	}
+	
+
+	public Label getLblmsgerreur() {
+		return lblmsgerreur;
 	}
 
 	public Text getText_mdp() {
@@ -39,11 +45,6 @@ public class VLogin {
 	public Button getBtnAnnuler() {
 		return btnAnnuler;
 	}
-
-	public Button getBtnAdmin() {
-		return btnAdmin;
-	}
-
 	/**
 	 * Open the window.
 	 * 
@@ -75,46 +76,53 @@ public class VLogin {
 		shlLogin = new Shell();
 		shlLogin.setBackground(SWTResourceManager.getColor(255, 255, 240));
 		shlLogin.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/connexion.PNG"));
-		shlLogin.setSize(450, 300);
+		shlLogin.setSize(413, 268);
 		shlLogin.setText("Scrum Tool");
 		shlLogin.setLayout(null);
 
 		Group grpAuthentification = new Group(shlLogin, SWT.NONE);
-		grpAuthentification.setText("Authentification");
-		grpAuthentification.setBounds(26, 30, 336, 200);
+		grpAuthentification.setText("Veuillez vous authentifier avant de poursuivre : ");
+		grpAuthentification.setBounds(10, 52, 378, 171);
 		grpAuthentification.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		CLabel lblpassword = new CLabel(grpAuthentification, SWT.NONE);
-		lblpassword.setBounds(42, 93, 76, 26);
-		lblpassword.setText("Password");
+		lblpassword.setBounds(63, 67, 70, 26);
+		lblpassword.setText("Password* : ");
 		lblpassword.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
 		CLabel lbllogin = new CLabel(grpAuthentification, SWT.NONE);
-		lbllogin.setBounds(42, 42, 76, 26);
-		lbllogin.setText("Login");
+		lbllogin.setBounds(63, 35, 48, 26);
+		lbllogin.setText("Login* :");
 		lbllogin.setBackground(SWTResourceManager.getColor(255, 255, 240));
 
-		text_login = new Text(grpAuthentification, SWT.BORDER);
-		text_login.setBounds(169, 42, 135, 26);
+		txtVotreLogin = new Text(grpAuthentification, SWT.BORDER);
+		txtVotreLogin.setToolTipText("");
+		txtVotreLogin.setBounds(145, 35, 140, 23);
 
 		text_mdp = new Text(grpAuthentification, SWT.BORDER | SWT.PASSWORD);
-		text_mdp.setBounds(169, 93, 135, 26);
+		text_mdp.setBounds(145, 67, 140, 23);
 
 		/* Bouton Valider */
 		btnValider = new Button(grpAuthentification, SWT.NONE);
 		btnValider.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/accept.png"));
-		btnValider.setBounds(140, 160, 90, 30);
+		btnValider.setBounds(117, 131, 90, 30);
 		btnValider.setText("Valider");
 
 		/* Bouton Annuler */
 		btnAnnuler = new Button(grpAuthentification, SWT.NONE);
 		btnAnnuler.setImage(SWTResourceManager.getImage(VLogin.class, "/net/images/cancel.png"));
-		btnAnnuler.setBounds(236, 160, 90, 30);
+		btnAnnuler.setBounds(219, 131, 90, 30);
 		btnAnnuler.setText("Annuler");
-
-		/* Bouton Admin */
-		btnAdmin = new Button(grpAuthentification, SWT.NONE);
-		btnAdmin.setBounds(28, 160, 90, 30);
-		btnAdmin.setText("Admin");
+		
+		Group grpMessageDerreur = new Group(shlLogin, SWT.NONE);
+		grpMessageDerreur.setText("Message d'erreur");
+		grpMessageDerreur.setBounds(10, 0, 378, 46);
+		grpMessageDerreur.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		
+		lblmsgerreur = new Label(grpMessageDerreur, SWT.NONE);
+		lblmsgerreur.setForeground(SWTResourceManager.getColor(255, 0, 0));
+		lblmsgerreur.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.BOLD));
+		lblmsgerreur.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		lblmsgerreur.setBounds(10, 21, 358, 18);
 	}
 }
