@@ -104,7 +104,7 @@ public class VAccueil {
 		accueil.setSize(1024, 700);
 		accueil.setText("Scrum Tool");
 		accueil.setLayout(new FormLayout());
-		accueil.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		accueil.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 
 		Group grpNotification = new Group(accueil, SWT.BORDER | SWT.SHADOW_OUT);
 		grpNotification.setText("Information");
@@ -120,7 +120,7 @@ public class VAccueil {
 		lblInformation.setForeground(SWTResourceManager.getColor(SWT.COLOR_DARK_GREEN));
 
 		ToolBar menuConnexion = new ToolBar(accueil, SWT.FLAT | SWT.RIGHT);
-		menuConnexion.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		menuConnexion.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_menuConnexion = new FormData();
 		fd_menuConnexion.top = new FormAttachment(0, 40);
 		menuConnexion.setLayoutData(fd_menuConnexion);
@@ -137,7 +137,7 @@ public class VAccueil {
 		lblNomApplication = new Label(accueil, SWT.NONE);
 		fd_menuConnexion.right = new FormAttachment(lblNomApplication, 209, SWT.RIGHT);
 		lblNomApplication.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.BOLD));
-		lblNomApplication.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		lblNomApplication.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblNomApplication = new FormData();
 		fd_lblNomApplication.right = new FormAttachment(100, -209);
 		fd_lblNomApplication.left = new FormAttachment(0, 64);
@@ -148,7 +148,7 @@ public class VAccueil {
 		lblDescriptionApplication = new Label(accueil, SWT.NONE);
 		fd_menuConnexion.left = new FormAttachment(lblDescriptionApplication, 6);
 		fd_lblNomApplication.bottom = new FormAttachment(lblDescriptionApplication, -7);
-		lblDescriptionApplication.setBackground(SWTResourceManager.getColor(255, 255, 240));
+		lblDescriptionApplication.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		FormData fd_lblDescriptionApplication = new FormData();
 		fd_lblDescriptionApplication.top = new FormAttachment(0, 30);
 		fd_lblDescriptionApplication.left = new FormAttachment(0, 64);
